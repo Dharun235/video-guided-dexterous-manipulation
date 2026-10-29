@@ -1,0 +1,39 @@
+{
+  "source": "TAA SAM3D + MoGe; DA3 scale; first-frame silhouette calibration",
+  "mesh_vertices": 260126,
+  "mesh_faces": 520252,
+  "simulation_visual_faces": 80000,
+  "watertight": true,
+  "initial_support_rmse_px": 35.35069193132422,
+  "fitted_support_rmse_px": 0.4258489250666073,
+  "supported_fit_rmse_px": 0.42584908310878317,
+  "supported_fit_parameters": [
+    3.0344206070999667e-05,
+    -1.2359225122020178e-06,
+    -1.1592787655255277e-05,
+    0.0024675465389137315,
+    -0.008580391208947583,
+    -0.040001161663936954
+  ],
+  "fit_parameters": [
+    -0.0027503606295872993,
+    -0.06863610116199693,
+    -0.03195717752810029,
+    0.02775898252206704,
+    -0.018556363365260606,
+    -0.378684219473112
+  ],
+  "metric_scale": 0.7565111623837967,
+  "book_support_height_correction_m": 0.01683691887462916,
+  "case_dimensions_world_m": [
+    0.059102876008067254,
+    0.04684521225420596,
+    0.035625042765863826
+  ],
+  "limitations": [
+    "First-frame fit is not independent validation",
+    "Hidden shape is generated; dimensions use estimated book size",
+    "Collision is a convex hull; mass and friction are assumed",
+    "No grasp or full-video object pose tracking is claimed"
+  ]
+}

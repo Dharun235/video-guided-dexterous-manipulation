@@ -15,6 +15,9 @@ replace upstream code, model, dataset or video terms.
 | humanoid-dexart-retarget | https://github.com/gtziafas/humanoid-dexart-retarget | External checkout only; no repository-level license found at the pinned revision; source hashes in retargeting/UPSTREAM.json; not relicensed under project MIT |
 | PyRoki / jaxls | https://github.com/chungmin99/pyroki and https://github.com/brentyi/jaxls | MIT; revisions and dependency versions pinned in retargeting/ |
 | MANO hand model | https://mano.is.tue.mpg.de/ | Separate licensed user-supplied assets; not redistributed |
+| Track, Articulate, Act | https://github.com/brains-bots-n-behavior/track-articulate-act | External checkout; revision and commands in docs/taa.md; upstream terms apply |
+| SAM3 / SAM 3D Objects | https://github.com/facebookresearch/sam3 and https://github.com/facebookresearch/sam-3d-objects | External source and gated model weights; their separate source/model terms apply; no weights redistributed |
+| Depth Anything 3 / MoGe | https://github.com/ByteDance-Seed/Depth-Anything-3 and https://github.com/microsoft/MoGe | External geometry models; source/model terms apply; no weights redistributed |
 
 Downloaded robot assets retain their upstream licenses. Model weights, caches, licensed MANO files, unpublished recordings and full
 generated runs are excluded from source control. The selected silent

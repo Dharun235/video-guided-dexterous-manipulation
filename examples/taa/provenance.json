@@ -1,0 +1,13 @@
+{
+  "source_video_sha256": "feced5ae9d2cabe2861a01d253fa8840ba39b9537f002677182ae4269a638605",
+  "source_frames": 748,
+  "depth_frames": 14,
+  "mesh_keyframe": 0,
+  "taa_revision": "ba06907ee29daaf6563e4e87d104e2d26d4327d1",
+  "sam3_revision": "f1647e8d0c1d280991f4d1b7d974c2704537fe66",
+  "da3_revision": "3d835ec1a5802d64a8b8b15f817a1ab54809bfe4",
+  "sam3d_revision": "f91db411c50efee93d8db7aeb323885650f6f722",
+  "candidate": "taa-mujoco-candidate-04",
+  "mujoco": "3.8.1",
+  "note": "Case geometry candidate, not full-video 6D tracking or robot grasp evidence"
+}

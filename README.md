@@ -62,6 +62,12 @@ The reviewed book plane supplies scale and camera geometry. SIFT matching and
 RANSAC estimate camera movement across frames. The scene has approximate object
 geometry; it does not yet recover the moving case's full trajectory.
 
+The GPU reconstruction branch uses [Track, Articulate, Act](https://github.com/brains-bots-n-behavior/track-articulate-act),
+SAM3, Depth Anything 3 and SAM 3D Objects. SAM3 tracks the book and case through
+all 748 frames. A separate case mesh candidate has gravity and convex collision
+geometry in MuJoCo. Full-video 3D object poses remain pending.
+[Commands, previews and measurements](docs/taa.md)
+
 ## 3. Retarget with humanoid-dexart-retarget
 
 ```bash
@@ -131,4 +137,10 @@ simulator and robot assets. Hand estimation uses
 [humanoid-dexart-retarget](https://github.com/gtziafas/humanoid-dexart-retarget),
 [PyRoki](https://github.com/chungmin99/pyroki) and
 [jaxls](https://github.com/brentyi/jaxls).
+Scene reconstruction also uses
+[Track, Articulate, Act](https://github.com/brains-bots-n-behavior/track-articulate-act),
+[SAM3](https://github.com/facebookresearch/sam3),
+[Depth Anything 3](https://github.com/ByteDance-Seed/Depth-Anything-3),
+[SAM 3D Objects](https://github.com/facebookresearch/sam-3d-objects) and
+[MoGe](https://github.com/microsoft/MoGe).
 [Third-party notices](THIRD_PARTY_NOTICES.md) record applicable terms.
