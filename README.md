@@ -128,18 +128,26 @@ included in the public example.
 
 ## Problems and lessons
 
-- **Depth and scale are uncertain in one video.** Review scene dimensions and
-  object poses; treat the reconstruction as an approximation.
-- **Hand orientation and robot placement affected the motion.** Check the right
-  hand, camera alignment and robot position at the table's longer edge first.
-- **Matching poses did not guarantee a stable grasp.** Verify lift, hold and
-  release through contact physics, and use fingertip feedback to adjust grip.
-- **Many physical variations failed the task checks.** Keep failed attempts for
-  analysis and filter demonstration data with unchanged acceptance criteria.
-- **Similar-looking episodes can leak across splits.** Keep visual variants of
-  the same physical movement together.
-- **Improving the original scene did not ensure wider success.** Check learned
-  control on unseen conditions as well as against the source demonstration.
+- Physical collection rejected 136 of 168 candidate attempts. The 32 accepted
+  movements produced 96 episodes with visual variants. Keep failed attempts and
+  apply the same task checks before accepting demonstration data.
+- Accepted reference movements had a median placement error of 6.1 mm and a
+  maximum of 26.1 mm. Check placement numerically, even when the motion looks right.
+- The minimum raised thumb/opposing-finger hold was 4.15 s; the maximum sampled
+  fingertip normal force was 39.95 N. Check sustained contact and force peaks
+  alongside lift height; a completed lift alone does not describe grasp quality.
+- The 96 episodes contain 32 physical movements, not 96 independent human demos.
+  Keep each movement's visual variants together: 20 training, 6 validation and
+  6 test groups.
+- An earlier policy passed grasp/lift/release checks in all 7 test cases, but
+  only 1 met the 3 cm placement tolerance. Placement accuracy remained a separate
+  failure after grasping worked.
+- An experimental arm correction reduced original-scene placement error from
+  5.57 cm to 1.04 cm, while success on the earlier test suite fell from 1/7 to
+  0/7. An improvement on the source scene did not establish generalization.
+
+The policy results above use the earlier 36-episode collection. Training on the
+current 96-episode collection has not started. See [measured results](docs/results.md).
 
 ## Acknowledgements
 
