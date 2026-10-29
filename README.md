@@ -48,6 +48,27 @@ cameras, mass and friction. Related visual versions stay in the same split.
 The collection uses contact-controlled reference actions as training targets;
 the model receives observations, without source timestamps or object ground truth.
 
+### Where the data is
+
+Paths below are relative to the project folder. The full collection is local;
+**a public download is not currently published**. GitHub includes the recorded
+video and [replay example](examples/contact-demo/README.md).
+
+| Item | Location |
+|---|---|
+| Full dataset | `runs/book5-contact-dataset-02/` |
+| GPU-transfer archive (~698 MB) | `runs/book5-contact-dataset-02.tar.gz` |
+| Split rows | `runs/book5-contact-dataset-02/data/{train,validation,test}.jsonl` |
+| Images, states, forces and actions | Dataset's `train/`, `validation/`, `test/` episode folders |
+| Feature definitions and normalization | Dataset's `feature-contract.json`, `statistics.json`, `statistics-tactile.json` |
+
+[Dataset metadata and checksums](training/contact-dataset.json) identify the
+verified package. After transferring/extracting it into `runs/`, verify it with:
+
+```bash
+.venv-g1/bin/python -m scripts.verify_contact_data runs/book5-contact-dataset-02
+```
+
 ## Tasks and progress
 
 - [x] Record and publish the human demonstration.
@@ -90,3 +111,20 @@ weights are separate local artifacts.
 [GPU training](training/CONTACT_TRAINING.md) ·
 [Example files](examples/contact-demo/README.md) ·
 [Licenses](THIRD_PARTY_NOTICES.md)
+
+## Acknowledgements
+
+- [MuJoCo](https://github.com/google-deepmind/mujoco) and
+  [MuJoCo Menagerie](https://github.com/google-deepmind/mujoco_menagerie) for the simulator and G1 model.
+- [Unitree Robotics](https://github.com/unitreerobotics/xr_teleoperate) for the Inspire hand assets and
+  [G1 wrist attachment reference](https://github.com/unitreerobotics/unitree_ros).
+- [HaMeR](https://github.com/geopavlakos/hamer),
+  [FastHaMeR](https://github.com/VimalMollyn/fasterhamer),
+  [FastHands](https://github.com/VimalMollyn/Mediapipe-Hands-PyTorch-CoreML),
+  [MANO](https://mano.is.tue.mpg.de/) and
+  [Core ML Tools](https://github.com/apple/coremltools) for hand estimation and its Mac runtime.
+- Hugging Face [LeRobot](https://github.com/huggingface/lerobot) and
+  [SmolVLA](https://huggingface.co/lerobot/smolvla_base) for the policy and training framework.
+
+Upstream code, models and assets retain their respective terms; see
+[third-party notices](THIRD_PARTY_NOTICES.md) for licenses and pinned sources.
