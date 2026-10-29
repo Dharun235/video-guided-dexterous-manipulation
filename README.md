@@ -1,59 +1,72 @@
 # Video-Guided Dexterous Manipulation
 
-A recorded video of a hand moving a case off a book is used to build a robot
-version of the task in MuJoCo, a physics simulator. The robot is a Unitree G1
-with an Inspire five-finger right hand.
+**Goal:** train SmolVLA to control a Unitree G1 hand and reproduce the grasp,
+lift, carry and placement shown in a recorded human demonstration.
 
-## Recorded input
+The current simulation provides a physical reference of the task and verified
+training data. The next step is to train the model to generate the robot's
+commands from camera images, joint state and simulated fingertip forces.
+Evaluation will cover motion similarity, grasp stability and placement accuracy.
+
+## Recorded demonstration
 
 ![Recorded hand picking up the case and placing it on the table](examples/source-recording/preview.gif)
 
 [Full recorded video](examples/source-recording/book5.mp4) · Audio removed; video frames unchanged.
 
-## Robot demonstration
+## Current simulation reference
 
-![Robot demonstration and simulated fingertip forces](examples/contact-demo/preview.gif)
+![Robot reference motion and simulated fingertip forces](examples/contact-demo/preview.gif)
 
-The robot performs the same task with an adapted motion. The panels show two
-simulation views and fingertip forces. This demonstration uses a programmed,
-contact-controlled teacher; it is **not a learned-policy rollout**.
+The reference uses retargeted motion and contact-based grip control. The panels
+show two simulation views and fingertip forces. This is the behavior the trained
+policy should learn to reproduce; training on the new dataset is pending.
 
-## How it works
+## What we use
 
-1. Estimate the human hand motion and approximate scene from the recording.
-2. Adapt that motion to the G1 arm and coupled fingers.
-3. Use simulated fingertip forces to adjust grip while the free case moves
-   through contact, friction and gravity.
-4. Vary the starting state, case position, appearance and physical parameters;
-   save verified images, joint angles, forces and motor commands.
-5. Train SmolVLA, a model that chooses robot commands from images, instructions
-   and robot state, then test it on scenes excluded from training.
+| Component | Role |
+|---|---|
+| Recorded task video | Human motion and task reference |
+| FastHaMeR / Core ML | Estimate hand poses from the video |
+| Unitree G1 + Inspire right hand | Robot arm and five-finger hand |
+| Inverse kinematics | Adapt the estimated motion to the robot's joints and reach |
+| MuJoCo | Simulate the scene, collisions, friction and free-object interaction |
+| Simulated fingertip forces | Adjust grip during reference-data collection |
+| LeRobot / SmolVLA | Fine-tuning and learned robot control |
+
+The scene is an approximate reconstruction, and the robot's pelvis is supported
+and fixed. Human motion is adapted to the robot's hand and joint limits.
+
+## Training data
+
+The prepared collection contains **96 verified episodes / 24,732 samples**:
+60 training, 18 validation and 18 test episodes. Each sample records two camera
+views, joint angles, fingertip forces and executed motor commands.
+
+Variations change the starting state, case position, appearance, lighting,
+cameras, mass and friction. Related visual versions stay in the same split.
+The collection uses contact-controlled reference actions as training targets;
+the model receives observations, without source timestamps or object ground truth.
 
 ## Tasks and progress
 
-- [x] Record and publish the human task video.
-- [x] Estimate the hand motion and approximate scene.
+- [x] Record and publish the human demonstration.
+- [x] Estimate hand motion and reconstruct the task scene.
 - [x] Retarget the motion to the G1/Inspire arm and hand.
-- [x] Generate physical demonstrations with contact-based grip feedback.
-- [x] Prepare and verify 96 episodes / 24,732 samples with separate train,
-  validation and test groups (60/18/18 episodes).
-- [x] Train and evaluate an initial SmolVLA baseline on the older dataset.
-- [x] Publish a reproducible physics replay and sensor/action example.
-- [ ] Train the vision-only baseline on the new dataset using a GPU.
-- [ ] Train the tactile-aware model on the same data.
-- [ ] Compare grasp stability, placement and forces on the locked test conditions.
-- [ ] Improve placement and recovery based on validation failures.
+- [x] Produce a physical reference with contact-based grip control.
+- [x] Generate and verify the training data and grouped splits.
+- [x] Publish a reproducible simulation example.
+- [ ] Fine-tune SmolVLA on the prepared data using a GPU.
+- [ ] Run the trained model in closed loop using current robot observations.
+- [ ] Compare learned wrist/object motion with the recorded demonstration and
+  simulation reference.
+- [ ] Verify grasp, release and placement on held-out variations.
 
-The earlier baseline passed 1 of 7 unseen test cases; placement remains the main
-weakness. New-dataset training has not started. RL is a possible later step,
-not a completed result. [Measured results](docs/results.md) separate teacher
-quality from policy performance.
-
-## Reproduce the robot demonstration
+## Reproduce the current reference
 
 Requires Python 3.12, Git, [uv](https://docs.astral.sh/uv/) and FFmpeg.
-Tested on Apple Silicon macOS. A rented GPU and licensed hand-model files are
-not needed for this replay.
+Tested on Apple Silicon macOS. This replay runs without a rented GPU or licensed
+hand-model files.
 
 ```bash
 git clone https://github.com/Dharun235/video-guided-dexterous-manipulation.git
@@ -64,28 +77,16 @@ make test
 .venv-g1/bin/python -m scripts.replay_example --output runs/example-replay
 ```
 
-Open `runs/example-replay/execution.mp4` to see the result. The command replays
-the supplied motor targets through physics and checks the robot motion, object
-motion and fingertip forces against the recorded simulation. Use a new output
-folder each time. This reproduces a demonstration; it does not train a policy
-or automatically reconstruct a new video.
+Open `runs/example-replay/execution.mp4`. The command applies saved motor targets
+through physics and verifies robot motion, object motion and fingertip forces.
+Use a new output folder each time. The full training collection and model
+weights are separate local artifacts.
 
-## Rebuild or train
+## Details
 
-- [Reconstruct from the supplied video](docs/running.md): requires licensed MANO
-  assets and reviewed scene calibration.
-- [Generate training data](docs/contact-data-preparation.md): explains variations,
-  recovery starts, contact feedback and verification.
-- [Train on a GPU](training/CONTACT_TRAINING.md): requires the prepared full dataset,
-  provided separately; trained weights and full data are not stored in Git.
-- [Inspect the example](examples/contact-demo/README.md) or [data format](docs/data-and-evaluation.md).
-
-## Limits
-
-All human motion comes from one recording. Scene scale, depth and hidden
-geometry are estimates. The pelvis is fixed and supported; walking and balance
-are not implemented. Touch is simulated, not a calibrated hardware sensor.
-Original-scene policy comparisons use training-derived scenes, so they are not
-independent generalization tests. Real-robot transfer is unproven.
-
-[Design details](docs/approach.md) · [Code and asset licenses](THIRD_PARTY_NOTICES.md)
+[Reconstruction and setup](docs/running.md) ·
+[Data preparation](docs/contact-data-preparation.md) ·
+[Data format](docs/data-and-evaluation.md) ·
+[GPU training](training/CONTACT_TRAINING.md) ·
+[Example files](examples/contact-demo/README.md) ·
+[Licenses](THIRD_PARTY_NOTICES.md)
