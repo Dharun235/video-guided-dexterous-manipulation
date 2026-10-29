@@ -1,9 +1,47 @@
 # Video-Guided Dexterous Manipulation
 
-Transfer a recorded human hand motion to a Unitree G1 arm with a five-finger
-Inspire right hand. The current pipeline extracts the complete recording,
-estimates scene/camera geometry and fits robot joint targets. Physical grasp
-execution is the next stage; policy training is outside the current scope.
+Convert a recorded tabletop hand demonstration into motion targets for a Unitree
+G1 arm with a five-finger Inspire right hand. The pipeline estimates human hand
+motion, reconstructs the scene and moving case, then fits robot joints.
+The current outputs are kinematic estimates. A motor-driven grasp has not yet
+been demonstrated.
+
+## Current status
+
+| Stage | Method | Current output |
+|---|---|---|
+| Human hand | FastHaMeR, Core ML and MANO | 683/748 frames detected |
+| Scene and camera | Book-plane calibration, SAM3, DA3 and SAM 3D Objects through TAA | Textured MuJoCo scene with collision geometry and estimated scale |
+| Moving case | TAA/TrackCraft3R, rigid fitting and visible-image refinement | 740/748 pose candidates; 310 need orientation review; eight remain missing |
+| Robot joints | humanoid-dexart-retarget, PyRoki and JAX | 227 fitted frames with a static case; moving-case targets are not integrated |
+| Physical execution | MuJoCo actuator and contact control | Pending |
+
+Pose coverage measures available estimates, not accuracy. The object preview
+imposes case poses; the robot preview imposes joint poses. Neither demonstrates
+a physical grasp. Training and evaluation methods have not been selected.
+
+Next steps, in order:
+
+1. Review uncertain case orientation and correct final placement: the estimated
+   case ends 13.8 mm above the table.
+2. Integrate reviewed case motion into hand–object retargeting, retaining gaps
+   and uncertainty flags.
+3. Reduce joint discontinuities and verify reach, joint limits and collisions.
+4. Execute through motor controls with a free object; measure contact, slip,
+   release and placement before collecting robot training data.
+
+## Inspect the saved result
+
+```bash
+make setup
+make review-object
+```
+
+This checks the included pose arrays and scene geometry without downloading GPU
+models. Watch the [source/MuJoCo comparison](examples/object-motion/object-motion.mp4)
+and [robot fit](examples/dexart-retarget/kinematic-fit.mp4).
+Full processing commands follow below; GPU requirements apply to reconstruction,
+not to checking these saved results.
 
 ## Source
 
@@ -61,8 +99,8 @@ coverage, not pose accuracy. [Missing intervals](examples/hand-extraction/covera
 ```
 
 The reviewed book plane supplies scale and camera geometry. SIFT matching and
-RANSAC estimate camera movement across frames. The scene has approximate object
-geometry; it does not yet recover the moving case's full trajectory.
+RANSAC estimate camera movement across frames. This step produces approximate static geometry and camera poses. The separate
+GPU stage below estimates the moving case trajectory.
 
 The GPU reconstruction branch uses [Track, Articulate, Act](https://github.com/brains-bots-n-behavior/track-articulate-act),
 SAM3, Depth Anything 3 and SAM 3D Objects. SAM3 tracks the book and case through
@@ -132,6 +170,16 @@ The pelvis is supported; walking and balance are outside scope.
 
 [Output formats and assumptions](docs/running.md) ·
 [Upstream retargeter and adapter](docs/retargeting.md)
+
+## Problems and lessons
+
+| Observation | Consequence |
+|---|---|
+| 65/748 frames lack a hand detection | Keep invalid rows; do not invent unseen finger motion |
+| Independent depth batches broke rigid tracking at frame 288 | Re-estimate depth jointly within overlapping tracking windows |
+| 310 object poses require relocalization review | Preserve component IDs and review flags in downstream targets |
+| Upstream wrist/tip residuals are 31.7/24.9 mm | The current retargeting trial needs refinement before control |
+| Five object poses penetrate by more than 1 mm; final clearance is 13.8 mm | Image agreement alone does not establish a physically valid placement |
 
 ## Acknowledgements
 

@@ -55,3 +55,11 @@ normal/shear summaries. Do not select sensed contacts by object identity.
 The user authorized the selected silent Book5 recording and project-generated
 previews for documentation. MANO files, weights, downloaded source, caches and
 full generated runs remain ignored. Do not publish credentials or licensed assets.
+
+## Storage after cleanup
+
+Superseded object/scene/solver trials and duplicate tracking transport archives
+were removed on 2026-10-30. Keep candidate-04, its scene, full depth archive,
+extracted tracking windows, full hand/camera inputs and required model caches.
+Do not use deleted diagnostic runs as prerequisites. Current cleanup inventory
+is local at runs/cleanup-2026-10-30.json.

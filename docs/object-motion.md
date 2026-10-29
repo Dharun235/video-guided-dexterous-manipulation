@@ -16,8 +16,9 @@ Eight frames remain invalid. [Video, data and scene](../examples/object-motion/R
 - The case mesh candidate and its initial pose.
 
 The pipeline uses an estimated 198 × 129 × 18 mm book to establish camera and
-depth scale. This is a scale prior, not a measured calibration. No hand model is
-used to prescribe the case trajectory.
+depth scale. This is a scale prior, not a measured calibration. Hand silhouettes exclude occluded edges during refinement. An explicitly
+flagged relocalization also uses a hand-orientation prior; it is an uncertain
+initialization, not an observed rigid attachment.
 
 ## Export the initial anchor
 
