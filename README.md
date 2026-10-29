@@ -39,21 +39,38 @@ policy should learn to match; training on the new dataset is pending.
 The scene is an approximate reconstruction, and the robot's pelvis is supported
 and fixed. Human motion is adapted to the robot's hand and joint limits.
 
-## Training data
+## Dataset preview
 
-The prepared collection contains **96 verified episodes / 24,732 samples**:
-60 training, 18 validation and 18 test episodes. Each sample records two camera
-views, joint angles, fingertip forces and executed motor commands.
+![Training, validation and test episodes with both recorded camera views](examples/data-preview/splits.gif)
 
-Variations change the starting state, case position, appearance, lighting,
-cameras, mass and friction. Related visual versions stay in the same split.
-The collection uses contact-controlled reference actions as training targets;
-the model receives observations, without source timestamps or object ground truth.
+[Watch the video grid](examples/data-preview/splits.mp4) ·
+[View a still image](examples/data-preview/splits.jpg)
 
-The recorded video and compact simulation example are included in GitHub.
-The full collection and model weights are not bundled. See the
+Columns show training, validation and test data. Each column contains two
+physical movements; each movement shows the front and inspection cameras.
+The clips play at the recorded pace, with shorter clips holding their final
+frame. These are contact-controlled reference demonstrations, not learned-policy
+results.
+
+| Split | Physical movements | Episodes | Samples |
+|---|---:|---:|---:|
+| Training | 20 | 60 | 15,720 |
+| Validation | 6 | 18 | 4,464 |
+| Test | 6 | 18 | 4,548 |
+
+The collection contains 96 verified episodes from 32 physical movements, derived
+from one human recording. Each movement has three visual variants. Starting
+state, case position, appearance, lighting, cameras, mass and friction vary;
+visual variants of the same movement stay in one split.
+
+Each sample contains two camera images, 19 joint positions, 10 fingertip force
+values and 13 executed motor targets. Source timestamps, object ground truth
+and audit labels are excluded from policy observations.
+
+The recorded human video and previews are included in GitHub; the full dataset
+and model weights are not bundled. See [preview details](examples/data-preview/README.md),
 [dataset specification](training/contact-dataset.json) and
-[data format](docs/data-and-evaluation.md) for package details.
+[data format](docs/data-and-evaluation.md).
 
 ## Tasks and progress
 

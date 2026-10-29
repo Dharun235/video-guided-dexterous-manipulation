@@ -1,0 +1,76 @@
+{
+  "dataset_manifest_sha256": "0a1fd1ad7daa72a4caa8759a1f9e6123461037b6b9915a6327a67a8ca450aa51",
+  "selection": "First two physical groups in each split; first visual variant of first group and last variant of second group.",
+  "episodes": [
+    {
+      "episode": "train/group_00/episode_00",
+      "physical_group": 0,
+      "split": "train",
+      "domain_seed": 400000,
+      "frames": 265,
+      "task_success": true,
+      "verified": true,
+      "training_eligible": true,
+      "preflight": "preflight/train/group_00/candidate_01"
+    },
+    {
+      "episode": "train/group_01/episode_02",
+      "physical_group": 1,
+      "split": "train",
+      "domain_seed": 400102,
+      "frames": 280,
+      "task_success": true,
+      "verified": true,
+      "training_eligible": true,
+      "preflight": "preflight/train/group_01/candidate_00"
+    },
+    {
+      "episode": "validation/group_20/episode_00",
+      "physical_group": 20,
+      "split": "validation",
+      "domain_seed": 402000,
+      "frames": 273,
+      "task_success": true,
+      "verified": true,
+      "training_eligible": false,
+      "preflight": "preflight/validation/group_20/candidate_00"
+    },
+    {
+      "episode": "validation/group_21/episode_02",
+      "physical_group": 21,
+      "split": "validation",
+      "domain_seed": 402102,
+      "frames": 232,
+      "task_success": true,
+      "verified": true,
+      "training_eligible": false,
+      "preflight": "preflight/validation/group_21/candidate_00"
+    },
+    {
+      "episode": "test/group_26/episode_00",
+      "physical_group": 26,
+      "split": "test",
+      "domain_seed": 402600,
+      "frames": 266,
+      "task_success": true,
+      "verified": true,
+      "training_eligible": false,
+      "preflight": "preflight/test/group_26/candidate_01"
+    },
+    {
+      "episode": "test/group_27/episode_02",
+      "physical_group": 27,
+      "split": "test",
+      "domain_seed": 402702,
+      "frames": 282,
+      "task_success": true,
+      "verified": true,
+      "training_eligible": false,
+      "preflight": "preflight/test/group_27/candidate_02"
+    }
+  ],
+  "fps": 8,
+  "timing": "Recorded at 20 Hz; preview samples at 8 fps in real time. Shorter clips hold their final frame.",
+  "image_stream_sha256": "41d42f12d8695d95e34f6ae4a23f7300211f6c3d684aceeece1a04ea0ba5ae56",
+  "note": "Recorded reference-data images, not trained-policy rollouts. No new simulation or evaluation."
+}
