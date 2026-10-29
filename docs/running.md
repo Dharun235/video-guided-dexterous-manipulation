@@ -1,4 +1,4 @@
-# Setup and reproduction
+# Setup and usage
 
 Run from the project root. The tested local platform is Apple Silicon macOS
 with Python 3.12, Git, uv and FFmpeg.
@@ -33,8 +33,10 @@ With the full portable dataset supplied:
 .venv-g1/bin/python -m scripts.verify_contact_data runs/book5-contact-dataset-02
 ```
 
-Use the [GPU recipe](../training/CONTACT_TRAINING.md) for training. Mac policy
-setup is available through `python3 -m scripts.setup_smolvla`.
+Training method, compute and evaluation protocol are pending decisions. The
+[candidate SmolVLA commands](../training/CONTACT_TRAINING.md) document an existing
+implementation option. Mac policy setup is available through
+`python3 -m scripts.setup_smolvla`.
 
 ## Reconstruction from a recording
 

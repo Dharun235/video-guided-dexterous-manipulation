@@ -1,9 +1,12 @@
-# GPU training
+# Candidate SmolVLA commands
 
-The new tactile-aware model has not been trained. The goal is a matched
-comparison of vision/proprioception and tactile-input policies on the same data.
-See [data preparation](../docs/contact-data-preparation.md) for the method and
-[data contracts](../docs/data-and-evaluation.md) for feature definitions.
+These commands document an existing implementation option, not an agreed training
+plan. Policy choice, training method, compute and evaluation protocol remain
+undecided. Training on the new collection has not started. CUDA commands below
+apply only if a compatible GPU environment is selected.
+
+See [data preparation](../docs/contact-data-preparation.md) and
+[data contracts](../docs/data-and-evaluation.md) for the prepared inputs.
 
 ## Prerequisites
 
@@ -23,7 +26,7 @@ audit must pass. Place the pinned public SmolVLA base files in `.cache/smolvla-b
 First run five steps with batch size two to check gradients, finite losses and
 memory before a full run.
 
-## Matched experiments
+## Candidate training runs
 
 ```bash
 # RGB + nineteen joint positions.
@@ -51,7 +54,7 @@ run without recording their force observations.
 add the same correction again when cloning those targets. `action.reference`
 is reserved for separate hierarchical-controller experiments.
 
-## Evaluation
+## Available evaluation interface
 
 Use validation loss and physical validation rollouts to select a candidate,
 then freeze it before testing. Evaluate every locked condition, including
@@ -65,6 +68,6 @@ be slower than simulation, so this is not a real-time claim.
 
 The [evaluation interface](README.md) detects the tactile checkpoint contract.
 It requires the separate MuJoCo runtime used by the bridge. Original-scene
-comparisons are training-derived reproduction. Reserve new blind seeds after
+comparisons use a scene represented in the training data. Reserve new blind seeds after
 inspecting a final test set. No RL or hardware transfer is established by this
 training recipe.

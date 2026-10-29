@@ -1,7 +1,8 @@
 # SmolVLA interface
 
-The project trains upstream SmolVLA through a JSONL/NPZ/JPEG adapter. It does
-not require converting the prepared collection into LeRobot parquet.
+The existing adapter supports upstream SmolVLA with JSONL/NPZ/JPEG data, without
+conversion to LeRobot parquet. This is a candidate implementation; the training
+method, compute and evaluation protocol have not been selected.
 
 ## Inputs and targets
 
@@ -15,7 +16,7 @@ twenty-nine. Both are fitted on training rows only. The visual backbone stays
 frozen while the action expert and state/action projections train. Revisions
 and dependencies are pinned in [UPSTREAM.json](UPSTREAM.json).
 
-The [GPU recipe](CONTACT_TRAINING.md) is the current training entry point.
+[Candidate commands](CONTACT_TRAINING.md) document the available training interface.
 The [running guide](../docs/running.md) covers local setup and reconstruction.
 [Results](../docs/results.md) distinguish the older trained baseline from the
 new contact-aware collection, whose model training has not started.
@@ -42,5 +43,5 @@ control rate does not establish real-time inference speed.
 
 Select using validation rollouts, freeze the candidate, then test every locked
 condition including teacher failures. Original-scene comparisons are
-training-derived reproduction. Packaging includes native pre/post processors,
+comparisons against a scene represented in the training data. Packaging includes native pre/post processors,
 normalization, named features, licenses and checksums.
