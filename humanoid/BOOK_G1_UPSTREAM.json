@@ -1,0 +1,36 @@
+{
+  "embodiment": "Unitree G1 with a five-finger Inspire right hand; fixed pelvis on a stand",
+  "g1": {
+    "repository": "https://github.com/google-deepmind/mujoco_menagerie",
+    "revision": "f3b6013629c7b94f8ee93fd977b161fa8350f9bc",
+    "source": "unitree_g1/g1.xml",
+    "license": "BSD-3-Clause"
+  },
+  "hand": {
+    "repository": "https://github.com/unitreerobotics/xr_teleoperate",
+    "revision": "817fb00c63cde15e5f24a0f8fa08e1e33ed89d3b",
+    "source": "assets/inspire_hand/inspire_hand_right.urdf",
+    "license": "Apache-2.0 repository license; preserve upstream asset notices",
+    "actuated_fingers": 5,
+    "motors": 6,
+    "joint_dofs": 12,
+    "conversion": "MuJoCo URDF importer; retain meshes, inertias, axes and limits; strip non-mesh coordinate/tip visualization markers; reconstruct native URDF mimic relationships as joint equalities"
+  },
+  "simulation_adaptations": {
+    "mount": "Official G1 DFQ R_base_link_joint: xyz [0.0415, 0, 0] m, rpy [pi, 0, -pi/2]; quaternion wxyz [0, 0.70710678, -0.70710678, 0]",
+    "hand_servo": "Position kp 4, kv 0.12; effort capped at +/-1 Nm per driven joint; dynamics not system identified",
+    "finger_contact": "Mesh convex collision; friction [1.0, 0.005, 0.001], condim 4 includes torsional resistance; randomized per episode where specified",
+    "global_contact": "solref [0.005, 1], solimp [0.95, 0.99, 0.001]; 1 ms implicitfast stepping",
+    "body": "Native G1 geometry, joints and effort caps; supported fixed pelvis, no walking or balance claim",
+    "teacher": "Video-derived grasp and destination with adapted lift/carry/lower/release, closure bias and placement wrist compensation; not exact source motion or a learned policy"
+  },
+  "upstream_files_modified": false,
+  "runtime": "Separate .venv-g1, MuJoCo 3.8.1, scipy 1.18.1; Apple Silicon CPU physics and local OpenGL rendering",
+  "mount_reference": {
+    "url": "https://github.com/unitreerobotics/unitree_ros/blob/master/robots/g1_description/g1_29dof_rev_1_0_with_inspire_hand_DFQ.urdf",
+    "download_sha256": "e2b2d6bfe58f6b8d57b9f28df9ad9e5e5d0ea728f562e925b8b1482a902b6ff3",
+    "joint": "R_base_link_joint"
+  },
+  "layout_version": "ego_front_v2",
+  "camera": "Torso/head-mounted egocentric camera aligned with the reconstructed phone camera; no image mirroring; 16:9 content letterboxed for square policy observations"
+}

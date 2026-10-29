@@ -1,0 +1,7 @@
+{
+  "kind": "Personally recorded task video; published with audio removed",
+  "original_file_sha256": "fd2201d3349b5184f9d59959c33e7fa5de283e43ec9786b0620636fef6ad702c",
+  "published_file_sha256": "feced5ae9d2cabe2861a01d253fa8840ba39b9537f002677182ae4269a638605",
+  "decoded_video_frames_identical": true,
+  "processing": "Video stream copied without re-encoding; audio and container metadata removed"
+}

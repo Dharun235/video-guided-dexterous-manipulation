@@ -1,0 +1,12 @@
+{
+  "repository": "https://github.com/google-deepmind/mujoco_menagerie.git",
+  "revision": "f3b6013629c7b94f8ee93fd977b161fa8350f9bc",
+  "models": [
+    "unitree_g1"
+  ],
+  "licenses": {
+    "unitree_g1": "BSD-3-Clause"
+  },
+  "python": "3.12",
+  "mujoco": "3.8.1"
+}

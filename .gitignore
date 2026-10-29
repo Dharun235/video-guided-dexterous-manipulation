@@ -1,0 +1,31 @@
+# Local runtimes, downloaded sources, model weights and generated data
+.venv*/
+third_party/
+native/build/
+runs/
+.cache/
+mano/
+**/MANO_*.pkl
+**/mano_*.pkl
+
+# Private recordings remain local
+demonstrations/*.mp4
+demonstrations/*.mov
+demonstrations/*.MOV
+
+# Python / system files
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+MUJOCO_LOG.TXT
+
+# Local machine/storage inventory
+docs/folders-and-storage.md
+
+# Credentials
+.env
+.env.*
+!.env.example

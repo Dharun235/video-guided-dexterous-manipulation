@@ -1,0 +1,23 @@
+{
+  "dataset": "runs/book5-contact-dataset-02",
+  "archive": "runs/book5-contact-dataset-02.tar.gz",
+  "archive_bytes": 697852473,
+  "archive_sha256": "c2eab79103c252d5e34f8f4aa4f3faa8d12a4cb71b70c38b9f1e5319e24ebe92",
+  "manifest_sha256": "0a1fd1ad7daa72a4caa8759a1f9e6123461037b6b9915a6327a67a8ca450aa51",
+  "source_video_sha256": "fd2201d3349b5184f9d59959c33e7fa5de283e43ec9786b0620636fef6ad702c",
+  "verified": true,
+  "episodes": 96,
+  "physical_groups": 32,
+  "frames": {
+    "train": 15720,
+    "validation": 4464,
+    "test": 4548
+  },
+  "input_dimensions": {
+    "vision_proprioception": 19,
+    "tactile_augmented": 29
+  },
+  "action_dimension": 13,
+  "format": "Local JSONL/NPZ/JPEG; use project training adapter",
+  "gpu_training_started": false
+}
