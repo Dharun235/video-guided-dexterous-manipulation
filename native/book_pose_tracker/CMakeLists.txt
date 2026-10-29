@@ -1,7 +1,0 @@
-cmake_minimum_required(VERSION 3.16)
-project(book_pose_tracker LANGUAGES CXX)
-find_package(VISP REQUIRED)
-add_executable(book_pose_tracker tracker.cpp)
-target_compile_features(book_pose_tracker PRIVATE cxx_std_17)
-target_include_directories(book_pose_tracker PRIVATE ${VISP_INCLUDE_DIRS})
-target_link_libraries(book_pose_tracker PRIVATE ${VISP_LIBRARIES})

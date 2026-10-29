@@ -1,0 +1,30 @@
+{
+  "frames": 748,
+  "detected_frames": 683,
+  "detection_coverage": 0.9131016042780749,
+  "missing_intervals": [
+    {
+      "first_frame": 0,
+      "last_frame": 19,
+      "start_s": 0.0,
+      "end_s": 0.3168783422459893
+    },
+    {
+      "first_frame": 21,
+      "last_frame": 21,
+      "start_s": 0.3502339572192513,
+      "end_s": 0.3502339572192513
+    },
+    {
+      "first_frame": 704,
+      "last_frame": 747,
+      "start_s": 11.741176470588236,
+      "end_s": 12.45832219251337
+    }
+  ],
+  "track_sha256": "0d9c66c89609975adc6e9bc2a5baae595e3695ea05641ca0c2eb4af10f88f12b",
+  "coordinates": "OpenCV camera: x right, y down, z forward; estimated metres, not calibrated world positions.",
+  "landmarks": "21 OpenPose-order hand landmarks; these are points, not 21 independent robot controls.",
+  "missing_data": "NaN with valid=false. No interpolation, invented body pose or hidden-hand filling.",
+  "scope": "Video hand estimates only; no object tracking, robot retargeting or physical grasp claim."
+}

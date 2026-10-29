@@ -25,7 +25,7 @@ def hand_pass(video, output, mano, samples=20, resume=False, cache=None, right_h
     cap = cv2.VideoCapture(str(video))
     fps = cap.get(cv2.CAP_PROP_FPS)
     count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-    indices = np.unique(np.linspace(0, count - 1, samples).astype(int))
+    indices = np.arange(count) if samples == 0 else np.unique(np.linspace(0, count - 1, samples).astype(int))
     (output / "frames").mkdir(exist_ok=resume)
     (output / "overlays").mkdir(exist_ok=resume)
     print("Loading Apple Neural Engine hand reconstruction", flush=True)

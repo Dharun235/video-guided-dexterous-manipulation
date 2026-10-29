@@ -1,10 +1,9 @@
-"""MuJoCo-only JSON bridge for closed-loop learned-policy evaluation.
+"""MuJoCo JSON bridge for actuator-driven reference execution.
 
 Run in .venv-g1. A separate policy process supplies motor targets. Object poses
 and contacts are recorded for scoring and never returned as policy observations.
 """
 import argparse
-import hashlib
 import json
 from pathlib import Path
 import subprocess
@@ -17,7 +16,6 @@ import numpy as np
 from .book_transfer import front_sensor_image
 from .book_dataset_audit import raised_hold_duration
 from .layout import verify_layout
-from .arm_feedback import ArmFeedback,project_translation
 
 
 def serve(args):
@@ -32,15 +30,6 @@ def serve(args):
     aids=np.array(schema['active_actuator_indices']);qadr=np.array(schema['state_qpos_indices'])
     dadr=np.array(schema['state_qvel_indices'])
     velocity_map=[schema['state_joint_names'].index(n) for n in schema['action_actuator_names']]
-    feedback=ArmFeedback(args.feedback,args.feedback_gain) if args.feedback else None
-    if feedback:
-        metadata=json.loads((args.feedback.parent/'metadata.json').read_text())
-        if metadata['position_names']!=schema['state_joint_names'] or metadata['proposal_names']!=schema['action_actuator_names']:
-            raise ValueError('Feedback robot joint mapping differs from simulator')
-    wrist=model.site('landmark_0').id;initial_wrist_height=float(data.site_xpos[wrist,2])
-    arm_dofs=model.jnt_dofadr[model.actuator_trnid[aids[:7],0]]
-    feedback_started=None
-    if feedback and args.controller_label=='Learned policy':args.controller_label='SmolVLA + learned arm feedback'
     cq=model.jnt_qposadr[model.joint('case_free').id]
     cv=model.jnt_dofadr[model.joint('case_free').id];cb=model.body('case').id
     initial_case=data.qpos[cq:cq+3].copy();renderer=mujoco.Renderer(model,height=256,width=256)
@@ -86,18 +75,9 @@ def serve(args):
             states.append(data.qpos[qadr].copy());objects.append(data.qpos[cq:cq+7].copy())
             contact_rows.append(dict(frame=len(actions),seconds=float(data.time),contacts=contacts()))
             base_actions.append(action.copy());velocity=data.qvel[dadr][velocity_map].copy();velocities.append(velocity)
-            if feedback and feedback_started is None and data.site_xpos[wrist,2]>initial_wrist_height+args.feedback_lift_gate:
-                feedback_started=len(actions)
-            delta=np.zeros(7)
-            if feedback and feedback_started is not None:
-                ramp=min(1.,(len(actions)-feedback_started+1)/20)
-                delta=ramp*feedback.correction(data.qpos[qadr],velocity,action)
-                if args.feedback_mode=='translation':
-                    jp=np.zeros((3,model.nv));jr=np.zeros_like(jp);mujoco.mj_jacSite(model,data,jp,jr,wrist)
-                    delta=project_translation(delta,jp[:,arm_dofs],jr[:,arm_dofs])
-            requested=action.copy();requested[:7]+=delta;corrections.append(delta.copy())
-            bounded=np.clip(requested,*model.actuator_ctrlrange[aids].T)
-            clipped+=int(np.count_nonzero(bounded!=requested));actions.append(bounded.copy());data.ctrl[aids]=bounded
+            bounded=np.clip(action,*model.actuator_ctrlrange[aids].T)
+            corrections.append(np.zeros(7))
+            clipped+=int(np.count_nonzero(bounded!=action));actions.append(bounded.copy());data.ctrl[aids]=bounded
             for _ in range(50):
                 mujoco.mj_step(model,data)
                 for c in data.contact:max_penetration=max(max_penetration,float(-c.dist))
@@ -126,17 +106,10 @@ def serve(args):
         goal_position_m=goal.tolist(),max_lift_m=max_lift,final_speed_m_s=speed,
         maximum_penetration_m=max_penetration,raised_multifinger_hold_s=hold,
         clipped_action_components=clipped,teacher_enabled=False,controller_label=args.controller_label,
-        learned_policy=args.controller_label in ('Learned policy','SmolVLA + learned arm feedback'),diagnostic_video_fps=20/args.video_stride,
+        learned_policy=False,diagnostic_video_fps=20/args.video_stride,
         policy_observations=['RGB front','RGB inspection','19 robot joint positions','task instruction'],
         physics=dict(welds=False,object_pose_updates_after_initialization=False,external_object_forces=False),
         source_scene=str(args.scene.resolve()))
-    report['arm_feedback']=dict(enabled=feedback is not None,model=str(args.feedback.resolve()) if feedback else None,
-        sha256=hashlib.sha256(args.feedback.read_bytes()).hexdigest() if feedback else None,gain=args.feedback_gain,
-        activation_step=feedback_started,activation_signal='own wrist rise; episode latch',
-        lift_gate_m=args.feedback_lift_gate,mode=args.feedback_mode,
-        activation_ramp_seconds=1.,
-        finger_targets_unchanged=bool(np.array_equal(np.array(actions)[:,7:],np.clip(np.array(base_actions)[:,7:],*model.actuator_ctrlrange[aids[7:]].T))))
-    if feedback:report['policy_observations']+=['13 motor joint velocities','own wrist forward kinematics for feedback gate']
     if args.tactile_inputs:report['policy_observations']+=['10 external fingertip normal/shear force features']
     (out/'report.json').write_text(json.dumps(report,indent=2))
     subprocess.run(['ffmpeg','-v','error','-y','-i',str(out/'execution-raw.mp4'),'-c:v','libx264',
@@ -148,11 +121,8 @@ if __name__=='__main__':
     p=argparse.ArgumentParser(__doc__)
     for name in ('scene','initial','schema','output'):p.add_argument('--'+name,type=Path,required=True)
     p.add_argument('--goal',required=True);p.add_argument('--maximum-steps',type=int,default=400)
-    p.add_argument('--controller-label',default='Learned policy')
+    p.add_argument('--controller-label',default='Reference controller')
     p.add_argument('--video-stride',type=int,default=1)
-    p.add_argument('--feedback',type=Path);p.add_argument('--feedback-gain',type=float,default=1.)
-    p.add_argument('--feedback-lift-gate',type=float,default=.025)
-    p.add_argument('--feedback-mode',choices=('joint','translation'),default='joint')
     p.add_argument('--tactile-inputs',action='store_true')
     a=p.parse_args()
     if a.video_stride<1:raise SystemExit('Video stride must be positive')

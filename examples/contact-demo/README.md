@@ -23,9 +23,9 @@ include generated workspace assets; the robot scene retains the upstream G1
 and Inspire terms in `licenses/`. Upstream sources are listed in
 [third-party notices](../../THIRD_PARTY_NOTICES.md).
 
-## Inspect one training frame
+## Inspect one recorded frame
 
 `sample.json` contains nineteen joint positions, ten fingertip force features,
 thirteen executed targets, targets before force correction and the next joint
 state. `front.jpg` and `inspection.jpg` are its RGB observations. Names and units
-are included. The complete training dataset and model weights remain separate.
+are included. This is a sample from the earlier physical reference, retained for simulator checks.

@@ -4,10 +4,7 @@ from pathlib import Path
 import sys
 
 ROOT=Path(__file__).resolve().parents[1]
-COMMANDS={'simulate':'humanoid.book_g1','audit':'humanoid.book_dataset_audit',
-          'preview':'humanoid.book_ego_preview','collect':'humanoid.book_variations',
-          'check-data':'humanoid.book_collection_audit','export':'humanoid.book_dataset_export',
-          'finalize-data':'humanoid.book_dataset_finalize'}
+COMMANDS={'retarget':'humanoid.retarget_hand','audit':'humanoid.book_dataset_audit','preview':'humanoid.book_ego_preview'}
 
 def main():
     args=sys.argv[1:]
