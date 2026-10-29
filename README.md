@@ -20,17 +20,47 @@ Pose coverage measures available estimates, not accuracy. The object preview
 imposes case poses; the robot preview imposes joint poses. Neither demonstrates
 a physical grasp. Training and evaluation methods have not been selected.
 
-Next steps, in order:
+## Task checklist
 
-1. Review uncertain case orientation and correct final placement: the estimated
-   case ends 13.8 mm above the table.
-2. Integrate reviewed case motion into hand–object retargeting, retaining gaps
-   and uncertainty flags.
-3. Reduce joint discontinuities and verify reach, joint limits and collisions.
-4. Execute through motor controls with a free object; measure contact, slip,
-   release and placement before collecting robot training data.
+- [x] Include the recorded demonstration and source checksums.
+- [x] Extract right-hand landmarks, mesh and wrist orientation across the video.
+- [x] Estimate camera motion and scene scale from the book plane.
+- [x] Segment the book and case across all 748 frames.
+- [x] Build a textured MuJoCo scene with case collision geometry.
+- [x] Estimate moving-case poses and preserve missing/uncertain frames.
+- [x] Fit the G1 arm and Inspire right hand using the upstream retargeting solver.
+- [x] Publish source comparisons, pose data and numerical checks.
+- [ ] Review the 310 uncertain case poses and eight missing poses.
+- [ ] Correct final case placement, currently estimated 13.8 mm above the table.
+- [ ] Integrate reviewed moving-case poses into robot retargeting.
+- [ ] Reduce joint discontinuities and verify reach, limits and collisions.
+- [ ] Execute with motor controls and a free object; verify grasp, slip and release.
+- [ ] Export verified simulated camera images, joint states, actions and contacts.
+- [ ] Select training and evaluation methods after physical execution is verified.
+
+## Videos and results
+
+The recording contains 748 frames. Audio is removed; video frames are unchanged.
+Each comparison shows a different stage, rather than a complete robot execution.
+
+| Recorded demonstration | Estimated human hand |
+|---|---|
+| [![Recorded demonstration](examples/source-recording/preview.gif)](examples/source-recording/book5.mp4) | ![Estimated hand mesh](examples/hand-extraction/preview.gif) |
+| [Watch the source video](examples/source-recording/book5.mp4) | [Detection coverage and missing frames](examples/hand-extraction/coverage.json) |
+
+| Scene and segmentation | Estimated case motion in MuJoCo |
+|---|---|
+| [![Scene reconstruction](examples/taa/scene-comparison.jpg)](docs/taa.md) | [![Case motion comparison](examples/object-motion/review-grid.jpg)](examples/object-motion/object-motion.mp4) |
+| [Watch full-video masks](examples/taa/full-video-masks.mp4) | [Watch source beside MuJoCo](examples/object-motion/object-motion.mp4) |
+
+[Watch the G1/Inspire joint-fit comparison](examples/dexart-retarget/kinematic-fit.mp4).
+This robot preview has a static case and imposed joint poses. The case-motion
+preview separately imposes object poses. These stages are not yet integrated
+into a motor-driven manipulation.
 
 ## Inspect the saved result
+
+After cloning the repository, run from its root:
 
 ```bash
 make setup
@@ -38,17 +68,8 @@ make review-object
 ```
 
 This checks the included pose arrays and scene geometry without downloading GPU
-models. Watch the [source/MuJoCo comparison](examples/object-motion/object-motion.mp4)
-and [robot fit](examples/dexart-retarget/kinematic-fit.mp4).
-Full processing commands follow below; GPU requirements apply to reconstruction,
-not to checking these saved results.
-
-## Source
-
-![Human demonstration](examples/source-recording/preview.gif)
-
-[Full video](examples/source-recording/book5.mp4) · 748 frames. Audio removed;
-video frames unchanged.
+models. [Pose data, scene and validation](examples/object-motion/README.md) are
+included. Full processing commands follow below.
 
 ## Requirements and setup
 
@@ -83,8 +104,6 @@ for later attempts. Full outputs remain local; selected previews are included.
 FastHaMeR/Core ML estimates hand landmarks, mesh and wrist orientation for each
 frame. Inspect `hand-overlay.mp4` and `coverage.json`. Missing detections remain
 invalid rather than being filled with invented poses.
-
-![Estimated hand over the complete recording](examples/hand-extraction/preview.gif)
 
 Current result: 683/748 frames detected (91.3%). This measures detection
 coverage, not pose accuracy. [Missing intervals](examples/hand-extraction/coverage.json)
@@ -183,24 +202,16 @@ The pelvis is supported; walking and balance are outside scope.
 
 ## Acknowledgements
 
-[MuJoCo](https://github.com/google-deepmind/mujoco),
-[MuJoCo Menagerie](https://github.com/google-deepmind/mujoco_menagerie) and
-[Unitree Robotics](https://github.com/unitreerobotics/xr_teleoperate) provide the
-simulator and robot assets. Hand estimation uses
-[HaMeR](https://github.com/geopavlakos/hamer),
-[FastHaMeR](https://github.com/VimalMollyn/fasterhamer),
-[FastHands](https://github.com/VimalMollyn/Mediapipe-Hands-PyTorch-CoreML),
-[MANO](https://mano.is.tue.mpg.de/) and
-[Core ML Tools](https://github.com/apple/coremltools). Retargeting uses
-[humanoid-dexart-retarget](https://github.com/gtziafas/humanoid-dexart-retarget),
-[PyRoki](https://github.com/chungmin99/pyroki) and
-[jaxls](https://github.com/brentyi/jaxls).
-Scene reconstruction also uses
-[Track, Articulate, Act](https://github.com/brains-bots-n-behavior/track-articulate-act),
-[SAM3](https://github.com/facebookresearch/sam3),
-[Depth Anything 3](https://github.com/ByteDance-Seed/Depth-Anything-3),
-[SAM 3D Objects](https://github.com/facebookresearch/sam-3d-objects) and
-[MoGe](https://github.com/microsoft/MoGe).
-Object motion uses [TrackCraft3R](https://github.com/cvlab-kaist/TrackCraft3r)
-and its Wan2.1 base model.
-[Third-party notices](THIRD_PARTY_NOTICES.md) record applicable terms.
+| Role | Work used |
+|---|---|
+| Simulator and robot assets | [MuJoCo](https://github.com/google-deepmind/mujoco), [MuJoCo Menagerie](https://github.com/google-deepmind/mujoco_menagerie), [Unitree Robotics](https://github.com/unitreerobotics/xr_teleoperate) |
+| Human hand estimation | [HaMeR](https://github.com/geopavlakos/hamer), [FastHaMeR](https://github.com/VimalMollyn/fasterhamer), [FastHands](https://github.com/VimalMollyn/Mediapipe-Hands-PyTorch-CoreML), [MANO](https://mano.is.tue.mpg.de/), [Core ML Tools](https://github.com/apple/coremltools) |
+| Scene reconstruction | [Track, Articulate, Act](https://github.com/brains-bots-n-behavior/track-articulate-act), [SAM3](https://github.com/facebookresearch/sam3), [Depth Anything 3](https://github.com/ByteDance-Seed/Depth-Anything-3), [SAM 3D Objects](https://github.com/facebookresearch/sam-3d-objects), [MoGe](https://github.com/microsoft/MoGe) |
+| Object motion | [TrackCraft3R](https://github.com/cvlab-kaist/TrackCraft3r) and its Wan2.1 base model |
+| Robot retargeting | [humanoid-dexart-retarget](https://github.com/gtziafas/humanoid-dexart-retarget), [PyRoki](https://github.com/chungmin99/pyroki), [jaxls](https://github.com/brentyi/jaxls) |
+
+This repository adds the recording-specific calibration, input adapters,
+visibility and rigid-fit checks, flagged pose relocalization, MuJoCo scene
+integration and review tools. Upstream models and solvers remain credited to
+their authors. [Third-party notices](THIRD_PARTY_NOTICES.md) record applicable
+terms; licensed MANO files and model weights are not included.
