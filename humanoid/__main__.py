@@ -4,7 +4,7 @@ from pathlib import Path
 import sys
 
 ROOT=Path(__file__).resolve().parents[1]
-COMMANDS={'retarget':'humanoid.retarget_hand','audit':'humanoid.book_dataset_audit','preview':'humanoid.book_ego_preview'}
+COMMANDS={'retarget':'humanoid.retarget_hand'}
 
 def main():
     args=sys.argv[1:]

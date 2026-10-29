@@ -11,8 +11,8 @@ followed by physical verification. Do not reintroduce VLA training, RL, collecti
 splits or policy benchmarks unless the user requests them. Use .venv-g1 for
 simulation/tests and .venv-book-reconstruction for FastHaMeR/Core ML extraction.
 Preserve official robot models. Whole-body reconstruction is not required for
-this close-up hand recording. The new direct IK path is kinematic only; the
-included physical reference is an older adapted trajectory.
+this close-up hand recording. The current direct IK path and preview are kinematic only. Physical execution
+is a future stage; no previous grasp demo is included.
 
 ## Geometry and evidence
 
@@ -32,9 +32,10 @@ object-pose playback. State teaching assumptions explicitly.
 Every attempt uses a new output directory. Preserve source checksums and missing
 frame masks. Never silently fill hidden hand/body observations or report a
 kinematic fit as physical success. Run .venv-g1/bin/python -m pytest -q humanoid/tests.
-Keep the source video, reconstruction dependencies and existing contact example.
-Previous policy/data work has been removed from active scope and saved outside
-the repository in a recovery archive at the user's request.
+Keep the source videos, current full-video runs and required reconstruction/robot
+dependencies. Old policy/data runs and their recovery copies were deleted at the
+user's request. Only a compact Git source-history backup is retained outside the
+repository. Do not regenerate or download old experiments without a new need.
 
 Raw robot state has nineteen right arm/hand joint positions; controls are seven
 arm targets plus six Inspire targets. Simulated touch has ten external fingertip

@@ -14,9 +14,8 @@ replace upstream code, model, dataset or video terms.
 | Apple Core ML Tools | https://github.com/apple/coremltools | Mac model conversion/runtime tooling; package pinned in reconstruction/requirements-book-mac.lock.txt |
 | MANO hand model | https://mano.is.tue.mpg.de/ | Separate licensed user-supplied assets; not redistributed |
 
-Downloaded robot assets retain their upstream licenses. Native build outputs,
-model weights, caches, licensed MANO files, unpublished recordings and full
-simulation collections are excluded from source control. The selected silent
-Book5 recording and compact simulation example are published with user authorization. The source video and synthetic
+Downloaded robot assets retain their upstream licenses. Model weights, caches, licensed MANO files, unpublished recordings and full
+generated runs are excluded from source control. The selected silent
+Book5 recording and current motion previews are published with user authorization. The source video and synthetic
 robot images have distinct provenance; generated episodes are not new human
 recordings. No third-party video is bundled into this workflow.

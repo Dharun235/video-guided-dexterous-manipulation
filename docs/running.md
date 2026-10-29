@@ -4,16 +4,16 @@ Run commands from the project root. Use a new output folder for every attempt.
 The tested platform is Apple Silicon macOS. Install Git, uv and FFmpeg; the
 setup scripts create Python 3.12 environments and fetch pinned robot assets.
 
-## Simulation
+## Robot setup
 
 ```bash
 make setup
 make test
-.venv-g1/bin/python -m scripts.replay_example --output runs/example-replay
 ```
 
-The included example is a saved contact-controlled reference. Its replay does
-not extract new motion from the source video.
+This installs the simulation environment and fetches pinned G1/Inspire assets.
+The current preview uses kinematics; physical execution is not implemented in
+this workflow yet. The main README contains the ordered commands for each step.
 
 ## Hand extraction
 

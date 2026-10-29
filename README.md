@@ -1,109 +1,115 @@
 # Video-Guided Dexterous Manipulation
 
-Convert a recorded human manipulation into a Unitree G1 arm and five-finger
-Inspire right-hand reference, then verify execution through contact physics
-in MuJoCo. The current work focuses on motion extraction and retargeting.
-Policy training is outside the active scope.
+Transfer a recorded human hand motion to a Unitree G1 arm with a five-finger
+Inspire right hand. The current pipeline extracts the complete recording,
+estimates scene/camera geometry and fits robot joint targets. Physical grasp
+execution is the next stage; policy training is outside the current scope.
 
-## Source video
+## Source
 
-![Recorded human demonstration](examples/source-recording/preview.gif)
+![Human demonstration](examples/source-recording/preview.gif)
 
-[Full video](examples/source-recording/book5.mp4) · One 748-frame recording;
-audio removed, video frames unchanged.
+[Full video](examples/source-recording/book5.mp4) · 748 frames. Audio removed;
+video frames unchanged.
 
-## Workflow and status
+## Requirements and setup
 
-| Stage | Output | Status |
-|---|---|---|
-| 1. Extract the complete hand motion | Per-frame landmarks, hand mesh estimates, wrist orientation, overlays and missing-frame mask | 748 frames processed; 683 detections; review required |
-| 2. Retarget to G1/Inspire | Seven arm and six hand targets with fit residuals | 683 frames fitted; interaction-aware refinement pending |
-| 3. Verify physical execution | Actuator-driven motion, free-object contact, grasp and placement measurements | Earlier adapted reference available; new full-video trajectory not physically verified |
-
-The previous reference shortened the motion and used planned grasp/carry/release
-segments. The new path retains the source timeline and marks missing estimates
-explicitly. It does not claim that all source gestures already transfer correctly.
-
-## Requirements
-
-- Apple Silicon macOS for the tested FastHaMeR/Core ML hand-extraction path.
-- Python 3.12, Git, [uv](https://docs.astral.sh/uv/) and FFmpeg.
-- Licensed MANO assets for hand reconstruction; these are not included.
-- Graphics access for MuJoCo rendering. The included reference replay needs no MANO files.
-
-## Installation
+Apple Silicon macOS, Python 3.12, Git, [uv](https://docs.astral.sh/uv/), FFmpeg
+and graphics access. Hand extraction also requires your licensed MANO model.
+Robot assets and inference models download during setup or first use.
 
 ```bash
 git clone https://github.com/Dharun235/video-guided-dexterous-manipulation.git
 cd video-guided-dexterous-manipulation
 make setup
-make test
-```
-
-For the hand-extraction environment:
-
-```bash
 uv venv --python 3.12 .venv-book-reconstruction
 uv pip install --python .venv-book-reconstruction/bin/python \
   -r reconstruction/requirements-book-mac.lock.txt
+make test
 ```
 
-## Step 1: extract hand motion
+Run the following commands from the project root. Choose new output folders
+for later attempts. Full outputs remain local; selected previews are included.
+
+## 1. Extract hand motion
 
 ```bash
 .venv-book-reconstruction/bin/python -m reconstruction.video_hands \
-  --video examples/source-recording/book5.mp4 \
-  --mano /path/to/MANO_RIGHT.pkl --output runs/full-hands
+  --video examples/source-recording/book5.mp4 --mano /path/to/MANO_RIGHT.pkl \
+  --output runs/full-hands
 ```
 
-Open `runs/full-hands/hand-overlay.mp4` and inspect `coverage.json`.
-`hand_track.npz` stores all frame timestamps, 21 hand landmarks, mesh vertices,
-wrist orientation and a validity mask. Missing detections remain NaN.
-Coordinates are camera estimates; scene calibration is required before robot IK.
+FastHaMeR/Core ML estimates hand landmarks, mesh and wrist orientation for each
+frame. Inspect `hand-overlay.mp4` and `coverage.json`. Missing detections remain
+invalid rather than being filled with invented poses.
 
-![Full-video hand estimates](examples/hand-extraction/preview.gif)
+![Estimated hand over the complete recording](examples/hand-extraction/preview.gif)
 
-The current run detects the right hand in 683/748 frames (91.3%). Missing
-estimates remain explicit; this is detection coverage, not pose accuracy.
-[Frame coverage](examples/hand-extraction/coverage.json)
+Current result: 683/748 frames detected (91.3%). This measures detection
+coverage, not pose accuracy. [Missing intervals](examples/hand-extraction/coverage.json)
 
-## Step 2: retarget to G1/Inspire
-
-The direct IK baseline uses the complete hand track, a reviewed scene and camera
-poses. It fits seven right-arm controls and six Inspire controls without scripted
-grasp phases. See [setup and usage](docs/running.md) for the command and prerequisites.
-
-The requested [humanoid-dexart-retarget](https://github.com/gtziafas/humanoid-dexart-retarget)
-provides an interaction-aware G1/Inspire solver for structured hand/object data.
-Our single-right-hand adapter is pending. FRoM-W1/H-ACT and Mink are alternatives,
-not installed stages of this project. See [retargeting integration](docs/retargeting.md).
-
-[Watch the source beside the fitted robot](examples/hand-extraction/kinematic-fit.mp4).
-This view imposes joint poses and leaves the object static; it is not physical execution.
-
-The current baseline fits 683 detected frames. Mean residuals against the
-estimated hand are 11.7 mm at the wrist and 10.6 mm at the fingertips. These
-measure fit to inferred targets, not ground-truth accuracy or grasp success.
-
-## Existing physics reference
-
-![Earlier contact-controlled robot reference](examples/contact-demo/preview.gif)
+## 2. Build the scene and estimate camera poses
 
 ```bash
-.venv-g1/bin/python -m scripts.replay_example --output runs/example-replay
+.venv-book-reconstruction/bin/python -m reconstruction.book_space build \
+  runs/book5-space --video examples/source-recording/book5.mp4
+.venv-book-reconstruction/bin/python -m reconstruction.video_cameras \
+  --hands runs/full-hands --scene runs/book5-space --output runs/book5-cameras
 ```
 
-This applies saved motor commands and checks robot motion, object motion and
-fingertip forces. It is an earlier adapted task reference, not the new full-video
-retargeting result. The pelvis is fixed; scene geometry and touch are simulated.
+The reviewed book plane supplies scale and camera geometry. SIFT matching and
+RANSAC estimate camera movement across frames. The scene has approximate object
+geometry; it does not yet recover the moving case's full trajectory.
 
-## Checks before physical execution
+## 3. Fit the G1 arm and Inspire hand
 
-- Review hand identity, orientation, missed frames and source-motion coverage.
-- Check joint limits, reach, wrist/fingertip residuals and discontinuities.
-- Execute with motor targets and physics steps; imposed joint poses only test kinematics.
-- Measure sustained grasp, object slip, penetration, release and placement.
-- Keep the object free; do not animate its pose to claim a successful grasp.
+```bash
+.venv-g1/bin/python -m humanoid.retarget_hand \
+  --hands runs/full-hands --scene runs/book5-space \
+  --cameras runs/book5-cameras/camera_poses.json --output runs/full-retarget
+```
+
+Bounded least squares fits seven arm and six hand controls to the estimated
+landmarks, with finger-shape and temporal-continuity terms. The source timeline
+is retained. Inspect named controls in `joint-map.json`, validity flags in
+`retarget.npz` and residuals in `report.json`.
+
+Current result: 683 frames fitted; mean wrist residual 11.7 mm and fingertip
+residual 10.6 mm against inferred targets. These are not ground-truth accuracy
+or physical grasp measurements. [Fit metrics](examples/hand-extraction/retarget-metrics.json)
+
+## 4. Review the motion
+
+```bash
+.venv-g1/bin/python -m scripts.preview_hand_retarget \
+  --hands runs/full-hands --retarget runs/full-retarget --output runs/fit-preview
+```
+
+[Source beside the fitted robot](examples/hand-extraction/kinematic-fit.mp4)
+
+The preview imposes joint poses and leaves the object static. Missing detections
+show a warning and the previous robot pose. Check orientation, finger shape,
+reach, discontinuities and whether the full demonstrated motion is represented.
+
+## 5. Verify physical execution — pending
+
+Resolve detection gaps, refine hand–object interaction and execute through
+MuJoCo motor controls. Check collision, sustained grasp, slip, release and
+placement with the object free. The current preview does not establish these.
+The pelvis is supported; walking and balance are outside scope.
+
+## Project files
+
+| Folder | Purpose |
+|---|---|
+| `reconstruction/` | Hand extraction, scene fitting and camera estimation |
+| `humanoid/` | G1/Inspire model composition, joint fitting and geometry checks |
+| `scripts/` | Robot setup and motion preview |
+| `examples/` | Source recording and current results |
+| `runs/` | Local outputs; excluded from Git |
+
+[Output formats and assumptions](docs/running.md) ·
+[Interaction-aware retargeting candidate](docs/retargeting.md)
 
 ## Acknowledgements
 
@@ -116,4 +122,4 @@ simulator and robot assets. Hand estimation uses
 [FastHands](https://github.com/VimalMollyn/Mediapipe-Hands-PyTorch-CoreML),
 [MANO](https://mano.is.tue.mpg.de/) and
 [Core ML Tools](https://github.com/apple/coremltools).
-See [third-party notices](THIRD_PARTY_NOTICES.md) for asset and model terms.
+[Third-party notices](THIRD_PARTY_NOTICES.md) record applicable terms.

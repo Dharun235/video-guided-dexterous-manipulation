@@ -8,7 +8,7 @@ import cv2
 import mujoco
 import numpy as np
 
-from humanoid.book_transfer import set_configuration
+from humanoid.kinematics import set_configuration
 from humanoid.book_g1 import BACKGROUND_CONTROL
 
 

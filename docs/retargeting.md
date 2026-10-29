@@ -24,7 +24,7 @@ Required integration work:
 5. Export named controls, source timestamps, validity masks and fit metrics.
 6. Verify the resulting trajectory through actuator-driven MuJoCo execution.
 
-The checkout is local and unmodified under `third_party/`; it is not redistributed.
+The unused checkout was removed during cleanup; its inspected revision is recorded above.
 No repository-level license file was found in the inspected checkout. Check
 upstream permission before copying its implementation into this MIT project.
 The candidate has been inspected, not integrated or benchmarked.

@@ -11,7 +11,7 @@ from scipy.optimize import least_squares
 from scipy.spatial.transform import Rotation, Slerp
 
 from .book_g1 import make_model, ORIGIN, SCENE_ROTATION, BACKGROUND_CONTROL
-from .book_transfer import set_configuration
+from .kinematics import set_configuration
 
 
 def camera_track(camera_rows, times):

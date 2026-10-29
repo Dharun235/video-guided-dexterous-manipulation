@@ -19,10 +19,9 @@
   "simulation_adaptations": {
     "mount": "Official G1 DFQ R_base_link_joint: xyz [0.0415, 0, 0] m, rpy [pi, 0, -pi/2]; quaternion wxyz [0, 0.70710678, -0.70710678, 0]",
     "hand_servo": "Position kp 4, kv 0.12; effort capped at +/-1 Nm per driven joint; dynamics not system identified",
-    "finger_contact": "Mesh convex collision; friction [1.0, 0.005, 0.001], condim 4 includes torsional resistance; randomized per episode where specified",
+    "finger_contact": "Native converted hand collision geometry retained; new full-video trajectory has not been physically validated.",
     "global_contact": "solref [0.005, 1], solimp [0.95, 0.99, 0.001]; 1 ms implicitfast stepping",
-    "body": "Native G1 geometry, joints and effort caps; supported fixed pelvis, no walking or balance claim",
-    "teacher": "Video-derived grasp and destination with adapted lift/carry/lower/release, closure bias and placement wrist compensation; not exact source motion or a learned policy"
+    "body": "Native G1 geometry, joints and effort caps; supported fixed pelvis, no walking or balance claim"
   },
   "upstream_files_modified": false,
   "runtime": "Separate .venv-g1, MuJoCo 3.8.1, scipy 1.18.1; Apple Silicon CPU physics and local OpenGL rendering",
@@ -32,5 +31,5 @@
     "joint": "R_base_link_joint"
   },
   "layout_version": "ego_front_v2",
-  "camera": "Torso/head-mounted egocentric camera aligned with the reconstructed phone camera; no image mirroring; 16:9 content letterboxed for square policy observations"
+  "camera": "Torso/head-mounted egocentric camera aligned with the reconstructed phone camera; no image mirroring."
 }
