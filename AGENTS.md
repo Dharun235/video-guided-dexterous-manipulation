@@ -7,7 +7,10 @@ Keep changes focused on this workflow. Do not reintroduce unrelated robot tracks
 ## Runtime and models
 
 Active scope is full-video right-hand extraction and G1/Inspire retargeting,
-followed by physical verification. Do not reintroduce VLA training, RL, collection
+followed by physical verification. The selected upstream retargeter runs in
+.venv-dexart through retargeting.video. Keep upstream files unchanged and record
+objective extensions honestly. The first static-book-anchor trial has worse fit
+than the SciPy baseline; do not claim improved tracking or a physical grasp. Do not reintroduce VLA training, RL, collection
 splits or policy benchmarks unless the user requests them. Use .venv-g1 for
 simulation/tests and .venv-book-reconstruction for FastHaMeR/Core ML extraction.
 Preserve official robot models. Whole-body reconstruction is not required for

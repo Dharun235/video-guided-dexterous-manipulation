@@ -12,6 +12,8 @@ replace upstream code, model, dataset or video terms.
 | HaMeR | https://github.com/geopavlakos/hamer | Underlying hand-reconstruction model; original code, model and training-data terms apply |
 | FastHaMeR / FastHands | https://github.com/VimalMollyn/fasterhamer and https://github.com/VimalMollyn/Mediapipe-Hands-PyTorch-CoreML | Mac hand-inference packages, pinned in reconstruction/requirements-book-mac.lock.txt; original package/model terms apply; downloaded weights remain local |
 | Apple Core ML Tools | https://github.com/apple/coremltools | Mac model conversion/runtime tooling; package pinned in reconstruction/requirements-book-mac.lock.txt |
+| humanoid-dexart-retarget | https://github.com/gtziafas/humanoid-dexart-retarget | External checkout only; no repository-level license found at the pinned revision; source hashes in retargeting/UPSTREAM.json; not relicensed under project MIT |
+| PyRoki / jaxls | https://github.com/chungmin99/pyroki and https://github.com/brentyi/jaxls | MIT; revisions and dependency versions pinned in retargeting/ |
 | MANO hand model | https://mano.is.tue.mpg.de/ | Separate licensed user-supplied assets; not redistributed |
 
 Downloaded robot assets retain their upstream licenses. Model weights, caches, licensed MANO files, unpublished recordings and full

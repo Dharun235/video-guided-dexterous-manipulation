@@ -22,6 +22,7 @@ Robot assets and inference models download during setup or first use.
 git clone https://github.com/Dharun235/video-guided-dexterous-manipulation.git
 cd video-guided-dexterous-manipulation
 make setup
+python3 -m scripts.setup_dexart
 uv venv --python 3.12 .venv-book-reconstruction
 uv pip install --python .venv-book-reconstruction/bin/python \
   -r reconstruction/requirements-book-mac.lock.txt
@@ -61,22 +62,26 @@ The reviewed book plane supplies scale and camera geometry. SIFT matching and
 RANSAC estimate camera movement across frames. The scene has approximate object
 geometry; it does not yet recover the moving case's full trajectory.
 
-## 3. Fit the G1 arm and Inspire hand
+## 3. Retarget with humanoid-dexart-retarget
 
 ```bash
-.venv-g1/bin/python -m humanoid.retarget_hand \
+.venv-dexart/bin/python -m retargeting.video \
   --hands runs/full-hands --scene runs/book5-space \
-  --cameras runs/book5-cameras/camera_poses.json --output runs/full-retarget
+  --cameras runs/book5-cameras/camera_poses.json --output runs/full-retarget \
+  --stride 3 --window 24
 ```
 
-Bounded least squares fits seven arm and six hand controls to the estimated
-landmarks, with finger-shape and temporal-continuity terms. The source timeline
-is retained. Inspect named controls in `joint-map.json`, validity flags in
-`retarget.npz` and residuals in `report.json`.
+The [upstream solver](https://github.com/gtziafas/humanoid-dexart-retarget)
+uses a Laplacian interaction objective, PyRoki and JAX. Our adapter supplies the
+observed right hand, static book anchors and the matching G1/Inspire geometry.
+The pelvis and unobserved joints stay supported/fixed. The moving case's
+trajectory is not yet supplied.
 
-Current result: 683 frames fitted; mean wrist residual 11.7 mm and fingertip
-residual 10.6 mm against inferred targets. These are not ground-truth accuracy
-or physical grasp measurements. [Fit metrics](examples/hand-extraction/retarget-metrics.json)
+The first trial solved 227 observed frames at about 20 Hz. Mean wrist/fingertip
+residuals are 31.7/24.9 mm, compared with 11.7/10.6 mm for the earlier SciPy
+baseline on the same frames. Residuals are against estimated targets. The new
+trial has abrupt target changes and is not ready for physical execution.
+[Adapter, measurements and limitations](docs/retargeting.md)
 
 ## 4. Review the motion
 
@@ -85,7 +90,7 @@ or physical grasp measurements. [Fit metrics](examples/hand-extraction/retarget-
   --hands runs/full-hands --retarget runs/full-retarget --output runs/fit-preview
 ```
 
-[Source beside the fitted robot](examples/hand-extraction/kinematic-fit.mp4)
+[Source beside the fitted robot](examples/dexart-retarget/kinematic-fit.mp4)
 
 The preview imposes joint poses and leaves the object static. Missing detections
 show a warning and the previous robot pose. Check orientation, finger shape,
@@ -103,13 +108,14 @@ The pelvis is supported; walking and balance are outside scope.
 | Folder | Purpose |
 |---|---|
 | `reconstruction/` | Hand extraction, scene fitting and camera estimation |
-| `humanoid/` | G1/Inspire model composition, joint fitting and geometry checks |
+| `humanoid/` | G1/Inspire model composition, baseline fitting and geometry checks |
+| `retargeting/` | Pinned upstream solver adapter and model conversion |
 | `scripts/` | Robot setup and motion preview |
 | `examples/` | Source recording and current results |
 | `runs/` | Local outputs; excluded from Git |
 
 [Output formats and assumptions](docs/running.md) ·
-[Interaction-aware retargeting candidate](docs/retargeting.md)
+[Upstream retargeter and adapter](docs/retargeting.md)
 
 ## Acknowledgements
 
@@ -121,5 +127,8 @@ simulator and robot assets. Hand estimation uses
 [FastHaMeR](https://github.com/VimalMollyn/fasterhamer),
 [FastHands](https://github.com/VimalMollyn/Mediapipe-Hands-PyTorch-CoreML),
 [MANO](https://mano.is.tue.mpg.de/) and
-[Core ML Tools](https://github.com/apple/coremltools).
+[Core ML Tools](https://github.com/apple/coremltools). Retargeting uses
+[humanoid-dexart-retarget](https://github.com/gtziafas/humanoid-dexart-retarget),
+[PyRoki](https://github.com/chungmin99/pyroki) and
+[jaxls](https://github.com/brentyi/jaxls).
 [Third-party notices](THIRD_PARTY_NOTICES.md) record applicable terms.

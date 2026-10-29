@@ -75,7 +75,9 @@ Fit residuals are against those estimates, not measured human ground truth.
 This is kinematic fitting. It does not certify collision avoidance or a grasp.
 Do not send the result straight to the physical replay interface: invalid frames,
 trajectory smoothing, execution timing and contact refinement must be addressed
-and reviewed first. The [interaction-aware adapter](retargeting.md) is pending.
+and reviewed first. The [upstream adapter](retargeting.md) is implemented and has a separate CPU
+environment. Use that guide for the selected retargeting path; this section
+describes the earlier baseline for comparison.
 
 ## Inspect the kinematic fit
 

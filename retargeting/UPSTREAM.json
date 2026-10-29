@@ -1,0 +1,20 @@
+{
+  "repository": "https://github.com/gtziafas/humanoid-dexart-retarget",
+  "revision": "238cd8b45f3969f24f9c66b91eb707ec1b51825a",
+  "source_files_sha256": {
+    "retarget_h2o.py": "e51fe38779d01d4753e2e83a2ec9eb1778cadcc0e986763567ba5abebfd1952c",
+    "utils.py": "b63278315cc5cee5c9cd9c7dc319030d1c92e60d86a4085141050e1b93f760b4"
+  },
+  "pyroki_revision": "388e43e1fc0d0ee382968d3dd72970fd62a0450c",
+  "jaxls_revision": "50a58be88c5ef74532f09e3f55268b4f02c490e3",
+  "license_note": "No repository-level license found in the inspected retargeter checkout; downloaded code stays external and is not copied or relicensed under this project MIT license.",
+  "runtime": "Apple Silicon CPU, Python 3.12; separate .venv-dexart environment",
+  "adaptations": [
+    "Supported-root penalty",
+    "All unobserved robot joints fixed in generated URDF",
+    "Original MJCF hand couplings and mounting retained",
+    "Static book anchors instead of an invented moving-case trajectory",
+    "Stronger soft joint-limit penalty and explicit output bounding",
+    "Windowed observed-frame optimization; missing frames remain invalid"
+  ]
+}

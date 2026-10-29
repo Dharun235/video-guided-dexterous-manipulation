@@ -1,44 +1,79 @@
-# Retargeting integration
+# G1/Inspire retargeting
 
-The active baseline fits the observed right-hand landmarks to the existing
-G1/Inspire MuJoCo model with bounded SciPy least squares. It preserves all source
-timestamps and marks detection gaps. It does not use the earlier scripted task
-trajectory or claim physical execution.
+The project now calls `solve_retargeting` and
+`create_laplacian_interaction_mesh` from
+[humanoid-dexart-retarget](https://github.com/gtziafas/humanoid-dexart-retarget).
+It uses PyRoki forward kinematics and JAX trajectory optimization on the Mac CPU.
+Pinned source revisions and hashes are in [UPSTREAM.json](../retargeting/UPSTREAM.json).
 
-## Interaction-aware candidate
+## Setup and upstream check
 
-[humanoid-dexart-retarget](https://github.com/gtziafas/humanoid-dexart-retarget)
-supports G1 with Inspire RH56DFX. The inspected revision is
-`238cd8b45f3969f24f9c66b91eb707ec1b51825a`. Its hand-only H2O example reads
-42 hand landmarks per frame, an object mesh and per-frame 4 × 4 object poses.
-It optimizes interaction geometry with PyRoki/JAX and scene-specific posture
-priors. It is not a raw-video extractor or a physical grasp validator.
+```bash
+python3 -m scripts.setup_dexart
+.venv-dexart/bin/python -m retargeting.check_example --output runs/dexart-example
+```
 
-Required integration work:
+The check runs four frames of the supplied H2O milk example without the interactive
+viewer. It checks finite solver output, not physical task success. The source
+expects prepared hand/object tracks; it does not extract them from RGB video.
 
-1. Adapt landmark constraints to observed right-hand points only; do not invent
-   left-hand observations or use zeros as measured points.
-2. Put hand landmarks and object poses in one reviewed metric coordinate frame.
-3. Match robot joint names, hand couplings and wrist mounting to our simulator.
-4. Keep the pelvis supported and the unused arm parked.
-5. Export named controls, source timestamps, validity masks and fit metrics.
-6. Verify the resulting trajectory through actuator-driven MuJoCo execution.
+## Run our recording
 
-The unused checkout was removed during cleanup; its inspected revision is recorded above.
-No repository-level license file was found in the inspected checkout. Check
-upstream permission before copying its implementation into this MIT project.
-The candidate has been inspected, not integrated or benchmarked.
+After hand extraction, scene fitting and camera registration:
 
-## Other tools
+```bash
+.venv-dexart/bin/python -m retargeting.video \
+  --hands runs/full-hands --scene runs/book5-space \
+  --cameras runs/book5-cameras/camera_poses.json \
+  --output runs/dexart-retarget --stride 3 --window 24
+.venv-g1/bin/python -m scripts.preview_hand_retarget \
+  --hands runs/full-hands --retarget runs/dexart-retarget --output runs/dexart-preview
+```
 
-- [FRoM-W1/H-ACT](https://github.com/OpenMOSS/FRoM-W1/tree/main/H-ACT)
-  supports G1/Inspire retargeting from structured human motion. Its documented
-  starting point is H-GPT action representations, not an ordinary hand video.
-- [Mink](https://github.com/kevinzakka/mink) is MuJoCo-based inverse kinematics.
-  It is an alternative solver, not a hand/object reconstruction pipeline.
-- [WHAM](https://github.com/yohanshin/WHAM) and
-  [4D-Humans](https://github.com/shubham-goel/4D-Humans) use SMPL body models;
-  they do not automatically supply detailed finger motion for this recording.
+The selected observed frames are about 20 Hz at the original timing. All 748
+source timestamps remain in the output; unsolved/missing frames have invalid
+flags and NaN actions. Window-end padding is a solver implementation detail and
+is not exported as new observations. Gaps are not bridged by invented poses.
+For full frame-rate fitting use `--stride 1`; the published trial uses stride 3.
 
-Do not install all alternatives into the current environments. Test a selected
-candidate separately and compare it against the direct IK baseline first.
+## Adapter changes
+
+- Export the current MuJoCo robot to a right-arm/hand URDF. Preserve joint axes,
+  wrist attachment and linear finger couplings. Fix the lower body and unused arm.
+- Verify landmark forward kinematics between PyRoki and MuJoCo before solving.
+- Apply a strong support penalty to the remaining root variable. Export only joint
+  controls into the fixed-pelvis MuJoCo scene.
+- Use the observed right-hand landmarks and reconstructed static book corners in
+  the upstream Laplacian interaction mesh. No left-hand observations are invented.
+- Initialize from one observed-frame bounded IK fit. Final trajectory targets come
+  from the upstream solver, not the SciPy baseline trajectory.
+- Increase the upstream soft joint-limit penalty and explicitly bound exported
+  motor targets. Record any raw excess and clipped components.
+
+Upstream files are unchanged. These objective extensions are implemented in our
+adapter. Self-collision uses PyRoki capsules fitted to conservative box proxies;
+this does not establish collision-free execution in the original MuJoCo scene.
+
+## Current trial
+
+The upstream example passed its finite-output check. Our video trial solved
+227 observed frames over the full timeline in 105 seconds on CPU.
+
+| Metric on the same 227 frames | Upstream adaptation | Earlier SciPy baseline |
+|---|---:|---:|
+| Mean wrist residual | 31.7 mm | 11.7 mm |
+| Mean fingertip residual | 24.9 mm | 10.6 mm |
+
+Residuals compare inferred hand targets, not ground truth. The largest exported
+target step is 1.73 rad. This trial does not improve the baseline and is not ready
+for physical execution. Window continuity and moving-case interaction still need
+refinement. The book anchors are not a substitute for the case's pose trajectory.
+
+The model bridge agreed with MuJoCo landmarks within 0.00025 mm in five sampled
+joint configurations. This validates coordinate conversion, not manipulation.
+
+## External code
+
+The retargeter stays in ignored `third_party/`; its code is not copied into the
+MIT project. No repository-level license was found in the inspected checkout.
+Upstream assets and dependencies retain their own terms.
