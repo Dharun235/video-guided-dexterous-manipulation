@@ -126,6 +126,21 @@ included in the public example.
 [Data format](docs/data-and-evaluation.md) ·
 [Licenses](THIRD_PARTY_NOTICES.md)
 
+## Problems and lessons
+
+- **Depth and scale are uncertain in one video.** Review scene dimensions and
+  object poses; treat the reconstruction as an approximation.
+- **Hand orientation and robot placement affected the motion.** Check the right
+  hand, camera alignment and robot position at the table's longer edge first.
+- **Matching poses did not guarantee a stable grasp.** Verify lift, hold and
+  release through contact physics, and use fingertip feedback to adjust grip.
+- **Many physical variations failed the task checks.** Keep failed attempts for
+  analysis and filter demonstration data with unchanged acceptance criteria.
+- **Similar-looking episodes can leak across splits.** Keep visual variants of
+  the same physical movement together.
+- **Improving the original scene did not ensure wider success.** Check learned
+  control on unseen conditions as well as against the source demonstration.
+
 ## Acknowledgements
 
 - [MuJoCo](https://github.com/google-deepmind/mujoco) and
