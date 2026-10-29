@@ -41,7 +41,7 @@ def main():
     manifest = dict(source=args.video.name,
                     sha256=hashlib.sha256(args.video.read_bytes()).hexdigest(),
                     fps=fps, source_frames_read=source_index, stride=args.stride,
-                    frames=records)
+                    timestamp_basis="source_frame / average_fps", frames=records)
     (args.output / "input-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     prompts = dict(prompts=[
         dict(text="book", frame_index=0, label="book", motion="static", keyframe_candidates=[0]),

@@ -1,0 +1,23 @@
+{
+  "TAA": {
+    "repository": "https://github.com/brains-bots-n-behavior/track-articulate-act",
+    "revision": "ba06907ee29daaf6563e4e87d104e2d26d4327d1"
+  },
+  "TrackCraft3R": {
+    "repository": "https://github.com/cvlab-kaist/TrackCraft3r",
+    "revision": "21e8fcaf4b6375b3044cead210d5808e1d81760b",
+    "model": "trackcraft3r/checkpoint",
+    "model_revision": "e397c1050bd540062cbd6642ba06a344ca80f116",
+    "model_safetensors_sha256": "d70084c009a9c894654685c1744217a3f86558a2189d3e896d29251ec177a7ad"
+  },
+  "Wan": {
+    "model": "Wan-AI/Wan2.1-T2V-1.3B",
+    "revision": "37ec512624d61f7aa208f7ea8140a131f93afc9a"
+  },
+  "DA3": {
+    "repository": "https://github.com/ByteDance-Seed/Depth-Anything-3",
+    "revision": "3d835ec1a5802d64a8b8b15f817a1ab54809bfe4",
+    "model": "depth-anything/DA3NESTED-GIANT-LARGE",
+    "model_revision": "8615eefb62f2db4f8d6ebaa59160086981672829"
+  }
+}

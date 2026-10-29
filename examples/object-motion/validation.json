@@ -1,0 +1,26 @@
+{
+  "source_frames": 748,
+  "candidate_frames": 740,
+  "invalid_frames": [
+    429,
+    431,
+    434,
+    436,
+    518,
+    531,
+    534,
+    689
+  ],
+  "proper_rotations": true,
+  "missing_poses_remain_nan": true,
+  "frames_with_penetration_over_1mm": 5,
+  "maximum_penetration_m": 0.001245623605022412,
+  "final_table_clearance_median_m": 0.013843778639483011,
+  "static_collision_check_only": true,
+  "ready_for_training": false,
+  "limitations": [
+    "Object poses are imposed; no robot or contact-force tracking is evaluated",
+    "Final clearance measures the estimated mesh relative to the table z=0 prior",
+    "Scale, depth and relocalized front/back orientation remain uncertain"
+  ]
+}

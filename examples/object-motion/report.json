@@ -1,0 +1,85 @@
+{
+  "source_sha256": "feced5ae9d2cabe2861a01d253fa8840ba39b9537f002677182ae4269a638605",
+  "processed_frames": 748,
+  "accepted_frames": 740,
+  "calibration_anchor_frames": 1,
+  "coverage": 0.9893048128342246,
+  "missing_intervals": [
+    {
+      "first_frame": 429,
+      "last_frame": 429,
+      "start_s": 7.154779411764706,
+      "end_s": 7.154779411764706
+    },
+    {
+      "first_frame": 431,
+      "last_frame": 431,
+      "start_s": 7.188135026737968,
+      "end_s": 7.188135026737968
+    },
+    {
+      "first_frame": 434,
+      "last_frame": 434,
+      "start_s": 7.238168449197861,
+      "end_s": 7.238168449197861
+    },
+    {
+      "first_frame": 436,
+      "last_frame": 436,
+      "start_s": 7.271524064171123,
+      "end_s": 7.271524064171123
+    },
+    {
+      "first_frame": 518,
+      "last_frame": 518,
+      "start_s": 8.639104278074866,
+      "end_s": 8.639104278074866
+    },
+    {
+      "first_frame": 531,
+      "last_frame": 531,
+      "start_s": 8.85591577540107,
+      "end_s": 8.85591577540107
+    },
+    {
+      "first_frame": 534,
+      "last_frame": 534,
+      "start_s": 8.905949197860963,
+      "end_s": 8.905949197860963
+    },
+    {
+      "first_frame": 689,
+      "last_frame": 689,
+      "start_s": 11.49100935828877,
+      "end_s": 11.49100935828877
+    }
+  ],
+  "windows": 111,
+  "completed_tracking_windows": 111,
+  "joined_windows": 110,
+  "backward_pass": true,
+  "image_refined_frames": 105,
+  "continuously_connected_frames": 430,
+  "relocalized_candidate_frames": 310,
+  "reinitializations": [
+    {
+      "source_frame": 544,
+      "component": 1,
+      "hand_anchor_frame": 320,
+      "orientation_confidence": "uncertain",
+      "method": "Visible case + predicted depth + observed hand-orientation prior",
+      "median_edge_error_px": 0.5864407345266155
+    }
+  ],
+  "ready_for_robot_control": false,
+  "method": "Overlapping TrackCraft3R windows + visibility/mask filtering + rigid RANSAC + overlap checks",
+  "limitations": [
+    "Monocular geometry, book dimensions and initial mesh pose are estimated",
+    "Rigid residuals describe the 3D proposal before image-space correction",
+    "Internal consistency and mask agreement do not measure true 6D accuracy",
+    "Window composition can accumulate drift",
+    "Relocalized components use an unverified hand-object orientation prior; they are hypotheses",
+    "Rejected/unsupported poses remain NaN; no hand attachment or interpolation",
+    "Pose replay is kinematic and does not establish physical robot manipulation"
+  ]
+}

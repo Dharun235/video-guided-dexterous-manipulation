@@ -1,0 +1,35 @@
+<mujoco model="book5_video_fitted_tabletop">
+  <compiler angle="radian" meshdir="assets" texturedir="assets" />
+  <option timestep="0.002" gravity="0 0 -9.81" integrator="implicitfast" />
+  <visual>
+    <global offwidth="1280" offheight="720" />
+    <headlight ambient="0.55 0.55 0.55" diffuse="0.45 0.45 0.45" specular="0 0 0" />
+  </visual>
+  <default>
+    <geom friction="0.7 0.005 0.001" solref="0.005 1" solimp="0.95 0.99 0.001" />
+  </default>
+  <asset>
+    <texture name="table" type="2d" file="table.png" />
+    <material name="table" texture="table" texuniform="false" specular="0" shininess="0" reflectance="0" />
+    <mesh name="table" file="table.obj" inertia="shell" />
+    <texture name="book" type="2d" file="book.png" />
+    <material name="book" texture="book" texuniform="false" specular="0" shininess="0" reflectance="0" />
+    <mesh name="book" file="book.obj" inertia="shell" />
+    <texture name="wall" type="2d" file="wall.png" />
+    <material name="wall" texture="wall" texuniform="false" specular="0" shininess="0" reflectance="0" />
+    <mesh name="wall" file="wall.obj" inertia="shell" />
+    <mesh name="taa_case" file="taa_case.stl" /><mesh name="taa_case_hull" file="taa_case_hull.stl" /></asset>
+  <worldbody>
+    <camera name="source" pos="0.06547972252761804 -0.21158015019595652 0.43057451197477764" quat="0.9629669492642181 0.2684761396905385 0.021782947488737707 0.011862556231015961" fovy="37.22747682078267" />
+    <light pos="0 -.2 1" dir="0 0 -1" diffuse=".35 .35 .35" castshadow="false" />
+    <geom name="table_appearance" type="mesh" mesh="table" material="table" contype="0" conaffinity="0" group="1" />
+    <geom name="book_appearance" type="mesh" mesh="book" material="book" contype="0" conaffinity="0" group="1" />
+    <geom name="wall_appearance" type="mesh" mesh="wall" material="wall" contype="0" conaffinity="0" group="1" />
+    <geom name="table_collision" type="box" pos="0.0279795733 -0.0170777894 -0.015" size="0.320692638 0.138985848 0.015" rgba=".78 .74 .65 0" group="3" />
+    <geom name="book_collision" type="box" pos="0 0 0.009" size="0.099 0.0645 0.009" rgba=".72 .66 .51 1" />
+    <geom name="wall_collision" type="box" pos="0.0279795733 0.127526068 0.16" size="0.320692866 0.006 0.16" euler="0 0 -0.00119114262" rgba=".55 .55 .55 0" group="3" />
+    <body name="case" pos="0.005015168758683222 -0.001323413443818035 0.034777261693855484">
+      <freejoint name="case_free" />
+      <geom name="case_solid" type="mesh" mesh="taa_case_hull" mass=".055" rgba=".04 .04 .04 0" group="3" /><geom name="taa_case_appearance" type="mesh" mesh="taa_case" mass="0" contype="0" conaffinity="0" rgba=".035 .04 .035 1" /></body>
+  </worldbody>
+</mujoco>

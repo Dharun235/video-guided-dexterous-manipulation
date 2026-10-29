@@ -10,9 +10,9 @@ exports a separate MuJoCo candidate. The existing scene remains available.
 |---|---|---|
 | Right-hand estimates | 748 processed; 683 detections | Complete |
 | SAM3 book and case masks | 748 frames each | Complete |
-| DA3 depth and cameras | 14 frames spanning the recording | Initial check |
+| DA3 depth and calibrated cameras | 748 frames; initial mesh check uses 14 | Complete |
 | SAM 3D case geometry | First unobstructed frame | Candidate |
-| Case translation and rotation through time | Not estimated yet | Pending |
+| Case translation and rotation through time | Overlapping full-rate tracking windows | Under review |
 | Robot manipulation through motor/contact forces | Not verified yet | Pending |
 
 ![Source, previous scene and TAA candidate](../examples/taa/scene-comparison.jpg)
@@ -29,7 +29,7 @@ Masks are model estimates; complete coverage does not establish boundary accurac
   --video examples/source-recording/book5.mp4 --stride 60 --output runs/taa-check
 ```
 
-The first command preserves all frame timestamps. The second selects 14 frames,
+The first command writes all frames and records FPS-based timestamps. The second selects 14 frames,
 including the last frame. Both save the source checksum and frame mapping.
 Transfer each folder as an archive with Mac metadata excluded:
 `COPYFILE_DISABLE=1 tar --no-xattrs -cf frames.tar -C runs taa-full taa-check`.
@@ -109,7 +109,7 @@ basic collision behaviour; it does not establish an accurate grasp model.
 
 ## Remaining work
 
-Estimate moving-case poses with uncertainty and explicit missing intervals.
+Review [moving-case pose estimates](object-motion.md) and their missing intervals.
 Use the hand and object trajectories together in retargeting, then verify an
 actuator-driven grasp with the object free. TAA's human-hand replay is not used
 as evidence of a successful G1/Inspire grasp.

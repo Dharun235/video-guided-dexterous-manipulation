@@ -19,6 +19,14 @@ is a future stage; no previous grasp demo is included.
 
 ## Geometry and evidence
 
+Object motion now uses overlapping TrackCraft3R windows, visible-point rigid
+fits, bounded image refinement and explicitly flagged hand-prior reinitialisation.
+The published candidate has 740/748 poses: 430 connected to the initial anchor,
+310 uncertain relocalized poses and eight gaps. Coverage is not accuracy.
+Preserve component/review flags and NaNs. Final estimated table clearance is
+13.8 mm; contact correction and motor-driven manipulation remain unverified.
+Do not treat these object-pose candidates as training-ready robot states/actions.
+
 The G1 must face the centre of the table's longer edge. Validate the actual
 compiled geometry with humanoid.layout.verify_layout. Keep the right-hand model,
 phone-aligned egocentric camera, and unmirrored image geometry consistent.

@@ -6,4 +6,4 @@ setup:
 	python3 -m scripts.setup_book_g1
 
 test:
-	$(PYTHON) -m pytest -q humanoid/tests
+	$(PYTHON) -m pytest -q humanoid/tests reconstruction/tests

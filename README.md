@@ -17,6 +17,8 @@ video frames unchanged.
 Apple Silicon macOS, Python 3.12, Git, [uv](https://docs.astral.sh/uv/), FFmpeg
 and graphics access. Hand extraction also requires your licensed MANO model.
 Robot assets and inference models download during setup or first use.
+The TAA object-tracking stage also uses a Linux NVIDIA GPU; the tested host has
+48 GB VRAM. Its outputs can be reviewed on the Mac.
 
 ```bash
 git clone https://github.com/Dharun235/video-guided-dexterous-manipulation.git
@@ -64,9 +66,17 @@ geometry; it does not yet recover the moving case's full trajectory.
 
 The GPU reconstruction branch uses [Track, Articulate, Act](https://github.com/brains-bots-n-behavior/track-articulate-act),
 SAM3, Depth Anything 3 and SAM 3D Objects. SAM3 tracks the book and case through
-all 748 frames. A separate case mesh candidate has gravity and convex collision
-geometry in MuJoCo. Full-video 3D object poses remain pending.
+all 748 frames. DA3 now supplies depth for every frame. A separate case mesh
+candidate has gravity and convex collision geometry in MuJoCo. TrackCraft3R
+estimates moving-case poses in overlapping windows, with visibility and fit checks.
 [Commands, previews and measurements](docs/taa.md)
+· [Object-motion pipeline](docs/object-motion.md)
+
+[Recorded case motion beside the MuJoCo candidate](examples/object-motion/object-motion.mp4)
+
+Final candidate: 740/748 frames, with 310 estimates flagged for orientation review
+and eight missing poses. Coverage is not pose accuracy. Placement still needs
+contact correction before these targets can guide verified robot execution.
 
 ## 3. Retarget with humanoid-dexart-retarget
 
@@ -113,7 +123,7 @@ The pelvis is supported; walking and balance are outside scope.
 
 | Folder | Purpose |
 |---|---|
-| `reconstruction/` | Hand extraction, scene fitting and camera estimation |
+| `reconstruction/` | Hand extraction, scene/camera fitting and object-pose estimates |
 | `humanoid/` | G1/Inspire model composition, baseline fitting and geometry checks |
 | `retargeting/` | Pinned upstream solver adapter and model conversion |
 | `scripts/` | Robot setup and motion preview |
@@ -143,4 +153,6 @@ Scene reconstruction also uses
 [Depth Anything 3](https://github.com/ByteDance-Seed/Depth-Anything-3),
 [SAM 3D Objects](https://github.com/facebookresearch/sam-3d-objects) and
 [MoGe](https://github.com/microsoft/MoGe).
+Object motion uses [TrackCraft3R](https://github.com/cvlab-kaist/TrackCraft3r)
+and its Wan2.1 base model.
 [Third-party notices](THIRD_PARTY_NOTICES.md) record applicable terms.

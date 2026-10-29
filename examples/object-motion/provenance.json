@@ -1,0 +1,26 @@
+{
+  "source_video_sha256": "feced5ae9d2cabe2861a01d253fa8840ba39b9537f002677182ae4269a638605",
+  "source_frames": 748,
+  "timestamp_basis": "source_frame / average_fps",
+  "base_windows": 93,
+  "adaptive_coherent_windows": 9,
+  "targeted_coherent_repairs": 9,
+  "upstream_manifest": "scripts/taa/UPSTREAM.json",
+  "mujoco_version": "3.8.1",
+  "hand_prior_anchor_frame": 320,
+  "pose_source": "Recorded-video estimates; not measured robot states",
+  "code_sha256": {
+    "reconstruction/stitch_object_windows.py": "922a0298211cbf8cfc52e90fe09de45bea791fcf05918dba975e3994c94b359e",
+    "reconstruction/rigid_tracks.py": "bbf441e5bc21899eb3982cdfecc04feb5ba870162466bebbaef51c1b39ea4d4c",
+    "reconstruction/image_pose_refine.py": "2fb729efd95e835bc07fc63dc0d809df0962850358d680c1ad07123075e22f08",
+    "scripts/taa/full_depth.py": "4b5b1acf0140ce2ca15d7171324e8c1bcf7d348af80e10f2682a9a9178e46fe2",
+    "scripts/taa/trackcraft_with_visibility.py": "b85ce2c0085519ded2268ab648eac481374134b21cfc546427349ae8b8e161e9",
+    "scripts/taa/hand_occlusion.py": "7ceae5d2abe77675a05ac639d5012f8a7f611086f4f628dd5a7d10a1869cdf33"
+  },
+  "artifacts_sha256": {
+    "object_track.npz": "add0cef7994b6aab0df0ccbdc73139d34b146cc2fa0024d2420e95aab493e4ac",
+    "initial_pose.json": "5ae371176bd6bd5c4e737e24bf5093af6eb1d7a2c5c952576e6c3a790f4171c7",
+    "case_surface.npy": "4d9de7095577efc835ac7b09bffbaf3e513b609eec1fbf62d5abf810fdfab94e",
+    "scene/scene.xml": "d4800678f1d0a19c591b9b4cea45351653cdd0b1b6785236ddd3c0deca56923a"
+  }
+}
