@@ -11,11 +11,3 @@ where fingers or the object hide one another.
 Generated with `reconstruction.video_hands` from the published Book5 recording
 using FastHaMeR 0.8.0/Core ML and the user's licensed MANO model. The GIF samples
 the full overlay video at 8 fps. MANO files and raw mesh arrays are not included.
-
-The earlier direct G1/Inspire IK baseline fits all 683 detected frames. Mean wrist and
-fingertip residuals are 11.7 mm and 10.6 mm against inferred targets. See
-[fit metrics](retarget-metrics.json). This is kinematic fitting without physical
-contact verification; the earlier reference grasp result does not validate it.
-
-[Source versus fitted robot video](kinematic-fit.mp4): kinematic playback only;
-the object is static and missing detections show the previous pose with a warning.

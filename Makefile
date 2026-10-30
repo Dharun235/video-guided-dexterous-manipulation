@@ -6,7 +6,7 @@ setup:
 	python3 -m scripts.setup_book_g1
 
 test:
-	$(PYTHON) -m pytest -q humanoid/tests reconstruction/tests
+	$(PYTHON) -m pytest -q
 
 # Validate the published object candidate; no GPU inference or robot execution.
 review-object:

@@ -1,4 +1,4 @@
-name: G1 workflow tests
+name: Pipeline tests
 on: [push, pull_request]
 permissions:
   contents: read
@@ -13,4 +13,4 @@ jobs:
           cache: pip
           cache-dependency-path: humanoid/requirements.lock.txt
       - run: python -m pip install -r humanoid/requirements.lock.txt
-      - run: python -m pytest -q humanoid/tests
+      - run: python -m pytest -q
