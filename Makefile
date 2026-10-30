@@ -1,6 +1,6 @@
 PYTHON := .venv-g1/bin/python
 
-.PHONY: setup test review-object
+.PHONY: setup test review-object transfer
 setup:
 	python3 -m scripts.setup_g1
 	python3 -m scripts.setup_book_g1
@@ -14,3 +14,7 @@ review-object:
 	  --track examples/object-motion \
 	  --scene examples/object-motion/scene/scene.xml \
 	  --surface examples/object-motion/case_surface.npy
+
+OUTPUT ?= runs/transfer
+transfer:
+	$(PYTHON) -m manipulation.run --output $(OUTPUT)

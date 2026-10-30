@@ -1,0 +1,43 @@
+{
+  "source_sha256": "feced5ae9d2cabe2861a01d253fa8840ba39b9537f002677182ae4269a638605",
+  "source_frame": 240,
+  "method": "Observed human landmarks, nearest estimated surface contacts and bounded SciPy contact IK",
+  "finger_distances_m": [
+    0.0005572126988917515,
+    -9.050385813522112e-05,
+    0.0005644561484067204,
+    0.0,
+    0.016955684417402098
+  ],
+  "actions": [
+    -0.7695837071053955,
+    -0.026516697008255933,
+    -0.24667128736825827,
+    1.5604658002401925,
+    -1.815002775580415,
+    -0.5195178923702966,
+    -0.9590602766536939,
+    0.7186331696543294,
+    0.6276268633376805,
+    0.37097983991135997,
+    0.3447447881894035,
+    0.22963992418271403,
+    0.45255083638719074
+  ],
+  "requires_review": true,
+  "physical_grasp_verified": false,
+  "collision_proxy": "Box fitted to estimated case extents; neural mesh visual only",
+  "collision_bounds_local_m": [
+    [
+      -0.02785521000623703,
+      -0.02507249265909195,
+      -0.016473539173603058
+    ],
+    [
+      0.031171709299087524,
+      0.021605031564831734,
+      0.018742192536592484
+    ]
+  ],
+  "mean_landmark_error_m": 0.017902517139223244
+}

@@ -1,0 +1,624 @@
+{
+  "checks": {
+    "nominal": {
+      "upstream_mpc_enabled": false,
+      "mpc_updates": 0,
+      "mpc_mean_control_change_rad": 0.0,
+      "feedback_enabled": true,
+      "mass_scale": 1.0,
+      "friction_scale": 1.0,
+      "actuator_driven": true,
+      "object_pose_set_only_at_reset": true,
+      "hidden_attachment": false,
+      "robot_bias_force_compensation": true,
+      "duration_s": 21.000000000002682,
+      "source_frame": 240,
+      "source_sha256": "feced5ae9d2cabe2861a01d253fa8840ba39b9537f002677182ae4269a638605",
+      "maximum_object_lift_m": 0.049515674621764316,
+      "final_object_displacement_m": [
+        -0.03161197900295126,
+        -0.17316664372781504,
+        -0.018307051672798447
+      ],
+      "opposing_contact_duration_s": 10.795,
+      "maximum_finger_force_N": [
+        1.7518051683752387,
+        1.4445625517524674,
+        1.6357596376019454,
+        4.880562638678847,
+        4.0628414696204365
+      ],
+      "lifted": true,
+      "ready_for_training": false,
+      "contact_confirmed": true,
+      "goal_position_m": [
+        0.40090326107986685,
+        -0.1488556742454766,
+        0.796973539173603
+      ],
+      "task_reference": {
+        "initial_position_world_m": [
+          0.41867658655618195,
+          0.024984831241316778,
+          0.8147772616938556
+        ],
+        "goal_position_world_m": [
+          0.40090326107986685,
+          -0.1488556742454766,
+          0.796973539173603
+        ],
+        "transport_delta_world_m": [
+          -0.01777332547631512,
+          -0.1738405054867934,
+          -0.017803722520252425
+        ],
+        "video_estimated_lift_m": 0.0437338648186305,
+        "robot_clearance_margin_m": 0.025,
+        "lift_height_m": 0.0687338648186305,
+        "goal_source_frames": [
+          718,
+          719,
+          720,
+          721,
+          722,
+          723,
+          724,
+          725,
+          726,
+          727,
+          728,
+          729,
+          730,
+          731,
+          732,
+          733,
+          734,
+          735,
+          736,
+          737,
+          738,
+          739,
+          740,
+          741,
+          742,
+          743,
+          744,
+          745,
+          746,
+          747
+        ],
+        "goal_position_requires_review": true,
+        "goal_height_correction_m": -0.01497155036689278,
+        "rotation_policy": "Hold initial orientation; uncertain flip is not reproduced",
+        "planned_controls_are_observations": false,
+        "original_pose_flags_preserved": true,
+        "source_track_sha256": "add0cef7994b6aab0df0ccbdc73139d34b146cc2fa0024d2420e95aab493e4ac",
+        "uncertain_pose_frames": 310,
+        "missing_pose_frames": 8
+      },
+      "limitations": [
+        "Initial supported robot configuration is prescribed; walking/balance are not evaluated",
+        "Estimated box collision geometry, mass/friction and scale are assumptions",
+        "Contact feedback uses all external finger contacts",
+        "Translation-task adaptation holds initial orientation; the recorded flip and early gestures are not reproduced",
+        "Single nominal trial is not a generalization benchmark"
+      ],
+      "elapsed_s": 11.779403791006189,
+      "task_success": true,
+      "longest_opposing_case_contact_s": 9.679999999998934,
+      "contact_supported_lift_s": 5.739999999999368,
+      "final_position_error_m": 0.013864189891093361,
+      "maximum_relative_translation_during_carry_m": 0.028740138149242242,
+      "released": true,
+      "settled": true,
+      "maximum_case_contact_force_N": [
+        1.7518051683752387,
+        1.4445625517524674,
+        1.6357596376019454,
+        0.0,
+        0.0
+      ],
+      "acceptance": {
+        "minimum_lift_m": 0.025,
+        "minimum_contact_supported_lift_s": 0.3,
+        "maximum_placement_error_m": 0.04,
+        "maximum_final_linear_speed_m_s": 0.03,
+        "maximum_final_angular_speed_rad_s": 0.3
+      }
+    },
+    "mass_120_percent": {
+      "feedback_enabled": true,
+      "mass_scale": 1.2,
+      "friction_scale": 1.0,
+      "actuator_driven": true,
+      "object_pose_set_only_at_reset": true,
+      "hidden_attachment": false,
+      "robot_gravity_compensation": true,
+      "duration_s": 21.000000000002682,
+      "source_frame": 240,
+      "maximum_object_lift_m": 0.04930141940478838,
+      "final_object_displacement_m": [
+        -0.03276262054939122,
+        -0.17377490663612666,
+        -0.018307051672798558
+      ],
+      "opposing_contact_duration_s": 10.759,
+      "maximum_finger_force_N": [
+        1.585982900842073,
+        1.477769525132855,
+        1.4868607910157787,
+        4.9164570384418775,
+        4.0628414696204365
+      ],
+      "lifted": true,
+      "task_success": true,
+      "ready_for_training": false,
+      "contact_confirmed": true,
+      "final_position_error_m": 0.014997886858913003,
+      "released": true,
+      "settled": true,
+      "goal_position_m": [
+        0.40090326107986685,
+        -0.1488556742454766,
+        0.796973539173603
+      ],
+      "task_reference": {
+        "initial_position_world_m": [
+          0.41867658655618195,
+          0.024984831241316778,
+          0.8147772616938556
+        ],
+        "goal_position_world_m": [
+          0.40090326107986685,
+          -0.1488556742454766,
+          0.796973539173603
+        ],
+        "transport_delta_world_m": [
+          -0.01777332547631512,
+          -0.1738405054867934,
+          -0.017803722520252425
+        ],
+        "video_estimated_lift_m": 0.0437338648186305,
+        "robot_clearance_margin_m": 0.025,
+        "lift_height_m": 0.0687338648186305,
+        "goal_source_frames": [
+          718,
+          719,
+          720,
+          721,
+          722,
+          723,
+          724,
+          725,
+          726,
+          727,
+          728,
+          729,
+          730,
+          731,
+          732,
+          733,
+          734,
+          735,
+          736,
+          737,
+          738,
+          739,
+          740,
+          741,
+          742,
+          743,
+          744,
+          745,
+          746,
+          747
+        ],
+        "goal_position_requires_review": true,
+        "goal_height_correction_m": -0.01497155036689278,
+        "rotation_policy": "Hold initial orientation; uncertain flip is not reproduced",
+        "planned_controls_are_observations": false,
+        "original_pose_flags_preserved": true,
+        "source_track_sha256": "add0cef7994b6aab0df0ccbdc73139d34b146cc2fa0024d2420e95aab493e4ac",
+        "uncertain_pose_frames": 310,
+        "missing_pose_frames": 8
+      },
+      "limitations": [
+        "Initial supported robot configuration is prescribed; walking/balance are not evaluated",
+        "Estimated box collision geometry, mass/friction and scale are assumptions",
+        "Contact feedback uses all external finger contacts",
+        "Translation-task adaptation holds initial orientation; the recorded flip and early gestures are not reproduced",
+        "Single nominal trial is not a generalization benchmark"
+      ],
+      "elapsed_s": 12.701763082994148,
+      "longest_opposing_case_contact_s": 10.039999999998894,
+      "contact_supported_lift_s": 5.759999999999366,
+      "maximum_relative_translation_during_carry_m": 0.027679617386644793,
+      "maximum_case_contact_force_N": [
+        1.585982900842073,
+        1.477769525132855,
+        1.4868607910157787,
+        0.0,
+        0.0
+      ],
+      "acceptance": {
+        "minimum_lift_m": 0.025,
+        "minimum_contact_supported_lift_s": 0.3,
+        "maximum_placement_error_m": 0.04,
+        "maximum_final_linear_speed_m_s": 0.03,
+        "maximum_final_angular_speed_rad_s": 0.3
+      }
+    },
+    "friction_70_percent": {
+      "feedback_enabled": true,
+      "mass_scale": 1.0,
+      "friction_scale": 0.7,
+      "actuator_driven": true,
+      "object_pose_set_only_at_reset": true,
+      "hidden_attachment": false,
+      "robot_gravity_compensation": true,
+      "duration_s": 21.000000000002682,
+      "source_frame": 240,
+      "maximum_object_lift_m": 0.004813504551725023,
+      "final_object_displacement_m": [
+        -0.014069003938194768,
+        0.005141839742799605,
+        -0.00030705167279854173
+      ],
+      "opposing_contact_duration_s": 1.858,
+      "maximum_finger_force_N": [
+        1.1224995684646446,
+        1.1840077849143948,
+        1.1874522494768196,
+        5.022304689090442,
+        4.931873285935572
+      ],
+      "lifted": false,
+      "task_success": false,
+      "ready_for_training": false,
+      "contact_confirmed": true,
+      "final_position_error_m": 0.17987366508938196,
+      "released": true,
+      "settled": true,
+      "goal_position_m": [
+        0.40090326107986685,
+        -0.1488556742454766,
+        0.796973539173603
+      ],
+      "task_reference": {
+        "initial_position_world_m": [
+          0.41867658655618195,
+          0.024984831241316778,
+          0.8147772616938556
+        ],
+        "goal_position_world_m": [
+          0.40090326107986685,
+          -0.1488556742454766,
+          0.796973539173603
+        ],
+        "transport_delta_world_m": [
+          -0.01777332547631512,
+          -0.1738405054867934,
+          -0.017803722520252425
+        ],
+        "video_estimated_lift_m": 0.0437338648186305,
+        "robot_clearance_margin_m": 0.025,
+        "lift_height_m": 0.0687338648186305,
+        "goal_source_frames": [
+          718,
+          719,
+          720,
+          721,
+          722,
+          723,
+          724,
+          725,
+          726,
+          727,
+          728,
+          729,
+          730,
+          731,
+          732,
+          733,
+          734,
+          735,
+          736,
+          737,
+          738,
+          739,
+          740,
+          741,
+          742,
+          743,
+          744,
+          745,
+          746,
+          747
+        ],
+        "goal_position_requires_review": true,
+        "goal_height_correction_m": -0.01497155036689278,
+        "rotation_policy": "Hold initial orientation; uncertain flip is not reproduced",
+        "planned_controls_are_observations": false,
+        "original_pose_flags_preserved": true,
+        "source_track_sha256": "add0cef7994b6aab0df0ccbdc73139d34b146cc2fa0024d2420e95aab493e4ac",
+        "uncertain_pose_frames": 310,
+        "missing_pose_frames": 8
+      },
+      "limitations": [
+        "Initial supported robot configuration is prescribed; walking/balance are not evaluated",
+        "Estimated box collision geometry, mass/friction and scale are assumptions",
+        "Contact feedback uses all external finger contacts",
+        "Translation-task adaptation holds initial orientation; the recorded flip and early gestures are not reproduced",
+        "Single nominal trial is not a generalization benchmark"
+      ],
+      "elapsed_s": 14.949183791992255,
+      "longest_opposing_case_contact_s": 1.1599999999998722,
+      "contact_supported_lift_s": 0.0,
+      "maximum_relative_translation_during_carry_m": 0.18541332598509205,
+      "maximum_case_contact_force_N": [
+        1.1224995684646446,
+        1.1840077849143948,
+        1.1874522494768196,
+        0.3211997431169061,
+        0.0
+      ],
+      "acceptance": {
+        "minimum_lift_m": 0.025,
+        "minimum_contact_supported_lift_s": 0.3,
+        "maximum_placement_error_m": 0.04,
+        "maximum_final_linear_speed_m_s": 0.03,
+        "maximum_final_angular_speed_rad_s": 0.3
+      }
+    },
+    "force_feedback_disabled": {
+      "feedback_enabled": false,
+      "mass_scale": 1.0,
+      "friction_scale": 1.0,
+      "actuator_driven": true,
+      "object_pose_set_only_at_reset": true,
+      "hidden_attachment": false,
+      "robot_gravity_compensation": true,
+      "duration_s": 21.000000000002682,
+      "source_frame": 240,
+      "maximum_object_lift_m": -4.905000000055004e-06,
+      "final_object_displacement_m": [
+        0.00022377953270802386,
+        -2.7930327490110346e-05,
+        -0.0003067008184901576
+      ],
+      "opposing_contact_duration_s": 0.0,
+      "maximum_finger_force_N": [
+        0.18817709099568358,
+        0.0,
+        0.0,
+        0.5969519393927574,
+        4.992739559234354
+      ],
+      "lifted": false,
+      "task_success": false,
+      "ready_for_training": false,
+      "contact_confirmed": false,
+      "final_position_error_m": 0.17561563951039838,
+      "released": false,
+      "settled": true,
+      "goal_position_m": [
+        0.40090326107986685,
+        -0.1488556742454766,
+        0.796973539173603
+      ],
+      "task_reference": {
+        "initial_position_world_m": [
+          0.41867658655618195,
+          0.024984831241316778,
+          0.8147772616938556
+        ],
+        "goal_position_world_m": [
+          0.40090326107986685,
+          -0.1488556742454766,
+          0.796973539173603
+        ],
+        "transport_delta_world_m": [
+          -0.01777332547631512,
+          -0.1738405054867934,
+          -0.017803722520252425
+        ],
+        "video_estimated_lift_m": 0.0437338648186305,
+        "robot_clearance_margin_m": 0.025,
+        "lift_height_m": 0.0687338648186305,
+        "goal_source_frames": [
+          718,
+          719,
+          720,
+          721,
+          722,
+          723,
+          724,
+          725,
+          726,
+          727,
+          728,
+          729,
+          730,
+          731,
+          732,
+          733,
+          734,
+          735,
+          736,
+          737,
+          738,
+          739,
+          740,
+          741,
+          742,
+          743,
+          744,
+          745,
+          746,
+          747
+        ],
+        "goal_position_requires_review": true,
+        "goal_height_correction_m": -0.01497155036689278,
+        "rotation_policy": "Hold initial orientation; uncertain flip is not reproduced",
+        "planned_controls_are_observations": false,
+        "original_pose_flags_preserved": true,
+        "source_track_sha256": "add0cef7994b6aab0df0ccbdc73139d34b146cc2fa0024d2420e95aab493e4ac",
+        "uncertain_pose_frames": 310,
+        "missing_pose_frames": 8
+      },
+      "limitations": [
+        "Initial supported robot configuration is prescribed; walking/balance are not evaluated",
+        "Estimated box collision geometry, mass/friction and scale are assumptions",
+        "Contact feedback uses all external finger contacts",
+        "Translation-task adaptation holds initial orientation; the recorded flip and early gestures are not reproduced",
+        "Single nominal trial is not a generalization benchmark"
+      ],
+      "elapsed_s": 13.931759083003271,
+      "longest_opposing_case_contact_s": 0.0,
+      "contact_supported_lift_s": 0.0,
+      "maximum_relative_translation_during_carry_m": null,
+      "maximum_case_contact_force_N": [
+        0.18817709099568358,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "acceptance": {
+        "minimum_lift_m": 0.025,
+        "minimum_contact_supported_lift_s": 0.3,
+        "maximum_placement_error_m": 0.04,
+        "maximum_final_linear_speed_m_s": 0.03,
+        "maximum_final_angular_speed_rad_s": 0.3
+      }
+    },
+    "bounded_upstream_mpc_carry": {
+      "upstream_mpc_enabled": true,
+      "mpc_updates": 51,
+      "mpc_mean_control_change_rad": 0.017085618674458306,
+      "feedback_enabled": true,
+      "mass_scale": 1.0,
+      "friction_scale": 1.0,
+      "actuator_driven": true,
+      "object_pose_set_only_at_reset": true,
+      "hidden_attachment": false,
+      "robot_bias_force_compensation": true,
+      "duration_s": 21.000000000002682,
+      "source_frame": 240,
+      "source_sha256": "feced5ae9d2cabe2861a01d253fa8840ba39b9537f002677182ae4269a638605",
+      "maximum_object_lift_m": 0.05150661298218817,
+      "final_object_displacement_m": [
+        -0.028663566858031952,
+        -0.16818546272097817,
+        -0.018307051672798558
+      ],
+      "opposing_contact_duration_s": 10.727,
+      "maximum_finger_force_N": [
+        2.2742430476966335,
+        2.0964492905534886,
+        1.6912988776068913,
+        4.880562638678847,
+        4.0628414696204365
+      ],
+      "lifted": true,
+      "ready_for_training": false,
+      "contact_confirmed": true,
+      "goal_position_m": [
+        0.40090326107986685,
+        -0.1488556742454766,
+        0.796973539173603
+      ],
+      "task_reference": {
+        "initial_position_world_m": [
+          0.41867658655618195,
+          0.024984831241316778,
+          0.8147772616938556
+        ],
+        "goal_position_world_m": [
+          0.40090326107986685,
+          -0.1488556742454766,
+          0.796973539173603
+        ],
+        "transport_delta_world_m": [
+          -0.01777332547631512,
+          -0.1738405054867934,
+          -0.017803722520252425
+        ],
+        "video_estimated_lift_m": 0.0437338648186305,
+        "robot_clearance_margin_m": 0.025,
+        "lift_height_m": 0.0687338648186305,
+        "goal_source_frames": [
+          718,
+          719,
+          720,
+          721,
+          722,
+          723,
+          724,
+          725,
+          726,
+          727,
+          728,
+          729,
+          730,
+          731,
+          732,
+          733,
+          734,
+          735,
+          736,
+          737,
+          738,
+          739,
+          740,
+          741,
+          742,
+          743,
+          744,
+          745,
+          746,
+          747
+        ],
+        "goal_position_requires_review": true,
+        "goal_height_correction_m": -0.01497155036689278,
+        "rotation_policy": "Hold initial orientation; uncertain flip is not reproduced",
+        "planned_controls_are_observations": false,
+        "original_pose_flags_preserved": true,
+        "source_track_sha256": "add0cef7994b6aab0df0ccbdc73139d34b146cc2fa0024d2420e95aab493e4ac",
+        "uncertain_pose_frames": 310,
+        "missing_pose_frames": 8
+      },
+      "limitations": [
+        "Initial supported robot configuration is prescribed; walking/balance are not evaluated",
+        "Estimated box collision geometry, mass/friction and scale are assumptions",
+        "Contact feedback uses all external finger contacts",
+        "Translation-task adaptation holds initial orientation; the recorded flip and early gestures are not reproduced",
+        "Single nominal trial is not a generalization benchmark"
+      ],
+      "elapsed_s": 45.12232095899526,
+      "task_success": true,
+      "longest_opposing_case_contact_s": 4.0999999999995485,
+      "contact_supported_lift_s": 1.7999999999998018,
+      "final_position_error_m": 0.012281294975329751,
+      "maximum_relative_translation_during_carry_m": 0.03413781426603119,
+      "released": true,
+      "settled": true,
+      "maximum_case_contact_force_N": [
+        2.2742430476966335,
+        2.0964492905534886,
+        1.6912988776068913,
+        0.0,
+        0.0
+      ],
+      "acceptance": {
+        "minimum_lift_m": 0.025,
+        "minimum_contact_supported_lift_s": 0.3,
+        "maximum_placement_error_m": 0.04,
+        "maximum_final_linear_speed_m_s": 0.03,
+        "maximum_final_angular_speed_rad_s": 0.3
+      }
+    }
+  },
+  "independent_random_trials": false,
+  "success_rate_claimed": false
+}

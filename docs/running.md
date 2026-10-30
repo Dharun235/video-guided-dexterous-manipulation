@@ -12,8 +12,8 @@ make test
 ```
 
 This installs the simulation environment and fetches pinned G1/Inspire assets.
-The current preview uses kinematics; physical execution is not implemented in
-this workflow yet. The main README contains the ordered commands for each step.
+The hand-fit preview below uses kinematics. The separate [physical transfer](physics.md)
+implements motor-driven execution and contact feedback with the saved source inputs.
 
 ## Hand extraction
 

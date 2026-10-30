@@ -1,79 +1,59 @@
 # G1/Inspire retargeting
 
-The project now calls `solve_retargeting` and
-`create_laplacian_interaction_mesh` from
+The adapter calls `solve_retargeting` and `create_laplacian_interaction_mesh` from
 [humanoid-dexart-retarget](https://github.com/gtziafas/humanoid-dexart-retarget).
-It uses PyRoki forward kinematics and JAX trajectory optimization on the Mac CPU.
-Pinned source revisions and hashes are in [UPSTREAM.json](../retargeting/UPSTREAM.json).
+PyRoki/JAX optimizes the observed right hand against G1/Inspire joint geometry.
+Upstream files remain unchanged; revisions are pinned in
+[UPSTREAM.json](../retargeting/UPSTREAM.json).
 
-## Setup and upstream check
+## Setup
 
 ```bash
 python3 -m scripts.setup_dexart
-.venv-dexart/bin/python -m retargeting.check_example --output runs/dexart-example
 ```
 
-The check runs four frames of the supplied H2O milk example without the interactive
-viewer. It checks finite solver output, not physical task success. The source
-expects prepared hand/object tracks; it does not extract them from RGB video.
+The setup creates a separate CPU environment. The original simulator environment
+remains `.venv-g1`. Robot landmarks exported to PyRoki are checked against MuJoCo
+forward kinematics before optimization. The pelvis and unobserved joints stay
+supported/fixed; no second hand is inferred from the recording.
 
-## Run our recording
+## Moving-object targets
 
-After hand extraction, scene fitting and camera registration:
+After full hand extraction and camera calibration:
 
 ```bash
 .venv-dexart/bin/python -m retargeting.video \
   --hands runs/full-hands --scene runs/book5-space \
   --cameras runs/book5-cameras/camera_poses.json \
-  --output runs/dexart-retarget --stride 3 --window 24
-.venv-g1/bin/python -m scripts.preview_hand_retarget \
-  --hands runs/full-hands --retarget runs/dexart-retarget --output runs/dexart-preview
+  --object-track examples/object-motion \
+  --start-frame 228 --end-frame 428 --stride 6 --window 24 \
+  --output runs/moving-case-retarget
 ```
 
-The selected observed frames are about 20 Hz at the original timing. All 748
-source timestamps remain in the output; unsolved/missing frames have invalid
-flags and NaN actions. Window-end padding is a solver implementation detail and
-is not exported as new observations. Gaps are not bridged by invented poses.
-For full frame-rate fitting use `--stride 1`; the published trial uses stride 3.
+The object input supplies local sampled surface anchors and per-frame world
+poses. The adapter excludes invalid and review-flagged object poses; it does not
+interpolate them. Without `--object-track`, it uses static book anchors.
 
-## Adapter changes
+The tested 34-frame segment at source frames 228–426 has mean wrist/tip residuals
+of 12.1/9.7 mm against estimated human landmarks. Its largest target change is
+0.52 rad, so it is not directly executable. A one-frame bounded IK fit at
+the selected segment's first observed frame initializes the upstream solver.
+[Saved fit report](../examples/physics/moving-case-retarget.json)
 
-- Export the current MuJoCo robot to a right-arm/hand URDF. Preserve joint axes,
-  wrist attachment and linear finger couplings. Fix the lower body and unused arm.
-- Verify landmark forward kinematics between PyRoki and MuJoCo before solving.
-- Apply a strong support penalty to the remaining root variable. Export only joint
-  controls into the fixed-pelvis MuJoCo scene.
-- Use the observed right-hand landmarks and reconstructed static book corners in
-  the upstream Laplacian interaction mesh. No left-hand observations are invented.
-- Initialize from one observed-frame bounded IK fit. Final trajectory targets come
-  from the upstream solver, not the SciPy baseline trajectory.
-- Increase the upstream soft joint-limit penalty and explicitly bound exported
-  motor targets. Record any raw excess and clipped components.
+## Outputs
 
-Upstream files are unchanged. These objective extensions are implemented in our
-adapter. Self-collision uses PyRoki capsules fitted to conservative box proxies;
-this does not establish collision-free execution in the original MuJoCo scene.
+- `retarget.npz`: complete source timeline, solved/observed masks, bounded actions,
+  target/fitted landmarks and residuals. Unsolved rows remain NaN.
+- `scene.xml`: composed G1/Inspire scene.
+- `joint-map.json`: named controls and joint-state order.
+- `report.json`: method, upstream revision, weights, fit residuals, root drift,
+  joint-limit clipping and continuity checks.
 
-## Current trial
+The interaction objective is kinematic. Its collision penalties and bounded
+joints do not certify a physical grasp. Different windows are solved separately
+and their boundaries may be discontinuous. The reliable object segment covers
+only part of the recording; the uncertain flip remains unresolved.
 
-The upstream example passed its finite-output check. Our video trial solved
-227 observed frames over the full timeline in 105 seconds on CPU.
-
-| Metric on the same 227 frames | Upstream adaptation | Earlier SciPy baseline |
-|---|---:|---:|
-| Mean wrist residual | 31.7 mm | 11.7 mm |
-| Mean fingertip residual | 24.9 mm | 10.6 mm |
-
-Residuals compare inferred hand targets, not ground truth. The largest exported
-target step is 1.73 rad. This trial does not improve the baseline and is not ready
-for physical execution. Window continuity and moving-case interaction still need
-refinement. The book anchors are not a substitute for the case's pose trajectory.
-
-The model bridge agreed with MuJoCo landmarks within 0.00025 mm in five sampled
-joint configurations. This validates coordinate conversion, not manipulation.
-
-## External code
-
-The retargeter stays in ignored `third_party/`; its code is not copied into the
-MIT project. No repository-level license was found in the inspected checkout.
-Upstream assets and dependencies retain their own terms.
+The [physical transfer experiment](physics.md) uses a separate contact-aware
+bounded IK fit and simulated force feedback. It does not execute the unverified
+PyRoki trajectory or claim that the upstream solver produced the physical result.

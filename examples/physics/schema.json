@@ -1,0 +1,49 @@
+{
+  "action_names": [
+    "right_shoulder_pitch_joint",
+    "right_shoulder_roll_joint",
+    "right_shoulder_yaw_joint",
+    "right_elbow_joint",
+    "right_wrist_roll_joint",
+    "right_wrist_pitch_joint",
+    "right_wrist_yaw_joint",
+    "R_pinky_proximal_joint",
+    "R_ring_proximal_joint",
+    "R_middle_proximal_joint",
+    "R_index_proximal_joint",
+    "R_thumb_proximal_pitch_joint",
+    "R_thumb_proximal_yaw_joint"
+  ],
+  "joint_names": [
+    "right_shoulder_pitch_joint",
+    "right_shoulder_roll_joint",
+    "right_shoulder_yaw_joint",
+    "right_elbow_joint",
+    "right_wrist_roll_joint",
+    "right_wrist_pitch_joint",
+    "right_wrist_yaw_joint",
+    "R_thumb_proximal_yaw_joint",
+    "R_thumb_proximal_pitch_joint",
+    "R_thumb_intermediate_joint",
+    "R_thumb_distal_joint",
+    "R_index_proximal_joint",
+    "R_index_intermediate_joint",
+    "R_middle_proximal_joint",
+    "R_middle_intermediate_joint",
+    "R_ring_proximal_joint",
+    "R_ring_intermediate_joint",
+    "R_pinky_proximal_joint",
+    "R_pinky_intermediate_joint"
+  ],
+  "touch_fingers": [
+    "thumb",
+    "index",
+    "middle",
+    "ring",
+    "pinky"
+  ],
+  "touch_channels": [
+    "normal_N",
+    "shear_N"
+  ]
+}

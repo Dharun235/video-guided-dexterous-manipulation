@@ -1,0 +1,26 @@
+{
+  "source_video": "examples/source-recording/book5.mp4",
+  "source_video_sha256": "feced5ae9d2cabe2861a01d253fa8840ba39b9537f002677182ae4269a638605",
+  "recording_device": "iPhone 14",
+  "recording_camera": "Handheld in left hand; right hand manipulates case",
+  "human_seed_source_frame": 240,
+  "hand_seed_sha256": "bc7a5f157f83b440d8e7a86efdc8353d1bfafad875952e710a785d7cc10a35d7",
+  "object_track_sha256": "add0cef7994b6aab0df0ccbdc73139d34b146cc2fa0024d2420e95aab493e4ac",
+  "mujoco_version": "3.8.1",
+  "observation_archive_sha256": "7c352735fa19305c08094793373f8a86677b16aef209a38f3c122bad10e5afdf",
+  "physical_rollout_is_simulation": true,
+  "full_video_imitation": false,
+  "implementation_sha256": {
+    "manipulation/__init__.py": "8bc7b7475ae0197696051543d4c02239be3443e1207cecee88197e723bf3621c",
+    "manipulation/control.py": "90f8827cc8d5f3e1cf4d700abeff51abb806c8053a98f22ef989c02a53287226",
+    "manipulation/data.py": "41570b0273377e0cfaa2b355dafa3f451704340fbffed009e2037757ff798f1d",
+    "manipulation/export.py": "73bbbb73204927e435b67043cd8246a1135e19b970331d38460899c8de344424",
+    "manipulation/fit.py": "3b28ef113d1013259c7d6500668f34fd64da612270ef59b6d7166b31c0b81fc8",
+    "manipulation/metrics.py": "97fe54182288a87378479fa5ecf7658d5d5edbee428416f15aa19b5893947fc4",
+    "manipulation/mpc.py": "164b91c3bcbe6fd8cdc78835d538f54c946a2ee8799f94f0515dc93976a86ae8",
+    "manipulation/preview.py": "1613e3b730b496429a463d16cca78f119469d263cecde774154d28705f6a2519",
+    "manipulation/rollout.py": "a2b92c92b49126612fa03889ec75d111cfb3c491fda4aba594129daf7d5e515d",
+    "manipulation/run.py": "0b070e50e9eba6a00767af32765339039fccaded93991173ac6c22238e6edd8a",
+    "manipulation/targets.py": "760cc875c71fbe73e2cc5568134594ef7f65d9582a99804552e9a4cb35cb453a"
+  }
+}

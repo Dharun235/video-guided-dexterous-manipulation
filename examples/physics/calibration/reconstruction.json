@@ -1,0 +1,98 @@
+{
+  "source": "examples/source-recording/book5.mp4",
+  "source_sha256": "feced5ae9d2cabe2861a01d253fa8840ba39b9537f002677182ae4269a638605",
+  "method": "Photographic plane fitting + explicit rounded rigid case; no neural scene mesh claimed",
+  "camera": {
+    "intrinsics": [
+      [
+        767.9622814839748,
+        0.0,
+        416.0
+      ],
+      [
+        0.0,
+        767.9622814839748,
+        232.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "rotation": [
+      2.5814211006824967,
+      0.03424551750231589,
+      -0.06692737020908811
+    ],
+    "translation": [
+      -0.04260266562560778,
+      0.04136612732225907,
+      0.5289373233558855
+    ],
+    "position": [
+      0.07112930718436296,
+      -0.2434121898274577,
+      0.4679657713442421
+    ],
+    "book_corner_mean_fit_px": 0.21368491727737468
+  },
+  "priors": {
+    "book_dimensions_m": [
+      0.198,
+      0.129,
+      0.018
+    ],
+    "case_dimensions_m": [
+      0.06073674041804265,
+      0.04399302795718357,
+      0.026
+    ],
+    "case_mass_kg": 0.055,
+    "friction": 0.7,
+    "all": "estimates, not measured from the video"
+  },
+  "initial_case_center_m": [
+    0.004553081592983453,
+    -0.0024873355311780814,
+    0.031000000000000028
+  ],
+  "table_polygon_m": [
+    [
+      -0.29271306471712616,
+      0.12190805852544187,
+      -5.551115123125783e-17
+    ],
+    [
+      0.34867221134095705,
+      0.12114407682445702,
+      5.551115123125783e-17
+    ],
+    [
+      0.2853260896235857,
+      -0.14154250659764453,
+      0.0
+    ],
+    [
+      -0.1994276063614669,
+      -0.1560636372859372,
+      0.0
+    ]
+  ],
+  "case_fit": {
+    "yaw_radians": 0.05302505819075746,
+    "silhouette_support_rmse_px": 1.0649235950337879,
+    "note": "Fit to visible silhouette conditional on estimated height and camera calibration"
+  },
+  "sampled_frames": 26,
+  "registered_frames": 26,
+  "segmented_case_frames": 14,
+  "limitations": [
+    "Metric scale fixed by estimated paperback dimensions",
+    "Only visible tabletop and rear wall are reconstructed",
+    "Hidden surfaces and slab thickness are authored completions",
+    "Photographic textures contain baked lighting and inpainted occlusions",
+    "Case mask is visible silhouette only; full 6D moving pose not recovered",
+    "Physics parameters are estimates; no robot grasp attempted"
+  ]
+}

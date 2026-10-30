@@ -18,6 +18,7 @@ replace upstream code, model, dataset or video terms.
 | Track, Articulate, Act | https://github.com/brains-bots-n-behavior/track-articulate-act | External checkout; revision and commands in docs/taa.md; upstream terms apply |
 | SAM3 / SAM 3D Objects | https://github.com/facebookresearch/sam3 and https://github.com/facebookresearch/sam-3d-objects | External source and gated model weights; their separate source/model terms apply; no weights redistributed |
 | Depth Anything 3 / MoGe | https://github.com/ByteDance-Seed/Depth-Anything-3 and https://github.com/microsoft/MoGe | External geometry models; source/model terms apply; no weights redistributed |
+| MuJoCo MPC Python predictive sampler | https://github.com/google-deepmind/mujoco_mpc | Apache-2.0; external unmodified Python module and license, pinned and hash-checked in manipulation/MPC_UPSTREAM.json |
 | TrackCraft3R / Wan2.1 | https://github.com/cvlab-kaist/TrackCraft3r and https://huggingface.co/Wan-AI/Wan2.1-T2V-1.3B | External tracking/base-model source and weights; pinned in scripts/taa/UPSTREAM.json; original terms apply; no weights redistributed |
 
 Downloaded robot assets retain their upstream licenses. Model weights, caches, licensed MANO files, unpublished recordings and full

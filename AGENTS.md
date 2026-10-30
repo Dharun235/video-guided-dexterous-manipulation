@@ -9,13 +9,15 @@ Keep changes focused on this workflow. Do not reintroduce unrelated robot tracks
 Active scope is full-video right-hand extraction and G1/Inspire retargeting,
 followed by physical verification. The selected upstream retargeter runs in
 .venv-dexart through retargeting.video. Keep upstream files unchanged and record
-objective extensions honestly. The first static-book-anchor trial has worse fit
-than the SciPy baseline; do not claim improved tracking or a physical grasp. Do not reintroduce VLA training, RL, collection
+objective extensions honestly. Do not claim that the upstream kinematic solver produced the separate contact-IK
+physical rollout. Do not reintroduce VLA training, RL, collection
 splits or policy benchmarks unless the user requests them. Use .venv-g1 for
 simulation/tests and .venv-book-reconstruction for FastHaMeR/Core ML extraction.
 Preserve official robot models. Whole-body reconstruction is not required for
-this close-up hand recording. The current direct IK path and preview are kinematic only. Physical execution
-is a future stage; no previous grasp demo is included.
+this close-up hand recording. The original direct IK preview remains kinematic. manipulation/ now implements
+a separate actuator-driven translation-task adaptation with a box collision
+proxy, external-contact feedback and optional upstream MuJoCo MPC refinement.
+Do not describe it as exact full-video imitation; the uncertain flip is omitted.
 
 ## Geometry and evidence
 
@@ -63,3 +65,15 @@ were removed on 2026-10-30. Keep candidate-04, its scene, full depth archive,
 extracted tracking windows, full hand/camera inputs and required model caches.
 Do not use deleted diagnostic runs as prerequisites. Current cleanup inventory
 is local at runs/cleanup-2026-10-30.json.
+
+## Physical transfer
+
+The contact-IK controller uses an observed frame-240 hand seed and video-derived
+source/destination positions. Explicit phase timing, clearance margins and fixed
+initial orientation are control-design assumptions. Raw pose flags are untouched.
+The robot is supported with bias-force compensation; no force or attachment is
+applied to the free case. Sensor feedback includes all external finger contacts;
+object-specific contacts are used only for evaluation. Store failures alongside
+successes. Lower-friction and no-force-feedback trials failed; no generalization
+or training-readiness claim is supported. MuJoCo MPC is pinned, unmodified upstream
+Python code with our reward/bounds adapter, not the GPU SPIDER backend.

@@ -1,0 +1,12 @@
+{
+  "repository": "https://github.com/google-deepmind/mujoco_mpc",
+  "revision": "ff572a21e7c2bf9fda62e1862a758da7e9a8719b",
+  "files": {
+    "predictive_sampling.py": "python/mujoco_mpc/demos/predictive_sampling/predictive_sampling.py",
+    "LICENSE": "LICENSE"
+  },
+  "sha256": {
+    "predictive_sampling.py": "98c33a5197a66a4b7ea058d323df9d6d09a71b293fda2a8f90307f19e5a3cc39",
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  }
+}

@@ -57,7 +57,7 @@ def convert_hand(output):
     return converted,body,mimics
 
 
-def make_model(scene,output):
+def make_model(scene,output,calibration=None):
     root=ET.parse(G1/'g1.xml').getroot()
     root.find('compiler').set('autolimits','true');root.find('compiler').attrib.pop('meshdir',None)
     for asset in root.findall('asset/*'):
@@ -104,12 +104,12 @@ def make_model(scene,output):
             node.find("geom[@name='case_solid']").set('condim','4')
             node.set('pos',' '.join(map(str,SCENE_ROTATION@np.fromstring(node.get('pos'),sep=' ')+ORIGIN)))
             from scipy.spatial.transform import Rotation
-            q=np.fromstring(node.get('quat'),sep=' ')
+            q=np.fromstring(node.get('quat','1 0 0 0'),sep=' ')
             node.set('quat',' '.join(map(str,(Rotation.from_matrix(SCENE_ROTATION)*Rotation.from_quat(q[[1,2,3,0]])).as_quat()[[3,0,1,2]])))
             world.append(node)
         else:frame.append(node)
     from scipy.spatial.transform import Rotation
-    meta=json.loads((scene/'reconstruction.json').read_text());cam=meta['camera']
+    meta=json.loads(((calibration or scene)/'reconstruction.json').read_text());cam=meta['camera']
     ego_position=SCENE_ROTATION@np.array(cam['position'])+ORIGIN
     ego_rotation=SCENE_ROTATION@Rotation.from_rotvec(cam['rotation']).as_matrix().T@np.diag([1,-1,-1])
     ego_q=Rotation.from_matrix(ego_rotation).as_quat()[[3,0,1,2]]

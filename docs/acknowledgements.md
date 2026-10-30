@@ -13,3 +13,5 @@ visibility and rigid-fit checks, flagged pose relocalization, MuJoCo scene
 integration and review tools. Upstream models and solvers remain credited to
 their authors. [Third-party notices](../THIRD_PARTY_NOTICES.md) record applicable
 terms; licensed MANO files and model weights are not included.
+
+Physical refinement optionally calls the unmodified [MuJoCo MPC Python predictive sampler](https://github.com/google-deepmind/mujoco_mpc/tree/main/python/mujoco_mpc/demos/predictive_sampling). The local adapter supplies the G1/Inspire model, reference, bounds and reward; it is not the CUDA SPIDER or Do as I Do implementation.

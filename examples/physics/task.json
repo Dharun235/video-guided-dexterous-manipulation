@@ -1,0 +1,60 @@
+{
+  "initial_position_world_m": [
+    0.41867658655618195,
+    0.024984831241316778,
+    0.8147772616938556
+  ],
+  "goal_position_world_m": [
+    0.40090326107986685,
+    -0.1488556742454766,
+    0.796973539173603
+  ],
+  "transport_delta_world_m": [
+    -0.01777332547631512,
+    -0.1738405054867934,
+    -0.017803722520252425
+  ],
+  "video_estimated_lift_m": 0.0437338648186305,
+  "robot_clearance_margin_m": 0.025,
+  "lift_height_m": 0.0687338648186305,
+  "goal_source_frames": [
+    718,
+    719,
+    720,
+    721,
+    722,
+    723,
+    724,
+    725,
+    726,
+    727,
+    728,
+    729,
+    730,
+    731,
+    732,
+    733,
+    734,
+    735,
+    736,
+    737,
+    738,
+    739,
+    740,
+    741,
+    742,
+    743,
+    744,
+    745,
+    746,
+    747
+  ],
+  "goal_position_requires_review": true,
+  "goal_height_correction_m": -0.01497155036689278,
+  "rotation_policy": "Hold initial orientation; uncertain flip is not reproduced",
+  "planned_controls_are_observations": false,
+  "original_pose_flags_preserved": true,
+  "source_track_sha256": "add0cef7994b6aab0df0ccbdc73139d34b146cc2fa0024d2420e95aab493e4ac",
+  "uncertain_pose_frames": 310,
+  "missing_pose_frames": 8
+}

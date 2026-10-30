@@ -14,6 +14,7 @@ import numpy as np
 import pyroki as pk
 from yourdfpy import URDF
 from scipy.optimize import least_squares
+from scipy.spatial.transform import Rotation
 
 from humanoid.book_g1 import make_model, ORIGIN, SCENE_ROTATION, BACKGROUND_CONTROL
 from humanoid.kinematics import set_configuration
@@ -93,13 +94,13 @@ def run(args):
         baseline_report = json.loads((args.initial_reference / 'report.json').read_text())
         if baseline_report['source_sha256'] != source['source_sha256']:
             raise ValueError('Initialization must use the same source recording')
-        first = int(np.flatnonzero(baseline['valid'])[0])
+        first = int(np.flatnonzero(baseline['valid'] & (np.arange(len(rows)) >= args.start_frame))[0])
         initial = np.array([baseline['actions'][first, baseline_names.index(name)] for name in robot.joints.actuated_names])
         robot = pk.Robot.from_urdf(urdf, default_joint_cfg=initial)
     else:
         # This one-frame IK supplies an initial configuration, not the output
         # trajectory. All selected motion frames are optimized by upstream.
-        first = int(np.flatnonzero(np.isfinite(world).all(axis=(1, 2)))[0])
+        first = int(np.flatnonzero(np.isfinite(world).all(axis=(1, 2)) & (np.arange(len(rows)) >= args.start_frame))[0])
         workspace = mujoco.MjData(model)
         sites = [model.site(f'landmark_{i}').id for i in range(21)]
         low, high = model.actuator_ctrlrange[active].T
@@ -118,10 +119,21 @@ def run(args):
     collision = pk.collision.RobotCollision.from_urdf(urdf)
     fk_error = verify_fk(model, active, robot, root_position)
     print(f'URDF/MuJoCo landmark agreement: {fk_error:.3g} m', flush=True)
-    # The static book supplies real scene anchors, not a fabricated moving-case
-    # trajectory. Object-contact preservation therefore remains a later stage.
+    # Use static book anchors by default, or unflagged moving-case anchors below.
     anchors = np.vstack([corners(0), corners(BOOK_SIZE[2])]) @ SCENE_ROTATION.T + ORIGIN
+    object_track = None
+    if args.object_track:
+        object_track = np.load(args.object_track / 'object_track.npz')
+        if not np.array_equal(object_track['source_frame'], np.arange(len(rows))):
+            raise ValueError('Object and hand source timelines must match')
+        surface = np.load(args.object_track / 'case_surface.npy')
+        anchors = surface[np.linspace(0, len(surface)-1, 16).astype(int)]
     ids = np.array([i for i in range(0, len(rows), args.stride) if np.isfinite(world[i]).all()])
+    if object_track is not None:
+        ids = ids[object_track['valid'][ids] & ~object_track['requires_review'][ids]]
+    ids = ids[ids >= args.start_frame]
+    if args.end_frame is not None:
+        ids = ids[ids <= args.end_frame]
     if args.maximum_frames:
         ids = ids[:args.maximum_frames]
     if not len(ids):
@@ -144,8 +156,15 @@ def run(args):
             for offset in range(0, len(segment), args.window):
                 chosen = segment[offset:offset+args.window]
                 padded = np.pad(chosen, (0, args.window-len(chosen)), mode='edge')
-                points = jnp.array(np.tile((anchors-root_position)[None], (len(padded), 1, 1)), dtype=jnp.float32)
-                poses = jaxlie.SE3.identity((len(padded),))
+                if object_track is None:
+                    points = jnp.array(np.tile((anchors-root_position)[None], (len(padded), 1, 1)), dtype=jnp.float32)
+                    poses = jaxlie.SE3.identity((len(padded),))
+                else:
+                    points = jnp.asarray(np.tile(anchors[None], (len(padded), 1, 1)), dtype=jnp.float32)
+                    rotations_case = SCENE_ROTATION @ object_track['rotation_world'][padded]
+                    xyzw = Rotation.from_matrix(rotations_case).as_quat()
+                    positions_case = object_track['translation_world_m'][padded] @ SCENE_ROTATION.T + ORIGIN-root_position
+                    poses = jaxlie.SE3(jnp.asarray(np.column_stack([xyzw[:, [3,0,1,2]], positions_case]), dtype=jnp.float32))
                 laplacian, neighbor_idx, neighbor_mask, degree = utils.create_laplacian_interaction_mesh(
                     points, poses, jnp.asarray(world[padded]-root_position, dtype=jnp.float32), jnp.arange(21))
                 # Keep topology-array shapes constant across CPU windows to
@@ -208,7 +227,7 @@ def run(args):
                   ready_for_physics=False, largest_target_step_rad=largest_step,
                   maximum_root_deviation_units="Largest absolute SE3 tangent component: translation metres, rotation radians",
                   upstream_files_modified=False, limit_penalty_multiplier=100., clipped_action_components=clipped_components,
-                  initialization='First valid joint configuration from the supplied baseline only; no baseline trajectory targets' if args.initial_reference else 'Single observed-frame bounded IK seed; final trajectory optimized by upstream', reference='Static reconstructed book anchors; moving-case interaction is not yet supplied.',
+                  initialization='First valid joint configuration from the supplied baseline only; no baseline trajectory targets' if args.initial_reference else 'Single observed-frame bounded IK seed; final trajectory optimized by upstream', reference='Unflagged moving-case poses and local surface anchors' if args.object_track else 'Static reconstructed book anchors',
                   limitations=['Kinematic fit, not physical execution.', 'Capsule self-collision penalty uses box approximations of the original collision shapes.',
                                'Only selected observed frames are solved; unsolved and missing frames stay invalid.',
                                'Window boundaries are not smoothed across windows; inspect continuity before execution.',
@@ -226,7 +245,10 @@ def main():
     parser.add_argument('--stride', type=int, default=3)
     parser.add_argument('--window', type=int, default=12)
     parser.add_argument('--maximum-frames', type=int, default=0)
+    parser.add_argument('--start-frame', type=int, default=0)
+    parser.add_argument('--end-frame', type=int)
     parser.add_argument('--initial-reference', type=Path)
+    parser.add_argument('--object-track', type=Path, help='Directory with object_track.npz and case_surface.npy; flagged poses are excluded')
     args = parser.parse_args()
     if args.stride < 1 or args.window < 2:
         parser.error('Positive stride and window >= 2 required')
