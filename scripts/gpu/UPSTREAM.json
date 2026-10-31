@@ -1,0 +1,27 @@
+{
+  "repository": "https://github.com/facebookresearch/spider",
+  "revision": "44717007de41cbef7565dff7ff9f4453557a2d3d",
+  "license": "CC-BY-NC; external source retains upstream terms",
+  "sha256": {
+    "spider/optimizers/sampling.py": "d4df207522e0ac5656d44763dfcb91982d01a3559da783b42c272bee9ee22940",
+    "spider/simulators/mjwp.py": "b414105e5fd276e92ea347a69b529cd21a65a59a198cb2b40406ebdf7644ed66",
+    "spider/config.py": "45e383f45399a655e62f66018286def56ac957abc3a9015639d3307f20a0a99e",
+    "LICENSE": "f135c4b13c6fb305da4a85db33556e08abb2b1385aff7d450ce362fe481e527c"
+  },
+  "observed_runtime": {
+    "python": "3.12.3",
+    "torch": "2.8.0+cu128 (inherited from pod image)",
+    "mujoco": "3.7.0",
+    "mujoco-warp": "3.7.0.1",
+    "warp-lang": "1.12.1",
+    "gpu": "NVIDIA RTX 3090, 24 GB"
+  },
+  "upstream_source_modified": false,
+  "local_extensions": [
+    "Fixed-root G1 uses the all-hinge robot plus final free-object layout",
+    "Only right arm/Inspire actuators receive sampling noise",
+    "Candidate controls and CPU plant enforce actuator bounds and target slew",
+    "Independent MuJoCo CPU plant executes optimized robot commands",
+    "Source confidence flags are preserved; no object guidance actuators"
+  ]
+}

@@ -59,6 +59,9 @@ For full processing, follow these guides in order:
 4. [G1/Inspire retargeting](docs/retargeting.md)
 5. [Physical transfer and optional automatic refinement](docs/physics.md)
 
+[Experimental GPU physics retargeting](docs/gpu-physics.md) runs the upstream
+SPIDER optimizer; it has not yet improved the video-driven rotation grasp.
+
 The supplied calibration is specific to Book5. A new recording needs reviewed
 scene dimensions, annotations and camera alignment. Generated runs, models and
 licensed assets are excluded from Git.

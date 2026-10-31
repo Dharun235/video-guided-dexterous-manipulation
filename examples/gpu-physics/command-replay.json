@@ -1,0 +1,7 @@
+{
+  "recorded_states_checked": 1088,
+  "full_motor_commands": 10880,
+  "maximum_qpos_difference": 0.0,
+  "same_runtime_command_replay_matches": true,
+  "mujoco_version": "3.7.0"
+}

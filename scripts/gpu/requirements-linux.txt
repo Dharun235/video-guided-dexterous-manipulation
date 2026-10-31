@@ -1,0 +1,7 @@
+# PyTorch 2.8.0+cu128 is inherited from the tested GPU image.
+numpy==2.5.4
+mujoco==3.7.0
+mujoco-warp==3.7.0.1
+warp-lang==1.12.1
+loguru==0.7.3
+hydra-core==1.3.2

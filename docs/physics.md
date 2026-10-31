@@ -96,7 +96,8 @@ SPIDER-based sampling MPC with MuJoCo Warp and requires NVIDIA CUDA. That is a
 closer route to full-trajectory physics optimization, but it is not the backend
 executed here. [SPIDER](https://github.com/facebookresearch/spider) also provides
 Inspire/G1 examples and reference tracking. No CUDA backend or model weights are
-installed by this CPU experiment. None of these controllers removes the need to
+installed by this CPU experiment. The separate [GPU retargeting check](gpu-physics.md)
+now runs SPIDER, but has not improved the video-driven grasp. None of these controllers removes the need to
 review uncertain monocular geometry or supply mass/friction assumptions.
 
 ## Outputs and checks

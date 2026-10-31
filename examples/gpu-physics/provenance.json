@@ -1,0 +1,16 @@
+{
+  "optimizer_source": "scripts/gpu/UPSTREAM.json",
+  "result": "Failed rotation-tracking test; not training data",
+  "reference_source_frames": [
+    228,
+    426
+  ],
+  "original_observations_modified": false,
+  "files_sha256": {
+    "trajectory.npz": "e46f283dd0b454d51c71eb3f996d689d9a81e23b79a223f32c44f6db329cb10e",
+    "control-reference.npz": "7fd4cd7934a154f6409b18550c5b1d48f73a82fb4a34b7f3a5afed5143f0da89",
+    "optimization.json": "b162e7e93063e84fd085d8d6d3246c0f62a710c30df1d2388b254c4fd2500986",
+    "command-replay.json": "7870bddba32dec61dc27ce9b203a4d7cac30d3ce7c8424b1b9f8c2b16040a3a1"
+  },
+  "backup_archive_sha256": "f592b8c2ef8f372c900e24bb723a984f00f8c38a436a8ddff123f96dc93f2767"
+}

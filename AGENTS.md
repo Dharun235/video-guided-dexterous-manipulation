@@ -77,3 +77,15 @@ object-specific contacts are used only for evaluation. Store failures alongside
 successes. Lower-friction and no-force-feedback trials failed; no generalization
 or training-readiness claim is supported. MuJoCo MPC is pinned, unmodified upstream
 Python code with our reward/bounds adapter, not the GPU SPIDER backend.
+
+## GPU physics branch
+
+scripts/gpu/ calls unmodified SPIDER sampling and MuJoCo Warp at the pinned
+revision. The supported G1 uses the all-hinge robot + final free-object layout,
+not a floating-pelvis indexing convention. Reuse shifted optimized plans as in
+the upstream runner. Do not reset learned corrections at every planning step.
+The current cleaned video segment test loses the case: GPU mean/max position
+errors 11.9/82.7 mm versus replay 10.9/80.4 mm. Do not claim improvement, whole-video
+tracking, grasp success or training readiness. The complete executed commands
+were independently replayed in MuJoCo 3.7.0 with exact qpos agreement. Results
+are backed up under runs/gpu-physics-results-01; the supplied GPU is idle.
