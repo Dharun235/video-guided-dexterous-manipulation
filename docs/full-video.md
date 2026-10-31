@@ -278,3 +278,12 @@ cannot certify a physical pose.
   --case-masks runs/taa-full-01/masks/case --scene runs/full-video-scene \
   --config configs/book5.json --output runs/full-video-object-mask-check
 ```
+
+
+## Grasp acceptance check
+
+[Contact-normal verification](../examples/grasp-verification/README.md) tests four
+native-hand candidates with and without a lift gate. None passes. The old force-
+presence check could mistake pressure on the top face for opposition; the new
+check requires opposing force directions on the same external body. It correctly
+withholds lifting for these candidates. This is a controller guard, not a solved grasp.

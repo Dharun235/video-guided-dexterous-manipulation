@@ -1,0 +1,13 @@
+{
+  "portable_candidate_replay_qpos_max_errors": {
+    "candidate-00-replay": 0.0,
+    "candidate-00-gated": 0.0,
+    "candidate-01-replay": 0.0,
+    "candidate-01-gated": 0.0,
+    "candidate-02-replay": 0.0,
+    "candidate-02-gated": 0.0,
+    "candidate-03-replay": 0.0,
+    "candidate-03-gated": 0.0
+  },
+  "all_eight_match": true
+}

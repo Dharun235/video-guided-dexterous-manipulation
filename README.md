@@ -35,7 +35,8 @@ well as the manipulation. Camera calibration now uses the supplied book/case
 dimensions. Full physical grasp and flip still fail.
 [![Full-video diagnostic](examples/full-video/comparison.jpg)](examples/full-video/comparison.mp4)
 
-[Steps, comparison metrics, compute and remaining work](docs/full-video.md)
+[Steps, comparison metrics, compute and remaining work](docs/full-video.md) ·
+[Grasp verification: four candidates, none passed](examples/grasp-verification/README.md)
 
 ## Setup
 
