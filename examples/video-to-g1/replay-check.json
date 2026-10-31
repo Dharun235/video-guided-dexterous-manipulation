@@ -1,0 +1,8 @@
+{
+  "recorded_states": 748,
+  "executed_commands": 70415,
+  "waist_commands_included": true,
+  "maximum_qpos_error": 0.0,
+  "all_states_match": true,
+  "case_pose_set_only_at_reset": true
+}

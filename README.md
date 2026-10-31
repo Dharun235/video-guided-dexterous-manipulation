@@ -1,86 +1,76 @@
 # Video-Guided Dexterous Manipulation
 
-Transfer a recorded tabletop demonstration to a Unitree G1 with an Inspire
-five-finger right hand in MuJoCo. The measured-size scene now has a verified
-grasp controller: the native hand
-lifts the case 49 mm using contact feedback. Full-video imitation is incomplete.
+Drive a supported Unitree G1 with a native Inspire five-finger right hand from a
+recorded tabletop demonstration. The Book5 example includes the initial hand
+turn, grasp, transport, in-hand turn, placement, release and final wrist/finger gestures.
+Execution uses MuJoCo motor controls and contact feedback. No policy is trained.
 
-## Demo
+[![Full-video comparison](examples/video-to-g1/comparison.jpg)](examples/video-to-g1/comparison.mp4)
 
-| Recorded demonstration | Native G1 grasp evaluation |
+Clockwise from top left: recording, simulated phone view, contact view and G1.
+Playback follows source time; the 12.5-second recording is retimed to 70.4 seconds
+of simulation. The phone view hides the torso visually; collisions remain active.
+[Source recording](examples/source-recording/book5.mp4) ·
+[Steps, methods, results and limitations](docs/full-sequence.md)
+
+| Nominal check | Result |
 |---|---|
-| [![Source](examples/source-recording/preview.gif)](examples/source-recording/book5.mp4) | [![Grasp comparison](examples/rh56-evaluation/comparison.jpg)](examples/rh56-evaluation/comparison.mp4) |
+| Source timeline | All 748 frames retained |
+| Initial palm orientation | Mean error 0.79° against extracted estimates |
+| Physical case turn | 120.0°; opposing contact retained throughout scored carry |
+| Final placement | 2.8 mm from the adapted target; released and stationary |
 
-The comparison shows an arm-collision failure beside the corrected grasp.
-The case is free and moves through motor-driven contact. The selected grasp
-lifts 49.15 mm with 0.162 mm relative slip. Full flip and release remain unresolved.
-[Complete evaluation, methods, checks and commands](examples/rh56-evaluation/README.md)
+This is a complete, task-specific motion adaptation. It is not exact video
+reconstruction or a fully automatic converter for arbitrary recordings. Phase
+boundaries are reviewed annotations; workspace, clearance and timing are adapted
+to the robot. Mass, friction and occluded object poses remain uncertain.
 
-## Pipeline
+## Run
 
-| Stage | Method | Output |
-|---|---|---|
-| Human hand | FastHaMeR / MANO on Core ML | Landmarks, mesh and wrist orientation; 683/748 detections |
-| Scene | TAA, SAM3, DA3 and SAM 3D Objects | Estimated cameras, depth and textured geometry |
-| Object motion | TrackCraft3R and rigid/image fitting | 740/748 pose candidates; 310 need review |
-| Robot transfer | Contact-aware IK and MuJoCo force feedback | G1/Inspire motion, simulated cameras, states and commands |
-
-Coverage is not pose accuracy. The current grasp and full-video calibration use
-supplied dimensions; mass and friction remain estimated.
-Lower-friction tests fail. The experimental GPU optimizer has not improved
-rotation tracking. [Object-motion preview](examples/object-motion/object-motion.mp4)
-
-## Full-video work
-
-The new path preserves all 748 source frames and fits the initial gestures as
-well as the manipulation. Camera calibration now uses the supplied book/case
-dimensions. Its existing full-timeline rollout still fails; the new grasp-stage
-controller has not yet been integrated into that timeline.
-[![Full-video diagnostic](examples/full-video/comparison.jpg)](examples/full-video/comparison.mp4)
-
-[Steps, comparison metrics, compute and remaining work](docs/full-video.md) ·
-[Grasp verification: four candidates, none passed](examples/grasp-verification/README.md)
-
-## Setup
-
-Apple Silicon macOS, Python 3.12, Git, uv and FFmpeg. The saved example runs on
-CPU. Full hand extraction needs licensed MANO files; reconstruction also uses a
-Linux NVIDIA GPU. Requirements and pinned dependencies are in the guides below.
+Apple Silicon macOS, Python 3.12, Git, uv and FFmpeg. The saved-input pipeline
+runs on CPU without MANO files, neural weights or a GPU.
 
 ```bash
 git clone https://github.com/Dharun235/video-guided-dexterous-manipulation.git
 cd video-guided-dexterous-manipulation
 make setup
 make test
-make grasp OUTPUT=runs/grasp-01
+make video OUTPUT=runs/video-01
 ```
 
-Outputs go to `runs/grasp-01/`. Use a new output folder for each attempt.
-Models and generated runs stay outside Git. The earlier retimed translation
-experiment remains available through `make transfer`.
-The supplied calibration is specific to the included recording.
+The command builds the measured scene, fits arm/hand/waist commands, executes
+physics, scores the result and independently checks motor-command replay. Use a
+new output folder for each attempt. To also render the comparison:
 
-## Processing guides
+```bash
+.venv-g1/bin/python -m video_g1.run_video --output runs/video-02 --render
+```
 
-1. [Hand extraction and camera calibration](docs/running.md)
-2. [Scene reconstruction](docs/taa.md)
-3. [Object-motion estimation](docs/object-motion.md)
-4. [Upstream G1/Inspire retargeting](docs/retargeting.md)
-5. [Physical execution, cameras and contact feedback](docs/physics.md)
+## Method
 
-[Experimental GPU physics refinement and failure report](docs/gpu-physics.md)
+| Stage | Implementation |
+|---|---|
+| Human observations | FastHaMeR/MANO hand estimates; raw gaps retained |
+| Scene and object inputs | TAA-derived reconstruction inputs and TrackCraft3R pose candidates; measured box collision geometry and book texture |
+| Motion planning | Native hand retargeting, RH56 grasp geometry, arm/waist IK, reviewed task phases and explicit retiming |
+| Physical execution | Position motors, robot-only bias compensation, external-contact grasp confirmation and force stop |
+| Verification | Full-timeline pose/contact/placement metrics, numerical replay, sensitivity checks and CI |
 
-## Tasks
+## Status
 
-- [x] Include the recording, hand/scene estimates and source provenance.
-- [x] Execute and measure a motor-driven transfer with a free object.
-- [x] Export synchronized simulated images, joint states, commands and contacts.
-- [x] Preserve all source frames in the new fit and verify command replay.
-- [x] Verify a native-hand grasp on measured geometry, with replay and sensitivity checks.
-- [ ] Resolve hand/object depth, pose gaps and uncertain case orientation.
-- [ ] Maintain grasp through rotation and validate full-motion transfer.
+- [x] Publish the iPhone recording and collection note.
+- [x] Preserve initial gestures and the complete source timeline.
+- [x] Grasp, carry, turn, place and release a free case through physical contact.
+- [x] Save joint states, commands, forces and comparison views.
+- [x] Check fresh-run replay, small position changes, tests and CI.
+- [ ] Validate uncertain monocular object poses against independent measurements.
+- [ ] Establish broader reliability on new recordings and physical parameters.
 
-## Acknowledgements
+## Guides and credits
+
+[Complete current pipeline](docs/full-sequence.md) ·
+[New hand observations](docs/running.md) · [Scene inputs](docs/taa.md) ·
+[Object tracking](docs/object-motion.md) · [Grasp evaluation](examples/rh56-evaluation/README.md)
 
 Built on [RH56 controller](https://github.com/correlllab/rh56_controller),
 [TAA](https://github.com/brains-bots-n-behavior/track-articulate-act),

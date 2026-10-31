@@ -15,10 +15,16 @@ review-object:
 	  --scene examples/object-motion/scene/scene.xml \
 	  --surface examples/object-motion/case_surface.npy
 
-OUTPUT ?= runs/transfer
+transfer: OUTPUT ?= runs/transfer
 transfer:
 	$(PYTHON) -m manipulation.run --output $(OUTPUT)
 
 .PHONY: grasp
+grasp: OUTPUT ?= runs/grasp
 grasp:
 	$(PYTHON) -m video_g1.run_grasp --output $(OUTPUT)
+
+.PHONY: video
+video: OUTPUT ?= runs/video
+video:
+	$(PYTHON) -m video_g1.run_video --output $(OUTPUT)

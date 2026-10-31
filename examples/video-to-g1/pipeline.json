@@ -1,0 +1,27 @@
+{
+  "stages": [
+    {
+      "stage": "video_g1.calibration",
+      "elapsed_s": 0.8564105000114068
+    },
+    {
+      "stage": "video_g1.scene",
+      "elapsed_s": 0.6964122499921359
+    },
+    {
+      "stage": "video_g1.book5_sequence",
+      "elapsed_s": 19.28994208399672
+    },
+    {
+      "stage": "video_g1.sequence",
+      "elapsed_s": 16.141774541989435
+    },
+    {
+      "stage": "video_g1.sequence_replay",
+      "elapsed_s": 9.657051916990895
+    }
+  ],
+  "elapsed_s": 46.64382800000021,
+  "gpu_used": false,
+  "rendered": false
+}

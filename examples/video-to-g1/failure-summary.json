@@ -1,0 +1,10 @@
+{
+  "unused-fingers-opened-too-early": {
+    "final_position_error_m": 0.027088260576503907,
+    "maximum_case_turn_deg": 119.93743568628928
+  },
+  "direct-joint-blend-after-palm-turn": {
+    "final_position_error_m": 0.42970418098743773,
+    "maximum_case_turn_deg": 180.0
+  }
+}

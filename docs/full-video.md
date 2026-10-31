@@ -1,5 +1,9 @@
 # Full-video transfer
 
+The current complete sequence is documented in [Complete Book5 motion](full-sequence.md).
+This page retains the earlier diagnostic baseline and its saved inputs.
+
+
 This experimental path keeps every source frame, including free-hand gestures,
 rotation and release. It generates robot control proposals and evaluates them in
 MuJoCo. It does not train a policy. Full physical imitation is not solved.

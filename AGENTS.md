@@ -30,7 +30,8 @@ bias compensation and all mass/friction/collision approximations explicitly.
 
 Control feedback sums all external finger contacts; object identity is used only
 for evaluation. The local interface has 19 right arm/hand joint states, 13 position
-commands and five normal/shear force pairs. Commands are simulated controller
+commands and five normal/shear force pairs. The current complete-sequence path
+adds three native waist states and commands in separate named arrays. Commands are simulated controller
 targets, not observed human actions or a trained policy.
 
 ## Evidence and limits
@@ -43,10 +44,13 @@ support correction. Do not rewrite observations to match a desired outcome.
 The nominal CPU transfer works as a retimed translation-task adaptation with
 prescribed phases and fixed initial orientation. Lower friction and disabled
 force feedback fail. Do not claim robustness, exact video imitation or training
-readiness. The recorded flip remains unresolved. The separate RH56 native-hand grasp-stage
-evaluation passes a measured-scene 50 mm lift, including a fresh-plan check; it
-is not integrated into full-video imitation. Evidence is under
-`examples/rh56-evaluation/`.
+readiness. The current `video_g1.book5_sequence` / `video_g1.sequence` path integrates the
+native RH56 grasp with initial gestures, transport, a 120-degree physical turn,
+placement, release and final gestures. Its nominal complete-sequence check passes;
+it remains a reviewed, retimed task adaptation rather than exact video imitation.
+It uses three native waist joints in addition to the original arm/hand interface.
+Evidence and parameter assumptions are under `examples/video-to-g1/` and
+`docs/full-sequence.md`. Retain historical failures as labelled baselines.
 
 The GPU rotation test also fails: mean/max object errors 11.9/82.7 mm versus replay
 10.9/80.4 mm. Reuse shifted optimized plans as in SPIDER's runner; do not discard

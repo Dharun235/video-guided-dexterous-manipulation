@@ -1,5 +1,9 @@
 # Full-video diagnostic
 
+The current complete sequence is documented in [Complete Book5 motion](../../docs/full-sequence.md).
+This page retains the earlier diagnostic baseline and its saved inputs.
+
+
 [![Full-timeline comparison](comparison.jpg)](comparison.mp4)
 
 Left to right: recording, fitted hand, physical hand and complete physical robot.
