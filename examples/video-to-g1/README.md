@@ -1,6 +1,6 @@
 # Complete physical sequence
 
-[![Recording and physical robot](comparison.jpg)](comparison.mp4)
+[![Recording and physical robot](preview.gif)](comparison.mp4)
 
 All 748 source frames are retained. The robot performs initial palm/finger
 motions, grasps, transports and turns the free case, places and releases it,

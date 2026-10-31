@@ -5,11 +5,12 @@ recorded tabletop demonstration. The Book5 example includes the initial hand
 turn, grasp, transport, in-hand turn, placement, release and final wrist/finger gestures.
 Execution uses MuJoCo motor controls and contact feedback. No policy is trained.
 
-[![Full-video comparison](examples/video-to-g1/comparison.jpg)](examples/video-to-g1/comparison.mp4)
+[![Full-video comparison](examples/video-to-g1/preview.gif)](examples/video-to-g1/comparison.mp4)
 
 Clockwise from top left: recording, simulated phone view, contact view and G1.
 Playback follows source time; the 12.5-second recording is retimed to 70.4 seconds
 of simulation. The phone view hides the torso visually; collisions remain active.
+[Full-quality comparison](examples/video-to-g1/comparison.mp4) ·
 [Source recording](examples/source-recording/book5.mp4) ·
 [Steps, methods, results and limitations](docs/full-sequence.md)
 
