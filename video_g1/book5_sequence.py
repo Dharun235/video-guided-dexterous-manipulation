@@ -31,7 +31,16 @@ def build(scene, hand_reference, grasp_reference, object_track, out):
     observations are never filled or rewritten by this function.
     """
     out.mkdir(parents=True, exist_ok=False)
-    write_manifest(out, [hand_reference, grasp_reference, object_track, scene / "scene.xml"])
+    write_manifest(
+        out,
+        [
+            hand_reference,
+            grasp_reference,
+            object_track,
+            scene / "scene.xml",
+            Path("examples/full-video/initial-gestures.npz"),
+        ],
+    )
     m, active, state = make_model(scene, out, scene)
     d = mujoco.MjData(m)
     r = np.load(hand_reference)
@@ -76,19 +85,12 @@ def build(scene, hand_reference, grasp_reference, object_track, out):
     # Keep initial gesture finger shapes. Source-global hand translation is shifted into the robot workspace.
     v = np.r_[r["actions"][0, :7], 0.0, 0.0, 0.0]
     N = native.T @ R
-    for i in range(181):
-        rh = palm_frame(h[i]) if np.isfinite(h[i]).all() else palm_frame(h[30])
-        targetR = rh @ N
-        pos = (
-            np.array([0.20, -0.17, 0.90]) + 0.6 * (h[i, 0] - h[90, 0])
-            if np.isfinite(h[i]).all()
-            else np.array([0.20, -0.17, 0.90])
-        )
-        fingers = r["actions"][i, 7:]
-        v, pe, re = fit_upper_body(m, active, v, fingers, pos, targetR)
-        actions[i] = np.r_[v[:7], fingers]
-        extras[i] = v[7:]
-        errors.append([i, pe, re])
+    gestures_path = Path("examples/full-video/initial-gestures.npz")
+    gestures = np.load(gestures_path)
+    if gestures["action_names"].tolist() != [m.actuator(int(i)).name for i in active]:
+        raise ValueError("Initial gesture actuator mapping differs")
+    actions[:181] = gestures["actions"]
+    extras[:181] = gestures["extra_actions"]
     # Move above the scene before rotating into the grasp. A direct joint-space
     # blend from the palm-up gesture can sweep the case off the book.
     ctrl = control_vector(m, active, actions[180])
@@ -150,7 +152,9 @@ def build(scene, hand_reference, grasp_reference, object_track, out):
         actions[i] = actions[600]
         extras[i] = extras[600]
         f = np.clip((i - 610) / 25, 0, 1)
-        actions[i, 10:12] = (1 - f) * closed[10:12]
+        for finger in range(int(g["grasp_fingers"])):
+            motor = [11, 10, 9, 8, 7][finger]
+            actions[i, motor] = (1 - f) * actions[600, motor]
         if i >= 635:
             dr = drs[600]
             pos = (
@@ -227,6 +231,9 @@ def build(scene, hand_reference, grasp_reference, object_track, out):
         state_joints=state,
         extra_actuators=waist,
         phase=phase,
+        grasp_force_target_N=float(g["grasp_force_target_N"]) if "grasp_force_target_N" in g else 0.8,
+        grasp_finger_ids=np.arange(int(g["grasp_fingers"])),
+        confirmation_finger_ids=np.arange(int(g["grasp_fingers"])),
         control_phase_frames=[310, 330, 350, 600, 610],
         control_phase_names=["force-start", "carry-start", "confirmation-deadline", "carry-end", "force-end"],
         planned_landmarks_m=planned_landmarks,
@@ -258,7 +265,7 @@ def main():
     parser = argparse.ArgumentParser(__doc__)
     parser.add_argument("--scene", type=Path, required=True)
     parser.add_argument("--hands", type=Path, default=Path("examples/full-video/reference.npz"))
-    parser.add_argument("--grasp", type=Path, default=Path("examples/rh56-evaluation/reference.npz"))
+    parser.add_argument("--grasp", type=Path, default=Path("examples/wrapping-grasp/reference.npz"))
     parser.add_argument("--objects", type=Path, default=Path("examples/object-motion/object_track.npz"))
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()

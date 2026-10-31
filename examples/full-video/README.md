@@ -2,6 +2,8 @@
 
 The current complete sequence is documented in [Complete Book5 motion](../../docs/full-sequence.md).
 This page retains the earlier diagnostic baseline and its saved inputs.
+`initial-gestures.npz` preserves the verified native initial gesture fit reused
+by the current five-finger grasp pipeline.
 
 
 [![Full-timeline comparison](comparison.jpg)](comparison.mp4)

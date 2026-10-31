@@ -58,7 +58,16 @@ def main():
         "--output",
         args.output / "scene",
     )
-    run("video_g1.book5_sequence", "--scene", args.output / "scene", "--output", args.output / "reference")
+    run("video_g1.wrap_grasp", "--scene", args.output / "scene", "--output", args.output / "grasp")
+    run(
+        "video_g1.book5_sequence",
+        "--scene",
+        args.output / "scene",
+        "--grasp",
+        args.output / "grasp/reference.npz",
+        "--output",
+        args.output / "reference",
+    )
     run("video_g1.sequence", "--reference", args.output / "reference", "--output", args.output / "rollout")
     run(
         "video_g1.sequence_replay",

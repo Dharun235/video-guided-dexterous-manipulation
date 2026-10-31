@@ -1,4 +1,5 @@
 {
-  "qpos_source_frames_0_to_610": 0.0,
-  "note": "Final gestures were extended after release; carry and placement are unchanged."
+  "independent_regeneration_maximum_qpos_difference": 0.0,
+  "all_748_states_match": true,
+  "new_wrap_grasp": true
 }

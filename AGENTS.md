@@ -13,7 +13,10 @@ licensed assets, required models and selected run inputs.
 - `scripts/gpu/`: experimental SPIDER/MuJoCo Warp adapter; separate CUDA runtime.
 
 Keep external solver source unchanged and honor its pinned revision and license.
-The default physical transfer uses our bounded contact IK and force feedback;
+The current complete sequence regenerates a native five-finger wrap prior and
+uses shared-body pressure control. No finger may be parked in a fist before
+contact; check all five case loads in the turn. The historical translation
+transfer uses our bounded contact IK and force feedback;
 it is not the output of the upstream PyRoki solver. The optional CPU MuJoCo MPC
 adapter and GPU SPIDER adapter are separate experiments.
 

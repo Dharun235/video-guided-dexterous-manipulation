@@ -6,5 +6,13 @@
   "direct-joint-blend-after-palm-turn": {
     "final_position_error_m": 0.42970418098743773,
     "maximum_case_turn_deg": 180.0
+  },
+  "parked-finger-pinch": {
+    "precontact_non_thumb_flexion_rad": 1.53,
+    "loaded_fingers": [
+      "thumb",
+      "index"
+    ],
+    "limitation": "Task transport passed, but unused fingers were curled away from the case; grasp topology did not match the recording."
   }
 }

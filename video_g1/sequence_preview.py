@@ -123,9 +123,21 @@ def render(reference_path, rollout_path, cameras_path, source, output, stride=3)
                 )
                 cv2.putText(
                     canvas,
-                    f"case turn {angle:.1f} deg | opposition {run['case_opposition'][i]:.2f}"
-                    if j
-                    else "Source-time playback; simulation motion is retimed",
+                    (
+                        "Case contact N: "
+                        + " ".join(
+                            f"{name} {value:.2f}"
+                            for name, value in zip(
+                                ["T", "I", "M", "R", "P"], run["case_finger_resultant_normal_N"][i]
+                            )
+                        )
+                    )
+                    if j == 3 and "case_finger_resultant_normal_N" in run
+                    else (
+                        f"case turn {angle:.1f} deg | opposition {run['case_opposition'][i]:.2f}"
+                        if j
+                        else "Source-time playback; simulation motion is retimed"
+                    ),
                     (x + 7, y + 51),
                     0,
                     0.37,
@@ -158,6 +170,22 @@ def render(reference_path, rollout_path, cameras_path, source, output, stride=3)
         check=True,
     )
     (output / "comparison-raw.mp4").unlink()
+    subprocess.run(
+        [
+            "ffmpeg",
+            "-y",
+            "-loglevel",
+            "error",
+            "-i",
+            str(output / "comparison.mp4"),
+            "-filter_complex",
+            "[0:v]fps=8,scale=800:-1:flags=lanczos,split[a][b];[a]palettegen=max_colors=128:stats_mode=diff[p];[b][p]paletteuse=dither=none",
+            "-loop",
+            "0",
+            str(output / "preview.gif"),
+        ],
+        check=True,
+    )
     (output / "manifest.json").write_text(
         json.dumps(
             {

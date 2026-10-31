@@ -4,11 +4,15 @@
 
 All 748 source frames are retained. The robot performs initial palm/finger
 motions, grasps, transports and turns the free case, places and releases it,
-then follows the final wrist/finger gestures. The 12.5 s recording is retimed to
-70.4 s of simulation; this preview follows source time and labels both clocks.
+then follows the final wrist/finger gestures. The fingers approach loosely open;
+all five carry measured case contact during the scored turn. The 12.5 s recording is retimed to
+70.5 s of simulation; this preview follows source time and labels both clocks.
 
 The nominal task check and both ±3 mm case-position checks pass. Motor-only
-replay matches all 748 saved states exactly across 70,415 arm/hand/waist commands.
+replay matches all 748 saved states exactly across 70,490 arm/hand/waist commands.
+Before contact, approach flexion stays below 0.26 rad; the earlier parked-finger
+fist is removed. Each finger has case-specific load above 0.05 N in all scored
+turn samples. The contact view labels T/I/M/R/P forces in newtons.
 There are no object forces, attachments or object-pose playback. The pelvis is
 supported and robot-only bias compensation is enabled.
 

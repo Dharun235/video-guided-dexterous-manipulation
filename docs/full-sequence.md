@@ -35,17 +35,20 @@ rendering is optional. Every stage writes into a new output directory.
    `configs/book5.json` and `examples/full-video/camera-observations.json`.
 2. Build measured book/case collision geometry and fit the initial case mask using
    `video_g1.scene`. The book texture comes from `examples/object-motion/scene`.
-3. Generate all-frame controls using `video_g1.book5_sequence`. Initial/final
-   finger motions come from the existing human-to-native-hand fit. Initial palm
-   orientation follows the extracted anatomical palm basis. The verified RH56
-   grasp supplies the contact geometry; its solver is adapted to native Unitree
-   coupling rather than replacing the hand model.
-4. Execute `video_g1.sequence`. A grasp must have opposing thumb/finger normals
-   on the same external body for 150 ms before transport. Confirmation uses a
-   0.3 N minimum normal vector and an angle over 120°. Sustained contact loss
-   stops arm/waist movement. Feedback uses external contacts without case labels;
-   case identity appears only in scoring. The local force-stop threshold is
-   0.8 N per active finger. This is simulated feedback, not a hardware sensor fit.
+3. Generate an open-to-wrap grasp using `video_g1.wrap_grasp`, then all-frame
+   controls using `video_g1.book5_sequence`. The native finger row is centred over
+   the case and every finger participates. The initial human-derived gesture fit
+   is preserved in `examples/full-video/initial-gestures.npz`; final finger motions
+   still come from the hand fit. Native coupling and geometry remain unchanged.
+4. Execute `video_g1.sequence`. All five fingers must load the same opposed
+   external body for 150 ms before transport. Finger pressure on the book cannot
+   substitute for pressure on the held body. Contact loss stops arm/waist motion.
+   Feedback uses external contacts without case-class labels; explicit case
+   identity appears only in scoring. Pressure targets are 1.20/0.48/0.36/0.24/0.12 N
+   for thumb/index/middle/ring/pinky. Unloaded fingers close toward contact, then
+   regulate pressure; they do not permanently latch an earlier support touch.
+   Software limits non-thumb closure to 0.9 rad; native model limits are unchanged.
+   These are simulation settings, not measured human or hardware sensor forces.
 5. Score carry, turn, placement, release and initial palm motion. Independently
    replay the complete arm/hand/waist motor stream with `video_g1.sequence_replay`.
    No object states are replayed into the plant.
@@ -90,14 +93,14 @@ The hand geometry, actuator limits and mimic equations are unchanged.
 | 331–390 | Lift and transport |
 | 391–570 | In-hand turn and return |
 | 571–610 | Placement and supported settling |
-| 611–635 | Thumb/index release |
+| 611–635 | All-finger release |
 | 636–747 | Retract, then final wrist/finger gestures |
 
 Phase boundaries are annotations from reviewing this recording. They are not
 learned event detection. Source indices are never dropped or reordered. Planning
 limits command speed to 0.8 rad/s, with initial gestures limited to 0.45 rad/s;
 the executor additionally limits arm/hand slew to 1.2 rad/s. These are simulation
-design settings, not measured hardware limits. The 12.5 s source becomes 70.4 s of
+design settings, not measured hardware limits. The 12.5 s source becomes 70.5 s of
 simulation. The comparison plays at source time and labels execution time.
 
 ## Results
@@ -106,13 +109,15 @@ simulation. The comparison plays at source time and labels execution time.
 |---|---|
 | Source frames retained | 748/748 |
 | Initial palm error against extracted estimates | 0.79° mean; 3.09° maximum |
-| Final gesture palm tracking against retargeted FK | 0.83° mean; 2.76° maximum |
-| Maximum case lift | 108.3 mm |
-| Maximum case turn | 120.0° |
+| Final gesture palm tracking against retargeted FK | 0.89° mean; 2.26° maximum |
+| Maximum case lift | 103.4 mm |
+| Maximum case turn | 121.4° |
 | Opposing contact in scored carry, frames 350–595 | 100% |
-| Carried position error against adapted target | 5.4 mm mean; 16.7 mm maximum |
-| Carried orientation error against adapted target | 1.81° mean; 10.49° maximum |
-| Final position/orientation error | 2.8 mm; 0.43° |
+| Carried position error against adapted target | 4.1 mm mean; 13.9 mm maximum |
+| Carried orientation error against adapted target | 2.15° mean; 4.57° maximum |
+| Final position/orientation error | 4.9 mm; 2.16° |
+| Each finger loads the case in turn frames 405–570 | 100% for all five, above 0.05 N |
+| Maximum approach flexion, frames 225–255 | 0.26 rad (14.6°), with no parked fist |
 | Final finger contact | None |
 | Final position drift, frames 700–747 | 0.0 mm |
 
@@ -121,11 +126,14 @@ A task pass requires lift over 50 mm, turn over 100°, opposing contact in over
 carried orientation error below 5°/20° mean/max, placement within 10 mm, final drift below 2 mm,
 release without finger pressure and no controller abort. The complete-sequence
 check additionally requires initial and final palm checks below 10° mean and 30° maximum.
-These thresholds assess this adapted task, not exact video imitation. Errors
+The wrap check also requires approach flexion below 0.5 rad and case-specific
+load above 0.05 N on every finger in over 95% of turn samples (405–570). It checks
+that fingers close on the object rather than curl away from it. It does not prove
+exact human joint-angle reconstruction. These thresholds assess this adapted task, not exact video imitation. Errors
 against fitted pose estimates do not establish true human pose accuracy.
 
 The full sequence also passed with initial case x shifted +3 mm and −3 mm.
-Final position errors were 2.4 and 5.2 mm, respectively. These are two deterministic
+Final position errors were 6.8 and 3.3 mm, respectively. These are two deterministic
 perturbations, not a generalization success rate. Removing force feedback failed
 the grasp and the contact gate withheld transport. The separate
 [grasp evaluation](../examples/rh56-evaluation/README.md) includes wider parameter
@@ -147,14 +155,15 @@ control with the same reference. Each condition saves its actual numerical run.
 |---|---|
 | `cameras/cameras.npz` | Estimated intrinsics and per-frame book-relative camera poses |
 | `scene/` | Measured collision scene, book texture and approximation metadata |
+| `grasp/` | Regenerated native five-finger prior, geometric residuals and provenance |
 | `reference/reference.npz` | 748 source samples, 13 arm/hand commands, three waist commands, phase labels, native FK landmarks, object targets and preserved observation flags |
 | `reference/fit.json` | IK residuals and retimed duration |
-| `rollout/rollout.npz` | Actual full qpos, 19 arm/hand states plus three waist states/velocities, motor streams, external finger forces, contact gate and object/hand poses |
+| `rollout/rollout.npz` | Actual full qpos, 19 arm/hand states plus three waist states/velocities, motor streams, external finger forces, case-specific finger loads, contact gate and object/hand poses |
 | `rollout/report.json` | Physical task and gesture checks with explicit limitations |
 | `pipeline.json` | Per-stage wall times, GPU-use and rendering flags |
 | `replay-check.json` | Independent motor-only replay comparison |
 | `runtime.json` in stage folders | Input/source hashes and runtime versions |
-| `preview/` when rendered | Comparison video, selected frames and playback manifest |
+| `preview/` when rendered | Comparison video, looping GIF, selected frames and playback manifest |
 
 Commands are controller targets, not observed human actions or a learned policy.
 The archived numerical output remains labelled unsuitable as a verified learning
@@ -165,7 +174,7 @@ dataset until a training/evaluation protocol is selected and broader checks pass
 Apple M2, 8 CPU cores, 16 GiB RAM; Python 3.12.13, MuJoCo 3.8.1, NumPy 2.5.4,
 SciPy 1.18.1. The current saved-input run, IK, physics and rendering use no GPU.
 A saved-input run including fresh planning, physics and independent replay took
-46.6 s wall time on this host, excluding setup and rendering. This is one
+44.3 s wall time on this host, excluding setup and rendering. This is one
 measurement; stage timings are saved in `pipeline.json`. Dependencies are pinned in `humanoid/requirements.lock.txt`. Rendering needs
 local graphics access. New neural hand observations need licensed MANO assets;
 new TAA reconstruction uses the separately documented NVIDIA environment.
@@ -178,19 +187,28 @@ negative control. Checksums identify the published evidence.
 
 ## Problems and lessons
 
+- The earlier thumb–index pinch transported the case but parked the other fingers
+  at 1.53 rad before contact. The new approach stays below 0.26 rad in the scored
+  approach window and all four fingers participate in the grasp. Enlarged source
+  frames 450–510 show why a pinching task solution was insufficient.
+- A support touch could latch a finger even after it stopped touching the held
+  body. Shared-body confirmation and continuous pressure feedback replace that
+  behavior. Regression tests reject support-only force and unloaded fingers.
+
 - A direct gesture-to-grasp joint blend swept the case away. Raising clear before
   reorientation preserved the untouched initial case.
 - Tested fixed-torso IK fits missed the peak turn. Native waist motion extended
   the reachable pose range while retaining a supported pelvis.
 - Opening unused fingers during release pushed the case about 27 mm. Releasing
   thumb/index first and opening other fingers after retraction reduced final
-  error to about 2.8 mm.
+  error to below 5 mm.
 - Sparse initial-gesture fitting missed brief rotations. Fitting every initial
   frame and slower retiming reduced mean/max palm error to 0.79°/3.09°.
 
 ## Scope
 
-The complete task-specific sequence now works in simulation. Exact monocular
+The native Inspire joints are coupled, so the contact checks do not establish
+exact human PIP/DIP angles. The complete task-specific sequence now works in simulation. Exact monocular
 reconstruction, real-robot execution, balance and broad reliability are not
 established. Occluded case orientation and physical parameters remain uncertain.
 The final turn and placement are evaluated against clearly labelled adapted

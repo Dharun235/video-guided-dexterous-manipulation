@@ -1,9 +1,9 @@
 {
   "recording_sha256": "feced5ae9d2cabe2861a01d253fa8840ba39b9537f002677182ae4269a638605",
-  "score_implementation_sha256": "d20207c6315faabb902fc03b5040714e6f31d69828936a52841157ac0b908be4",
+  "score_implementation_sha256": "769dbbc27bfd85b2172ddff152e5b3ac554722053a949a2de0cf4cdae72266df",
   "metric_inputs_sha256": {
-    "reference.npz": "de831a974d5767f5bf3b75a11bc449f773e4d180a425db199659d5c0a039b024",
-    "rollout.npz": "021d9feb6179743ae417442f16caf1acd68791415029876f81a8f4c759951479"
+    "reference.npz": "2d9d92b7c11c7d167147d171a47d1f9f7624aa13f623064024c438ebf1812de5",
+    "rollout.npz": "138186f8e34b2f9233f5547d20bbcd6d895a7e545c9ce861dd308a8c6f40b008"
   },
-  "report_method": "Metrics recomputed from unchanged saved physical arrays; no new simulated states inferred. Stage manifests preserve their generating implementation hashes."
+  "report_method": "Metrics recomputed from actual saved physical arrays. No inferred or overwritten object states."
 }

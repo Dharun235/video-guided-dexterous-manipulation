@@ -3,12 +3,14 @@
 Drive a supported Unitree G1 with a native Inspire five-finger right hand from a
 recorded tabletop demonstration. The Book5 example includes the initial hand
 turn, grasp, transport, in-hand turn, placement, release and final wrist/finger gestures.
-Execution uses MuJoCo motor controls and contact feedback. No policy is trained.
+Execution uses MuJoCo motor controls and contact feedback. The fingers approach
+loosely open and close around the case; all five contacts are checked during the
+turn. No policy is trained.
 
 [![Full-video comparison](examples/video-to-g1/preview.gif)](examples/video-to-g1/comparison.mp4)
 
 Clockwise from top left: recording, simulated phone view, contact view and G1.
-Playback follows source time; the 12.5-second recording is retimed to 70.4 seconds
+Playback follows source time; the 12.5-second recording is retimed to 70.5 seconds
 of simulation. The phone view hides the torso visually; collisions remain active.
 [Full-quality comparison](examples/video-to-g1/comparison.mp4) ·
 [Source recording](examples/source-recording/book5.mp4) ·
@@ -18,8 +20,8 @@ of simulation. The phone view hides the torso visually; collisions remain active
 |---|---|
 | Source timeline | All 748 frames retained |
 | Initial palm orientation | Mean error 0.79° against extracted estimates |
-| Physical case turn | 120.0°; opposing contact retained throughout scored carry |
-| Final placement | 2.8 mm from the adapted target; released and stationary |
+| Physical case turn | 121.4°; all five fingers retain contact through the scored turn |
+| Final placement | 4.9 mm from the adapted target; released and stationary |
 
 This is a complete, task-specific motion adaptation. It is not exact video
 reconstruction or a fully automatic converter for arbitrary recordings. Phase
@@ -54,7 +56,7 @@ new output folder for each attempt. To also render the comparison:
 | Human observations | FastHaMeR/MANO hand estimates; raw gaps retained |
 | Scene and object inputs | TAA-derived reconstruction inputs and TrackCraft3R pose candidates; measured box collision geometry and book texture |
 | Motion planning | Native hand retargeting, RH56 grasp geometry, arm/waist IK, reviewed task phases and explicit retiming |
-| Physical execution | Position motors, robot-only bias compensation, external-contact grasp confirmation and force stop |
+| Physical execution | Position motors, robot-only bias compensation, shared-body grasp confirmation and finger-pressure feedback |
 | Verification | Full-timeline pose/contact/placement metrics, numerical replay, sensitivity checks and CI |
 
 ## Status

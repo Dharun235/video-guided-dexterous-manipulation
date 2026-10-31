@@ -2,26 +2,30 @@
   "stages": [
     {
       "stage": "video_g1.calibration",
-      "elapsed_s": 0.8564105000114068
+      "elapsed_s": 0.8984072500024922
     },
     {
       "stage": "video_g1.scene",
-      "elapsed_s": 0.6964122499921359
+      "elapsed_s": 0.7004886670038104
+    },
+    {
+      "stage": "video_g1.wrap_grasp",
+      "elapsed_s": 2.931027374987025
     },
     {
       "stage": "video_g1.book5_sequence",
-      "elapsed_s": 19.28994208399672
+      "elapsed_s": 10.34962395799812
     },
     {
       "stage": "video_g1.sequence",
-      "elapsed_s": 16.141774541989435
+      "elapsed_s": 18.412610375031363
     },
     {
       "stage": "video_g1.sequence_replay",
-      "elapsed_s": 9.657051916990895
+      "elapsed_s": 10.9678665829706
     }
   ],
-  "elapsed_s": 46.64382800000021,
+  "elapsed_s": 44.26280525000766,
   "gpu_used": false,
   "rendered": false
 }
