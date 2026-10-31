@@ -18,3 +18,7 @@ review-object:
 OUTPUT ?= runs/transfer
 transfer:
 	$(PYTHON) -m manipulation.run --output $(OUTPUT)
+
+.PHONY: grasp
+grasp:
+	$(PYTHON) -m video_g1.run_grasp --output $(OUTPUT)

@@ -8,6 +8,7 @@ replace upstream code, model, dataset or video terms.
 | Unitree G1 MJCF | https://github.com/google-deepmind/mujoco_menagerie/tree/main/unitree_g1 | BSD-3-Clause; pinned in humanoid/UPSTREAM.json |
 | Inspire right-hand URDF/STL | https://github.com/unitreerobotics/xr_teleoperate/tree/main/assets/inspire_hand | Repository Apache-2.0 terms; revision/conversion in humanoid/BOOK_G1_UPSTREAM.json |
 | Official G1 wrist attachment | https://github.com/unitreerobotics/unitree_ros | G1 DFQ attachment reference and downloaded-file hash recorded in humanoid/BOOK_G1_UPSTREAM.json |
+| RH56 width planner / reference hand | https://github.com/correlllab/rh56_controller and https://github.com/correlllab/h1_mujoco | MIT; unmodified external planner, local native-FK and simulation feedback adapters; revisions in video_g1/RH56_UPSTREAM.json |
 | MuJoCo | https://github.com/google-deepmind/mujoco | Apache-2.0; runtime pinned in humanoid/requirements.lock.txt |
 | HaMeR | https://github.com/geopavlakos/hamer | Underlying hand-reconstruction model; original code, model and training-data terms apply |
 | FastHaMeR / FastHands | https://github.com/VimalMollyn/fasterhamer and https://github.com/VimalMollyn/Mediapipe-Hands-PyTorch-CoreML | Mac hand-inference packages, pinned in reconstruction/requirements-book-mac.lock.txt; original package/model terms apply; downloaded weights remain local |

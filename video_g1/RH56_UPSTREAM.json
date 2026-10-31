@@ -1,0 +1,14 @@
+{
+  "controller": {
+    "repository": "https://github.com/correlllab/rh56_controller.git",
+    "revision": "2e08a1f594e6feaf67043e8ec341b42ad51e4d9a",
+    "license": "MIT"
+  },
+  "reference_hand": {
+    "repository": "https://github.com/correlllab/h1_mujoco.git",
+    "revision": "fa8795a1ce1c2be418e8d87b72761c3a452efcd6",
+    "license": "MIT",
+    "source": "inspire/inspire_grasp_scene.xml"
+  },
+  "scope": "Unmodified ClosureGeometry solver; native-model FK adapter and simulation force-stop controller are local code. Hardware calibration and serial control are not used."
+}

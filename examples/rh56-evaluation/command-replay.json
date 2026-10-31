@@ -1,0 +1,7 @@
+{
+  "recorded_states": 500,
+  "executed_commands": 10000,
+  "maximum_qpos_error": 0.0,
+  "all_states_match": true,
+  "case_pose_set_only_at_reset": true
+}

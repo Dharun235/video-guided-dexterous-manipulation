@@ -43,7 +43,10 @@ support correction. Do not rewrite observations to match a desired outcome.
 The nominal CPU transfer works as a retimed translation-task adaptation with
 prescribed phases and fixed initial orientation. Lower friction and disabled
 force feedback fail. Do not claim robustness, exact video imitation or training
-readiness. The recorded flip remains unresolved.
+readiness. The recorded flip remains unresolved. The separate RH56 native-hand grasp-stage
+evaluation passes a measured-scene 50 mm lift, including a fresh-plan check; it
+is not integrated into full-video imitation. Evidence is under
+`examples/rh56-evaluation/`.
 
 The GPU rotation test also fails: mean/max object errors 11.9/82.7 mm versus replay
 10.9/80.4 mm. Reuse shifted optimized plans as in SPIDER's runner; do not discard

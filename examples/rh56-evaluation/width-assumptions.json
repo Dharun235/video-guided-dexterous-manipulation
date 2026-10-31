@@ -1,0 +1,60 @@
+{
+  "script": "tools/run_planner_sweep.py",
+  "simulation_only": true,
+  "uses_hardware": false,
+  "modes": [
+    "line",
+    "plane3",
+    "plane4",
+    "plane5"
+  ],
+  "width_min_mm": 55.0,
+  "width_max_mm": 85.0,
+  "width_step_mm": 5.0,
+  "object_width_offset_mm": 20.0,
+  "width_match_tolerance_mm": 1.0,
+  "reachable_ranges_mm": {
+    "line": [
+      15.279022673292118,
+      116.67254181105613
+    ],
+    "plane3": [
+      20.529293438831914,
+      122.62282175814268
+    ],
+    "plane4": [
+      20.529293438831914,
+      122.62282175814268
+    ],
+    "plane5": [
+      20.529293438831914,
+      122.62282175814268
+    ]
+  },
+  "object_corrected_ranges_mm": {
+    "line": [
+      -4.720977326707882,
+      96.67254181105613
+    ],
+    "plane3": [
+      0.5292934388319139,
+      102.62282175814268
+    ],
+    "plane4": [
+      0.5292934388319139,
+      102.62282175814268
+    ],
+    "plane5": [
+      0.5292934388319139,
+      102.62282175814268
+    ]
+  },
+  "nominal_feasible_definition": "requested internal scalar width lies inside the mode-specific nominal solver range and the solver returns a finite configuration",
+  "object_width_definition": "for line/plane modes, object_width_mm = internal_width_mm - object_width_offset_mm because MuJoCo sites are embedded within the fingertips; for cylinder, object_width_mm is the requested cylinder diameter",
+  "width_match_definition": "absolute achieved internal scalar width error is within width_match_tolerance_mm; this is a planner diagnostic, not a grasp-success metric",
+  "grasp_success_definition": "not evaluated by this simulation-only planner sweep",
+  "cylinder_note": "cylinder remains available as an explicit mode, but it is not included in the paper-facing default because rollout quality depends on object-aware palm-centering path planning",
+  "collision_model": "not evaluated in this sweep",
+  "joint_margin": "minimum normalized distance to active actuator limits",
+  "runtime_note": "solve_time_ms measures offline analytical solve/table-generation time; online execution can use a precomputed lookup table indexed by mode and width"
+}

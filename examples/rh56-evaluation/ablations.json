@@ -1,0 +1,32 @@
+{
+  "tested": [
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 2,
+      "force_stop_adapter": true,
+      "maximum_lift_m": 0.04913349528103672,
+      "opposition_supported_lift_s": 1.92,
+      "relative_slip_m": 0.0001625035906403673,
+      "angular_slip_rad": 0.006028655418476508,
+      "success": true,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "ablation": "inactive-open"
+    },
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 2,
+      "force_stop_adapter": true,
+      "maximum_lift_m": 0.049102549699323594,
+      "opposition_supported_lift_s": 1.92,
+      "relative_slip_m": 0.00022161077611833856,
+      "angular_slip_rad": 0.007447103082690132,
+      "success": true,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "ablation": "fixed-palm"
+    }
+  ]
+}

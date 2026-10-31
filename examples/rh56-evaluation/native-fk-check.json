@@ -1,0 +1,6 @@
+{
+  "tested_positions": 25,
+  "maximum_fk_disagreement_m": 1.059819813552638e-05,
+  "native_geometry_or_coupling_changed": false,
+  "scope": "Standalone FK table adapter versus full native G1 hand forward kinematics"
+}

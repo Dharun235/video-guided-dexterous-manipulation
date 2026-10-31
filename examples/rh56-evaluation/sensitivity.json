@@ -1,0 +1,167 @@
+{
+  "tested": [
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 2,
+      "force_stop_adapter": true,
+      "maximum_lift_m": 0.04915000104066802,
+      "opposition_supported_lift_s": 1.92,
+      "relative_slip_m": 0.00016183493232390083,
+      "angular_slip_rad": 0.005811012472323797,
+      "success": true,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "condition": "nominal",
+      "offset_xy_m": [
+        0,
+        0
+      ],
+      "global_friction_scale": 1,
+      "case_mass_scale": 1
+    },
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 2,
+      "force_stop_adapter": true,
+      "maximum_lift_m": 0.048949707034916634,
+      "opposition_supported_lift_s": 1.92,
+      "relative_slip_m": 0.00024473843242323376,
+      "angular_slip_rad": 0.0125909582316162,
+      "success": true,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "condition": "x-minus-5mm",
+      "offset_xy_m": [
+        -0.005,
+        0
+      ],
+      "global_friction_scale": 1,
+      "case_mass_scale": 1
+    },
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 2,
+      "force_stop_adapter": true,
+      "maximum_lift_m": 0.048937922334793105,
+      "opposition_supported_lift_s": 1.92,
+      "relative_slip_m": 0.0002433515184436853,
+      "angular_slip_rad": 0.004077653897003825,
+      "success": true,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "condition": "x-plus-5mm",
+      "offset_xy_m": [
+        0.005,
+        0
+      ],
+      "global_friction_scale": 1,
+      "case_mass_scale": 1
+    },
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 2,
+      "force_stop_adapter": true,
+      "maximum_lift_m": 0.048653694971751094,
+      "opposition_supported_lift_s": 1.92,
+      "relative_slip_m": 0.0005478413220786969,
+      "angular_slip_rad": 0.05066347048907543,
+      "success": true,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "condition": "y-minus-5mm",
+      "offset_xy_m": [
+        0,
+        -0.005
+      ],
+      "global_friction_scale": 1,
+      "case_mass_scale": 1
+    },
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 2,
+      "force_stop_adapter": true,
+      "maximum_lift_m": 0.04893922105388193,
+      "opposition_supported_lift_s": 1.92,
+      "relative_slip_m": 0.00026442265728712945,
+      "angular_slip_rad": 0.025112496765539356,
+      "success": true,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "condition": "y-plus-5mm",
+      "offset_xy_m": [
+        0,
+        0.005
+      ],
+      "global_friction_scale": 1,
+      "case_mass_scale": 1
+    },
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 2,
+      "force_stop_adapter": true,
+      "maximum_lift_m": 0.049104101321914784,
+      "opposition_supported_lift_s": 1.92,
+      "relative_slip_m": 0.00022828537281204464,
+      "angular_slip_rad": 0.003177425360304167,
+      "success": true,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "condition": "half-friction",
+      "offset_xy_m": [
+        0,
+        0
+      ],
+      "global_friction_scale": 0.5,
+      "case_mass_scale": 1
+    },
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 2,
+      "force_stop_adapter": true,
+      "maximum_lift_m": 1.2887998208643836e-06,
+      "opposition_supported_lift_s": 0.0,
+      "relative_slip_m": null,
+      "angular_slip_rad": null,
+      "success": false,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "condition": "fifth-friction",
+      "offset_xy_m": [
+        0,
+        0
+      ],
+      "global_friction_scale": 0.2,
+      "case_mass_scale": 1
+    },
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 2,
+      "force_stop_adapter": true,
+      "maximum_lift_m": 0.048272332576945964,
+      "opposition_supported_lift_s": 1.9000000000000001,
+      "relative_slip_m": 0.0003400764209038079,
+      "angular_slip_rad": 0.011295772819021553,
+      "success": true,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "condition": "double-mass",
+      "offset_xy_m": [
+        0,
+        0
+      ],
+      "global_friction_scale": 1,
+      "case_mass_scale": 2
+    }
+  ],
+  "passed": 7,
+  "total": 8,
+  "not_a_generalization_benchmark": true
+}

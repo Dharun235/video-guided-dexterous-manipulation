@@ -1,18 +1,20 @@
 # Video-Guided Dexterous Manipulation
 
 Transfer a recorded tabletop demonstration to a Unitree G1 with an Inspire
-five-finger right hand in MuJoCo. The current example performs a retimed
-pick-and-place task with contact feedback. Full-video imitation is incomplete.
+five-finger right hand in MuJoCo. The measured-size scene now has a verified
+grasp controller: the native hand
+lifts the case 49 mm using contact feedback. Full-video imitation is incomplete.
 
 ## Demo
 
-| Recorded demonstration | Physical transfer |
+| Recorded demonstration | Native G1 grasp evaluation |
 |---|---|
-| [![Source](examples/source-recording/preview.gif)](examples/source-recording/book5.mp4) | [![MuJoCo transfer](examples/physics/preview.gif)](examples/physics/physics.mp4) |
+| [![Source](examples/source-recording/preview.gif)](examples/source-recording/book5.mp4) | [![Grasp comparison](examples/rh56-evaluation/comparison.jpg)](examples/rh56-evaluation/comparison.mp4) |
 
-The robot moves a free case through motor-driven contact and holds its initial
-orientation. Nominal lift is 49.5 mm; final position error is 13.9 mm against the
-estimated destination. [Results, camera data and limitations](examples/physics/README.md)
+The comparison shows an arm-collision failure beside the corrected grasp.
+The case is free and moves through motor-driven contact. The selected grasp
+lifts 49.15 mm with 0.162 mm relative slip. Full flip and release remain unresolved.
+[Complete evaluation, methods, checks and commands](examples/rh56-evaluation/README.md)
 
 ## Pipeline
 
@@ -23,8 +25,8 @@ estimated destination. [Results, camera data and limitations](examples/physics/R
 | Object motion | TrackCraft3R and rigid/image fitting | 740/748 pose candidates; 310 need review |
 | Robot transfer | Contact-aware IK and MuJoCo force feedback | G1/Inspire motion, simulated cameras, states and commands |
 
-Coverage is not pose accuracy. The published demo uses earlier estimated geometry. New full-video calibration
-uses supplied dimensions; mass and friction remain estimated.
+Coverage is not pose accuracy. The current grasp and full-video calibration use
+supplied dimensions; mass and friction remain estimated.
 Lower-friction tests fail. The experimental GPU optimizer has not improved
 rotation tracking. [Object-motion preview](examples/object-motion/object-motion.mp4)
 
@@ -32,7 +34,8 @@ rotation tracking. [Object-motion preview](examples/object-motion/object-motion.
 
 The new path preserves all 748 source frames and fits the initial gestures as
 well as the manipulation. Camera calibration now uses the supplied book/case
-dimensions. Full physical grasp and flip still fail.
+dimensions. Its existing full-timeline rollout still fails; the new grasp-stage
+controller has not yet been integrated into that timeline.
 [![Full-video diagnostic](examples/full-video/comparison.jpg)](examples/full-video/comparison.mp4)
 
 [Steps, comparison metrics, compute and remaining work](docs/full-video.md) ·
@@ -49,11 +52,12 @@ git clone https://github.com/Dharun235/video-guided-dexterous-manipulation.git
 cd video-guided-dexterous-manipulation
 make setup
 make test
-make transfer
+make grasp OUTPUT=runs/grasp-01
 ```
 
-Outputs go to `runs/transfer/`. For another attempt, use
-`make transfer OUTPUT=runs/transfer-02`. Models and generated runs stay outside Git.
+Outputs go to `runs/grasp-01/`. Use a new output folder for each attempt.
+Models and generated runs stay outside Git. The earlier retimed translation
+experiment remains available through `make transfer`.
 The supplied calibration is specific to the included recording.
 
 ## Processing guides
@@ -72,12 +76,14 @@ The supplied calibration is specific to the included recording.
 - [x] Execute and measure a motor-driven transfer with a free object.
 - [x] Export synchronized simulated images, joint states, commands and contacts.
 - [x] Preserve all source frames in the new fit and verify command replay.
+- [x] Verify a native-hand grasp on measured geometry, with replay and sensitivity checks.
 - [ ] Resolve hand/object depth, pose gaps and uncertain case orientation.
 - [ ] Maintain grasp through rotation and validate full-motion transfer.
 
 ## Acknowledgements
 
-Built on [TAA](https://github.com/brains-bots-n-behavior/track-articulate-act),
+Built on [RH56 controller](https://github.com/correlllab/rh56_controller),
+[TAA](https://github.com/brains-bots-n-behavior/track-articulate-act),
 [TrackCraft3R](https://github.com/cvlab-kaist/TrackCraft3r),
 [FastHaMeR](https://github.com/VimalMollyn/fasterhamer),
 [humanoid-dexart-retarget](https://github.com/gtziafas/humanoid-dexart-retarget)

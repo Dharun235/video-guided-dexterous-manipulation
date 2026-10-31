@@ -1,0 +1,12 @@
+{
+  "maximum_absolute_array_errors": {
+    "time_s": 0.0,
+    "qpos": 0.0,
+    "case_opposition": 0.0,
+    "external_forces_N": 0.0,
+    "object_in_hand_m": 0.0,
+    "executed_controls": 0.0
+  },
+  "all_arrays_match": true,
+  "scope": "Rebuild cameras and measured scene, then physically replay saved motor plan"
+}

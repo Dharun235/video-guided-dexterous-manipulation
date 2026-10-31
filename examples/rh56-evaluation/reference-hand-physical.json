@@ -1,0 +1,342 @@
+{
+  "tested": [
+    {
+      "mode_fingers": 2,
+      "requested_internal_width_m": 0.06,
+      "nominal_object_width_after_upstream_20mm_offset_m": 0.039999999999999994,
+      "coordinated_palm": true,
+      "force_stop_adapter": false,
+      "maximum_lift_m": 0.0020717844211284725,
+      "opposition_supported_lift_s": 0.0,
+      "final_half_second_supported": false,
+      "success": false,
+      "maximum_case_force_N": [
+        7.850460468127334,
+        7.728546360607275,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "case_external_forces_or_attachments": false,
+      "robot": "Actuated floating RH56 fixture; no G1 arm",
+      "upstream_planner_unmodified": true
+    },
+    {
+      "mode_fingers": 2,
+      "requested_internal_width_m": 0.06,
+      "nominal_object_width_after_upstream_20mm_offset_m": 0.039999999999999994,
+      "coordinated_palm": true,
+      "force_stop_adapter": true,
+      "maximum_lift_m": 0.0020717844211284725,
+      "opposition_supported_lift_s": 0.0,
+      "final_half_second_supported": false,
+      "success": false,
+      "maximum_case_force_N": [
+        7.850460468127334,
+        7.728546360607275,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "case_external_forces_or_attachments": false,
+      "robot": "Actuated floating RH56 fixture; no G1 arm",
+      "upstream_planner_unmodified": true
+    },
+    {
+      "mode_fingers": 2,
+      "requested_internal_width_m": 0.08,
+      "nominal_object_width_after_upstream_20mm_offset_m": 0.06,
+      "coordinated_palm": true,
+      "force_stop_adapter": false,
+      "maximum_lift_m": -1.783636363640595e-07,
+      "opposition_supported_lift_s": 0.0,
+      "final_half_second_supported": false,
+      "success": false,
+      "maximum_case_force_N": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "case_external_forces_or_attachments": false,
+      "robot": "Actuated floating RH56 fixture; no G1 arm",
+      "upstream_planner_unmodified": true
+    },
+    {
+      "mode_fingers": 2,
+      "requested_internal_width_m": 0.08,
+      "nominal_object_width_after_upstream_20mm_offset_m": 0.06,
+      "coordinated_palm": true,
+      "force_stop_adapter": true,
+      "maximum_lift_m": -1.783636363640595e-07,
+      "opposition_supported_lift_s": 0.0,
+      "final_half_second_supported": false,
+      "success": false,
+      "maximum_case_force_N": [
+        1.0305984533645773,
+        1.4374715008739738,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "case_external_forces_or_attachments": false,
+      "robot": "Actuated floating RH56 fixture; no G1 arm",
+      "upstream_planner_unmodified": true
+    },
+    {
+      "mode_fingers": 3,
+      "requested_internal_width_m": 0.06,
+      "nominal_object_width_after_upstream_20mm_offset_m": 0.039999999999999994,
+      "coordinated_palm": true,
+      "force_stop_adapter": false,
+      "maximum_lift_m": 0.0026255706728086636,
+      "opposition_supported_lift_s": 0.0,
+      "final_half_second_supported": false,
+      "success": false,
+      "maximum_case_force_N": [
+        9.052382158423654,
+        2.7424230328708252,
+        8.659183360523365,
+        0.0,
+        0.0
+      ],
+      "case_external_forces_or_attachments": false,
+      "robot": "Actuated floating RH56 fixture; no G1 arm",
+      "upstream_planner_unmodified": true
+    },
+    {
+      "mode_fingers": 3,
+      "requested_internal_width_m": 0.06,
+      "nominal_object_width_after_upstream_20mm_offset_m": 0.039999999999999994,
+      "coordinated_palm": true,
+      "force_stop_adapter": true,
+      "maximum_lift_m": 0.002629536049132644,
+      "opposition_supported_lift_s": 0.0,
+      "final_half_second_supported": false,
+      "success": false,
+      "maximum_case_force_N": [
+        9.052382158423654,
+        2.7424230328708252,
+        8.659183360523365,
+        0.0,
+        0.0
+      ],
+      "case_external_forces_or_attachments": false,
+      "robot": "Actuated floating RH56 fixture; no G1 arm",
+      "upstream_planner_unmodified": true
+    },
+    {
+      "mode_fingers": 3,
+      "requested_internal_width_m": 0.08,
+      "nominal_object_width_after_upstream_20mm_offset_m": 0.06,
+      "coordinated_palm": true,
+      "force_stop_adapter": false,
+      "maximum_lift_m": -1.783636363640595e-07,
+      "opposition_supported_lift_s": 0.0,
+      "final_half_second_supported": false,
+      "success": false,
+      "maximum_case_force_N": [
+        0.0,
+        2.7527011844838167,
+        1.240142146837522,
+        0.0,
+        0.0
+      ],
+      "case_external_forces_or_attachments": false,
+      "robot": "Actuated floating RH56 fixture; no G1 arm",
+      "upstream_planner_unmodified": true
+    },
+    {
+      "mode_fingers": 3,
+      "requested_internal_width_m": 0.08,
+      "nominal_object_width_after_upstream_20mm_offset_m": 0.06,
+      "coordinated_palm": true,
+      "force_stop_adapter": true,
+      "maximum_lift_m": -1.783636363640595e-07,
+      "opposition_supported_lift_s": 0.0,
+      "final_half_second_supported": false,
+      "success": false,
+      "maximum_case_force_N": [
+        1.4057780149372117,
+        2.7527011844838167,
+        1.240142146837522,
+        0.0,
+        0.0
+      ],
+      "case_external_forces_or_attachments": false,
+      "robot": "Actuated floating RH56 fixture; no G1 arm",
+      "upstream_planner_unmodified": true
+    },
+    {
+      "mode_fingers": 4,
+      "requested_internal_width_m": 0.06,
+      "nominal_object_width_after_upstream_20mm_offset_m": 0.039999999999999994,
+      "coordinated_palm": true,
+      "force_stop_adapter": false,
+      "maximum_lift_m": -1.783636363640595e-07,
+      "opposition_supported_lift_s": 0.0,
+      "final_half_second_supported": false,
+      "success": false,
+      "maximum_case_force_N": [
+        0.0,
+        0.0,
+        6.82458210907882,
+        0.0,
+        0.0
+      ],
+      "case_external_forces_or_attachments": false,
+      "robot": "Actuated floating RH56 fixture; no G1 arm",
+      "upstream_planner_unmodified": true
+    },
+    {
+      "mode_fingers": 4,
+      "requested_internal_width_m": 0.06,
+      "nominal_object_width_after_upstream_20mm_offset_m": 0.039999999999999994,
+      "coordinated_palm": true,
+      "force_stop_adapter": true,
+      "maximum_lift_m": -1.783636363640595e-07,
+      "opposition_supported_lift_s": 0.0,
+      "final_half_second_supported": false,
+      "success": false,
+      "maximum_case_force_N": [
+        0.0,
+        1.2744285363677974,
+        6.82458210907882,
+        0.6519453579016078,
+        0.0
+      ],
+      "case_external_forces_or_attachments": false,
+      "robot": "Actuated floating RH56 fixture; no G1 arm",
+      "upstream_planner_unmodified": true
+    },
+    {
+      "mode_fingers": 4,
+      "requested_internal_width_m": 0.08,
+      "nominal_object_width_after_upstream_20mm_offset_m": 0.06,
+      "coordinated_palm": true,
+      "force_stop_adapter": false,
+      "maximum_lift_m": -1.783636363640595e-07,
+      "opposition_supported_lift_s": 0.0,
+      "final_half_second_supported": false,
+      "success": false,
+      "maximum_case_force_N": [
+        0.0,
+        0.0,
+        6.7949680976576285,
+        0.0,
+        0.0
+      ],
+      "case_external_forces_or_attachments": false,
+      "robot": "Actuated floating RH56 fixture; no G1 arm",
+      "upstream_planner_unmodified": true
+    },
+    {
+      "mode_fingers": 4,
+      "requested_internal_width_m": 0.08,
+      "nominal_object_width_after_upstream_20mm_offset_m": 0.06,
+      "coordinated_palm": true,
+      "force_stop_adapter": true,
+      "maximum_lift_m": -1.783636363640595e-07,
+      "opposition_supported_lift_s": 0.0,
+      "final_half_second_supported": false,
+      "success": false,
+      "maximum_case_force_N": [
+        0.0,
+        1.760727988222135,
+        6.7949680976576285,
+        1.2817196671674294,
+        0.0
+      ],
+      "case_external_forces_or_attachments": false,
+      "robot": "Actuated floating RH56 fixture; no G1 arm",
+      "upstream_planner_unmodified": true
+    },
+    {
+      "mode_fingers": 5,
+      "requested_internal_width_m": 0.06,
+      "nominal_object_width_after_upstream_20mm_offset_m": 0.039999999999999994,
+      "coordinated_palm": true,
+      "force_stop_adapter": false,
+      "maximum_lift_m": -1.783636363640595e-07,
+      "opposition_supported_lift_s": 0.0,
+      "final_half_second_supported": false,
+      "success": false,
+      "maximum_case_force_N": [
+        0.0,
+        0.0,
+        7.605326796312383,
+        0.0,
+        0.0
+      ],
+      "case_external_forces_or_attachments": false,
+      "robot": "Actuated floating RH56 fixture; no G1 arm",
+      "upstream_planner_unmodified": true
+    },
+    {
+      "mode_fingers": 5,
+      "requested_internal_width_m": 0.06,
+      "nominal_object_width_after_upstream_20mm_offset_m": 0.039999999999999994,
+      "coordinated_palm": true,
+      "force_stop_adapter": true,
+      "maximum_lift_m": -1.783636363640595e-07,
+      "opposition_supported_lift_s": 0.0,
+      "final_half_second_supported": false,
+      "success": false,
+      "maximum_case_force_N": [
+        0.0,
+        0.8969796956835691,
+        7.605326796312383,
+        2.154309532907213,
+        0.0
+      ],
+      "case_external_forces_or_attachments": false,
+      "robot": "Actuated floating RH56 fixture; no G1 arm",
+      "upstream_planner_unmodified": true
+    },
+    {
+      "mode_fingers": 5,
+      "requested_internal_width_m": 0.08,
+      "nominal_object_width_after_upstream_20mm_offset_m": 0.06,
+      "coordinated_palm": true,
+      "force_stop_adapter": false,
+      "maximum_lift_m": -1.783636363640595e-07,
+      "opposition_supported_lift_s": 0.0,
+      "final_half_second_supported": false,
+      "success": false,
+      "maximum_case_force_N": [
+        0.0,
+        0.0,
+        7.592997794127886,
+        0.0,
+        0.0
+      ],
+      "case_external_forces_or_attachments": false,
+      "robot": "Actuated floating RH56 fixture; no G1 arm",
+      "upstream_planner_unmodified": true
+    },
+    {
+      "mode_fingers": 5,
+      "requested_internal_width_m": 0.08,
+      "nominal_object_width_after_upstream_20mm_offset_m": 0.06,
+      "coordinated_palm": true,
+      "force_stop_adapter": true,
+      "maximum_lift_m": -1.783636363640595e-07,
+      "opposition_supported_lift_s": 0.0,
+      "final_half_second_supported": false,
+      "success": false,
+      "maximum_case_force_N": [
+        0.0,
+        2.7912511068008783,
+        7.592997794127886,
+        1.3803959656802165,
+        0.0
+      ],
+      "case_external_forces_or_attachments": false,
+      "robot": "Actuated floating RH56 fixture; no G1 arm",
+      "upstream_planner_unmodified": true
+    }
+  ],
+  "any_success": false,
+  "elapsed_s": 204.17177033401094
+}

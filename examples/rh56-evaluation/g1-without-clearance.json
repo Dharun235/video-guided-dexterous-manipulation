@@ -1,0 +1,341 @@
+{
+  "tested": [
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 2,
+      "force_stop_adapter": false,
+      "maximum_lift_m": -3.329152546083236e-06,
+      "opposition_supported_lift_s": 0.0,
+      "relative_slip_m": null,
+      "angular_slip_rad": null,
+      "success": false,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "ik": {
+        "maximum_hand_base_position_error_m": 5.324751930408837e-08,
+        "maximum_hand_base_rotation_error_deg": 8.819285607930403e-05,
+        "waypoints": 35,
+        "box_symmetry_rotation_rad": 3.0714989505308328
+      },
+      "requested_site_width_m": 0.06,
+      "inactive_fingers_parked": false
+    },
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 2,
+      "force_stop_adapter": true,
+      "maximum_lift_m": -3.329152546083236e-06,
+      "opposition_supported_lift_s": 0.0,
+      "relative_slip_m": null,
+      "angular_slip_rad": null,
+      "success": false,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "ik": {
+        "maximum_hand_base_position_error_m": 5.324751930408837e-08,
+        "maximum_hand_base_rotation_error_deg": 8.819285607930403e-05,
+        "waypoints": 35,
+        "box_symmetry_rotation_rad": 3.0714989505308328
+      },
+      "requested_site_width_m": 0.06,
+      "inactive_fingers_parked": false
+    },
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 2,
+      "force_stop_adapter": false,
+      "maximum_lift_m": -3.329152546083236e-06,
+      "opposition_supported_lift_s": 0.0,
+      "relative_slip_m": null,
+      "angular_slip_rad": null,
+      "success": false,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "ik": {
+        "maximum_hand_base_position_error_m": 5.324751930408837e-08,
+        "maximum_hand_base_rotation_error_deg": 8.819285607930403e-05,
+        "waypoints": 35,
+        "box_symmetry_rotation_rad": 3.0714989505308328
+      },
+      "requested_site_width_m": 0.06,
+      "inactive_fingers_parked": true
+    },
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 2,
+      "force_stop_adapter": true,
+      "maximum_lift_m": -3.329152546083236e-06,
+      "opposition_supported_lift_s": 0.0,
+      "relative_slip_m": null,
+      "angular_slip_rad": null,
+      "success": false,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "ik": {
+        "maximum_hand_base_position_error_m": 5.324751930408837e-08,
+        "maximum_hand_base_rotation_error_deg": 8.819285607930403e-05,
+        "waypoints": 35,
+        "box_symmetry_rotation_rad": 3.0714989505308328
+      },
+      "requested_site_width_m": 0.06,
+      "inactive_fingers_parked": true
+    },
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 2,
+      "force_stop_adapter": false,
+      "maximum_lift_m": -3.329152546083236e-06,
+      "opposition_supported_lift_s": 0.0,
+      "relative_slip_m": null,
+      "angular_slip_rad": null,
+      "success": false,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "ik": {
+        "maximum_hand_base_position_error_m": 5.324751930408837e-08,
+        "maximum_hand_base_rotation_error_deg": 8.819285607930403e-05,
+        "waypoints": 35,
+        "box_symmetry_rotation_rad": 3.0714989505308328
+      },
+      "requested_site_width_m": 0.08,
+      "inactive_fingers_parked": false
+    },
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 2,
+      "force_stop_adapter": true,
+      "maximum_lift_m": -3.329152546083236e-06,
+      "opposition_supported_lift_s": 0.0,
+      "relative_slip_m": null,
+      "angular_slip_rad": null,
+      "success": false,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "ik": {
+        "maximum_hand_base_position_error_m": 5.324751930408837e-08,
+        "maximum_hand_base_rotation_error_deg": 8.819285607930403e-05,
+        "waypoints": 35,
+        "box_symmetry_rotation_rad": 3.0714989505308328
+      },
+      "requested_site_width_m": 0.08,
+      "inactive_fingers_parked": false
+    },
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 2,
+      "force_stop_adapter": false,
+      "maximum_lift_m": -3.329152546083236e-06,
+      "opposition_supported_lift_s": 0.0,
+      "relative_slip_m": null,
+      "angular_slip_rad": null,
+      "success": false,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "ik": {
+        "maximum_hand_base_position_error_m": 5.324751930408837e-08,
+        "maximum_hand_base_rotation_error_deg": 8.819285607930403e-05,
+        "waypoints": 35,
+        "box_symmetry_rotation_rad": 3.0714989505308328
+      },
+      "requested_site_width_m": 0.08,
+      "inactive_fingers_parked": true
+    },
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 2,
+      "force_stop_adapter": true,
+      "maximum_lift_m": -3.329152546083236e-06,
+      "opposition_supported_lift_s": 0.0,
+      "relative_slip_m": null,
+      "angular_slip_rad": null,
+      "success": false,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "ik": {
+        "maximum_hand_base_position_error_m": 5.324751930408837e-08,
+        "maximum_hand_base_rotation_error_deg": 8.819285607930403e-05,
+        "waypoints": 35,
+        "box_symmetry_rotation_rad": 3.0714989505308328
+      },
+      "requested_site_width_m": 0.08,
+      "inactive_fingers_parked": true
+    },
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 3,
+      "force_stop_adapter": false,
+      "maximum_lift_m": -3.329152546083236e-06,
+      "opposition_supported_lift_s": 0.0,
+      "relative_slip_m": null,
+      "angular_slip_rad": null,
+      "success": false,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "ik": {
+        "maximum_hand_base_position_error_m": 4.902445066113988e-08,
+        "maximum_hand_base_rotation_error_deg": 0.00011539789989925401,
+        "waypoints": 35,
+        "box_symmetry_rotation_rad": 3.0714989505308328
+      },
+      "requested_site_width_m": 0.06,
+      "inactive_fingers_parked": false
+    },
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 3,
+      "force_stop_adapter": true,
+      "maximum_lift_m": -3.329152546083236e-06,
+      "opposition_supported_lift_s": 0.0,
+      "relative_slip_m": null,
+      "angular_slip_rad": null,
+      "success": false,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "ik": {
+        "maximum_hand_base_position_error_m": 4.902445066113988e-08,
+        "maximum_hand_base_rotation_error_deg": 0.00011539789989925401,
+        "waypoints": 35,
+        "box_symmetry_rotation_rad": 3.0714989505308328
+      },
+      "requested_site_width_m": 0.06,
+      "inactive_fingers_parked": false
+    },
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 3,
+      "force_stop_adapter": false,
+      "maximum_lift_m": -3.329152546083236e-06,
+      "opposition_supported_lift_s": 0.0,
+      "relative_slip_m": null,
+      "angular_slip_rad": null,
+      "success": false,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "ik": {
+        "maximum_hand_base_position_error_m": 4.902445066113988e-08,
+        "maximum_hand_base_rotation_error_deg": 0.00011539789989925401,
+        "waypoints": 35,
+        "box_symmetry_rotation_rad": 3.0714989505308328
+      },
+      "requested_site_width_m": 0.06,
+      "inactive_fingers_parked": true
+    },
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 3,
+      "force_stop_adapter": true,
+      "maximum_lift_m": -3.329152546083236e-06,
+      "opposition_supported_lift_s": 0.0,
+      "relative_slip_m": null,
+      "angular_slip_rad": null,
+      "success": false,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "ik": {
+        "maximum_hand_base_position_error_m": 4.902445066113988e-08,
+        "maximum_hand_base_rotation_error_deg": 0.00011539789989925401,
+        "waypoints": 35,
+        "box_symmetry_rotation_rad": 3.0714989505308328
+      },
+      "requested_site_width_m": 0.06,
+      "inactive_fingers_parked": true
+    },
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 3,
+      "force_stop_adapter": false,
+      "maximum_lift_m": -3.329152546083236e-06,
+      "opposition_supported_lift_s": 0.0,
+      "relative_slip_m": null,
+      "angular_slip_rad": null,
+      "success": false,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "ik": {
+        "maximum_hand_base_position_error_m": 4.902445066113988e-08,
+        "maximum_hand_base_rotation_error_deg": 0.00011539789989925401,
+        "waypoints": 35,
+        "box_symmetry_rotation_rad": 3.0714989505308328
+      },
+      "requested_site_width_m": 0.08,
+      "inactive_fingers_parked": false
+    },
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 3,
+      "force_stop_adapter": true,
+      "maximum_lift_m": -3.329152546083236e-06,
+      "opposition_supported_lift_s": 0.0,
+      "relative_slip_m": null,
+      "angular_slip_rad": null,
+      "success": false,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "ik": {
+        "maximum_hand_base_position_error_m": 4.902445066113988e-08,
+        "maximum_hand_base_rotation_error_deg": 0.00011539789989925401,
+        "waypoints": 35,
+        "box_symmetry_rotation_rad": 3.0714989505308328
+      },
+      "requested_site_width_m": 0.08,
+      "inactive_fingers_parked": false
+    },
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 3,
+      "force_stop_adapter": false,
+      "maximum_lift_m": -3.329152546083236e-06,
+      "opposition_supported_lift_s": 0.0,
+      "relative_slip_m": null,
+      "angular_slip_rad": null,
+      "success": false,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "ik": {
+        "maximum_hand_base_position_error_m": 4.902445066113988e-08,
+        "maximum_hand_base_rotation_error_deg": 0.00011539789989925401,
+        "waypoints": 35,
+        "box_symmetry_rotation_rad": 3.0714989505308328
+      },
+      "requested_site_width_m": 0.08,
+      "inactive_fingers_parked": true
+    },
+    {
+      "robot": "Unchanged native G1 + Unitree Inspire right hand",
+      "mode_fingers": 3,
+      "force_stop_adapter": true,
+      "maximum_lift_m": -3.329152546083236e-06,
+      "opposition_supported_lift_s": 0.0,
+      "relative_slip_m": null,
+      "angular_slip_rad": null,
+      "success": false,
+      "case_external_forces_or_attachments": false,
+      "robot_bias_compensation": true,
+      "model_replaced": false,
+      "ik": {
+        "maximum_hand_base_position_error_m": 4.902445066113988e-08,
+        "maximum_hand_base_rotation_error_deg": 0.00011539789989925401,
+        "waypoints": 35,
+        "box_symmetry_rotation_rad": 3.0714989505308328
+      },
+      "requested_site_width_m": 0.08,
+      "inactive_fingers_parked": true
+    }
+  ],
+  "any_success": false
+}

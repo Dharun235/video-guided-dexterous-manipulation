@@ -1,0 +1,402 @@
+{
+  "reference_model": {
+    "control_ranges": {
+      "right_pos_x_position": [
+        -1.0,
+        1.0
+      ],
+      "right_pos_y_position": [
+        -1.0,
+        1.0
+      ],
+      "right_pos_z_position": [
+        -1.0,
+        1.0
+      ],
+      "right_rot_x_position": [
+        -3.14,
+        3.14
+      ],
+      "right_rot_y_position": [
+        -3.14,
+        3.14
+      ],
+      "right_rot_z_position": [
+        -3.14,
+        3.14
+      ],
+      "pinky": [
+        0.0,
+        1.57
+      ],
+      "ring": [
+        0.0,
+        1.57
+      ],
+      "middle": [
+        0.0,
+        1.5
+      ],
+      "index": [
+        0.0,
+        1.5
+      ],
+      "thumb_proximal": [
+        0.1,
+        0.57
+      ],
+      "thumb_yaw": [
+        0.0,
+        1.308
+      ]
+    },
+    "position_gains": {
+      "right_pos_x_position": 300.0,
+      "right_pos_y_position": 300.0,
+      "right_pos_z_position": 300.0,
+      "right_rot_x_position": 300.0,
+      "right_rot_y_position": 300.0,
+      "right_rot_z_position": 300.0,
+      "pinky": 300.0,
+      "ring": 300.0,
+      "middle": 300.0,
+      "index": 300.0,
+      "thumb_proximal": 300.0,
+      "thumb_yaw": 300.0
+    },
+    "joint_coupling": {
+      "pinky_intermediate_joint": [
+        -0.15,
+        1.1169,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ring_intermediate_joint": [
+        -0.15,
+        1.1169,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "middle_intermediate_joint": [
+        -0.15,
+        1.1169,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "index_intermediate_joint": [
+        -0.05,
+        1.1169,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "thumb_intermediate_joint": [
+        0.15,
+        1.33,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "thumb_distal_joint": [
+        0.15,
+        0.66,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "total_mass_kg": 0.9409670650399964
+  },
+  "native_model": {
+    "control_ranges": {
+      "pinky": [
+        0.0,
+        1.7
+      ],
+      "ring": [
+        0.0,
+        1.7
+      ],
+      "middle": [
+        0.0,
+        1.7
+      ],
+      "index": [
+        0.0,
+        1.7
+      ],
+      "thumb_proximal": [
+        0.0,
+        0.5
+      ],
+      "thumb_yaw": [
+        -0.1,
+        1.3
+      ]
+    },
+    "position_gains": {
+      "pinky": 4.0,
+      "ring": 4.0,
+      "middle": 4.0,
+      "index": 4.0,
+      "thumb_proximal": 4.0,
+      "thumb_yaw": 4.0
+    },
+    "joint_coupling": {
+      "thumb_intermediate_joint": [
+        0.0,
+        1.6,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "thumb_distal_joint": [
+        0.0,
+        2.4,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "index_intermediate_joint": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "middle_intermediate_joint": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "ring_intermediate_joint": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pinky_intermediate_joint": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "total_mass_kg": 0.1917902
+  },
+  "same_control_geometry_comparison": [
+    {
+      "fraction": 0.0,
+      "control": {
+        "pinky": 0.0,
+        "ring": 0.0,
+        "middle": 0.0,
+        "index": 0.0,
+        "thumb_proximal": 0.1,
+        "thumb_yaw": 0.0
+      },
+      "tip_differences_m": {
+        "index": 0.0061495149868932494,
+        "middle": 0.009873743909010569,
+        "ring": 0.007576682629571241,
+        "pinky": 0.007951826457099373,
+        "thumb": 0.004441601996664075
+      }
+    },
+    {
+      "fraction": 0.25,
+      "control": {
+        "pinky": 0.3925,
+        "ring": 0.3925,
+        "middle": 0.375,
+        "index": 0.375,
+        "thumb_proximal": 0.2,
+        "thumb_yaw": 0.325
+      },
+      "tip_differences_m": {
+        "index": 0.004687974250495723,
+        "middle": 0.007905199737732549,
+        "ring": 0.005947078597212683,
+        "pinky": 0.006698910190438093,
+        "thumb": 0.002854079175731629
+      }
+    },
+    {
+      "fraction": 0.5,
+      "control": {
+        "pinky": 0.785,
+        "ring": 0.785,
+        "middle": 0.75,
+        "index": 0.75,
+        "thumb_proximal": 0.30000000000000004,
+        "thumb_yaw": 0.65
+      },
+      "tip_differences_m": {
+        "index": 0.003582785925446725,
+        "middle": 0.005958313519489877,
+        "ring": 0.004539061548606615,
+        "pinky": 0.005600992534635821,
+        "thumb": 0.0063186179770850105
+      }
+    },
+    {
+      "fraction": 0.75,
+      "control": {
+        "pinky": 1.1775,
+        "ring": 1.1775,
+        "middle": 1.125,
+        "index": 1.125,
+        "thumb_proximal": 0.4,
+        "thumb_yaw": 0.9750000000000001
+      },
+      "tip_differences_m": {
+        "index": 0.0032266992744304085,
+        "middle": 0.004070521748760153,
+        "ring": 0.003625138354178563,
+        "pinky": 0.004769178370866947,
+        "thumb": 0.010539604751436702
+      }
+    },
+    {
+      "fraction": 1.0,
+      "control": {
+        "pinky": 1.57,
+        "ring": 1.57,
+        "middle": 1.5,
+        "index": 1.5,
+        "thumb_proximal": 0.5,
+        "thumb_yaw": 1.3
+      },
+      "tip_differences_m": {
+        "index": 0.0038349739429862154,
+        "middle": 0.0023936634198661725,
+        "ring": 0.003604996888146024,
+        "pinky": 0.004360177527665808,
+        "thumb": 0.014673734954971889
+      }
+    }
+  ],
+  "native_fk_plans": [
+    {
+      "fingers": 2,
+      "requested_site_width_m": 0.06,
+      "achieved_site_width_m": 0.060000370482429115,
+      "tilt_deg": 54.020495172773856,
+      "controls": {
+        "index": 0.458669354428535,
+        "middle": 0.0,
+        "ring": 0.0,
+        "pinky": 0.0,
+        "thumb_proximal": 0.1349027513025103,
+        "thumb_yaw": 1.16
+      }
+    },
+    {
+      "fingers": 2,
+      "requested_site_width_m": 0.08,
+      "achieved_site_width_m": 0.07999982376934707,
+      "tilt_deg": 50.66880593349683,
+      "controls": {
+        "index": 0.3383445209742308,
+        "middle": 0.0,
+        "ring": 0.0,
+        "pinky": 0.0,
+        "thumb_proximal": 0.09951309440418553,
+        "thumb_yaw": 1.16
+      }
+    },
+    {
+      "fingers": 3,
+      "requested_site_width_m": 0.06,
+      "achieved_site_width_m": 0.06181817654565567,
+      "tilt_deg": 56.2284741882881,
+      "controls": {
+        "index": 0.4229722414134934,
+        "middle": 0.46462848888522995,
+        "ring": 0.0,
+        "pinky": 0.0,
+        "thumb_proximal": 0.13665537628703414,
+        "thumb_yaw": 1.3
+      }
+    },
+    {
+      "fingers": 3,
+      "requested_site_width_m": 0.08,
+      "achieved_site_width_m": 0.08259893228088203,
+      "tilt_deg": 51.973872202424616,
+      "controls": {
+        "index": 0.28517459918328336,
+        "middle": 0.3491347592475371,
+        "ring": 0.0,
+        "pinky": 0.0,
+        "thumb_proximal": 0.10268669452583008,
+        "thumb_yaw": 1.3
+      }
+    },
+    {
+      "fingers": 4,
+      "requested_site_width_m": 0.06,
+      "achieved_site_width_m": 0.06245515457495255,
+      "tilt_deg": 55.36435269527398,
+      "controls": {
+        "index": 0.4229722414134934,
+        "middle": 0.46462848888522995,
+        "ring": 0.4511275291308423,
+        "pinky": 0.0,
+        "thumb_proximal": 0.13665537628703414,
+        "thumb_yaw": 1.3
+      }
+    },
+    {
+      "fingers": 4,
+      "requested_site_width_m": 0.08,
+      "achieved_site_width_m": 0.08354436695483626,
+      "tilt_deg": 51.152253876473516,
+      "controls": {
+        "index": 0.28517459918328336,
+        "middle": 0.3491347592475371,
+        "ring": 0.3115945488636721,
+        "pinky": 0.0,
+        "thumb_proximal": 0.10268669452583008,
+        "thumb_yaw": 1.3
+      }
+    },
+    {
+      "fingers": 5,
+      "requested_site_width_m": 0.06,
+      "achieved_site_width_m": 0.06480306113043545,
+      "tilt_deg": 52.464158515573686,
+      "controls": {
+        "index": 0.4229722414134934,
+        "middle": 0.46462848888522995,
+        "ring": 0.4511275291308423,
+        "pinky": 0.3460098447239488,
+        "thumb_proximal": 0.13665537628703414,
+        "thumb_yaw": 1.3
+      }
+    },
+    {
+      "fingers": 5,
+      "requested_site_width_m": 0.08,
+      "achieved_site_width_m": 0.0879385459662516,
+      "tilt_deg": 47.72282044326343,
+      "controls": {
+        "index": 0.28517459918328336,
+        "middle": 0.3491347592475371,
+        "ring": 0.3115945488636721,
+        "pinky": 0.09140873956587311,
+        "thumb_proximal": 0.10268669452583008,
+        "thumb_yaw": 1.3
+      }
+    }
+  ],
+  "native_model_replaced": false,
+  "upstream_closure_solver_modified": false
+}
