@@ -13,10 +13,11 @@ from scipy.spatial.transform import Rotation
 from humanoid.book_g1 import BACKGROUND_CONTROL, ORIGIN, SCENE_ROTATION, make_model
 from humanoid.kinematics import set_configuration
 
-FINGERS = ("thumb", "index", "middle", "ring", "pinky")
+from .control import finger_geoms
 
 
 def control_vector(model, active, values):
+    """Embed 13 arm/hand targets into the model controls and fixed background posture."""
     control = np.zeros(model.nu)
     control[active] = values
     for name, value in BACKGROUND_CONTROL.items():
@@ -25,25 +26,15 @@ def control_vector(model, active, values):
 
 
 def case_pose(model, data, position, rotation):
+    """Set the free case pose in a reset or IK workspace, never during execution."""
     joint = model.joint("case_free").id
     adr = model.jnt_qposadr[joint]
     q = Rotation.from_matrix(rotation).as_quat()
     data.qpos[adr : adr + 7] = np.r_[position, q[[3, 0, 1, 2]]]
 
 
-def finger_geoms(model):
-    return [
-        [
-            g
-            for g in range(model.ngeom)
-            if model.geom_contype[g]
-            and model.body(model.geom_bodyid[g]).name in (f"R_{f}_intermediate", f"R_{f}_distal")
-        ]
-        for f in FINGERS
-    ]
-
-
 def fit_grasp(model, active, target, position, rotation, seed, iterations=120):
+    """Fit bounded joints against landmark and surface-distance targets in an IK workspace."""
     data = mujoco.MjData(model)
     sites = [model.site(f"landmark_{i}").id for i in range(21)]
     fingers = finger_geoms(model)
@@ -82,6 +73,7 @@ def fit_grasp(model, active, target, position, rotation, seed, iterations=120):
 
 
 def main():
+    """Write a grasp proposal from recorded landmarks and approximate collision geometry."""
     p = argparse.ArgumentParser(__doc__)
     p.add_argument("--scene", type=Path, default=Path("examples/object-motion/scene"))
     p.add_argument("--calibration", type=Path, default=Path("examples/physics/calibration"))

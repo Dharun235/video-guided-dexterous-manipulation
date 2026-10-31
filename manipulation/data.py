@@ -8,6 +8,7 @@ import numpy as np
 
 
 def validate_episode(root):
+    """Check array shapes, timestamps and image paths; this does not certify task quality."""
     root = Path(root)
     manifest = json.loads((root / "manifest.json").read_text())
     data = np.load(root / "episode.npz")

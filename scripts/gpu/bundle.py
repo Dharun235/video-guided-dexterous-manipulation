@@ -14,6 +14,7 @@ from humanoid.book_g1 import BACKGROUND_CONTROL
 
 
 def main():
+    """Package portable model assets, reference controls and explicit physics assumptions."""
     parser = argparse.ArgumentParser(__doc__)
     parser.add_argument("--rollout", type=Path, default=Path("runs/transfer-final/rollout"))
     parser.add_argument("--output", type=Path, required=True)

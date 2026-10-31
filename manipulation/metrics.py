@@ -3,18 +3,20 @@
 import mujoco
 import numpy as np
 
-from .fit import finger_geoms
+from .control import finger_geoms
 
 
 def case_contacts(model, data):
+    """Return case-specific normal/shear forces for evaluation, not control."""
     result = np.zeros((5, 2))
     case = model.body("case").id
+    groups = finger_geoms(model)
     for index, contact in enumerate(data.contact):
         b1, b2 = model.geom_bodyid[[contact.geom1, contact.geom2]]
         if case not in (b1, b2):
             continue
         other = contact.geom2 if b1 == case else contact.geom1
-        for i, geoms in enumerate(finger_geoms(model)):
+        for i, geoms in enumerate(groups):
             if other in geoms:
                 force = np.zeros(6)
                 mujoco.mj_contactForce(model, data, index, force)
@@ -23,6 +25,7 @@ def case_contacts(model, data):
 
 
 def longest_interval(mask, dt):
+    """Return the longest true interval in seconds for uniformly sampled data."""
     padded = np.r_[False, mask, False].astype(int)
     start = np.flatnonzero(np.diff(padded) == 1)
     end = np.flatnonzero(np.diff(padded) == -1)
@@ -30,6 +33,7 @@ def longest_interval(mask, dt):
 
 
 def score(time, pose, velocity, touches, phase, position, goal, relative):
+    """Score simulated lift, contact, slip and placement against explicit task thresholds."""
     time = np.asarray(time)
     phase = np.asarray(phase)
     pose = np.asarray(pose)

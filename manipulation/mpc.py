@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def load():
+    """Import the optional upstream CPU sampler after checking its pinned file hash."""
     manifest = json.loads((ROOT / "manipulation/MPC_UPSTREAM.json").read_text())
     path = ROOT / "third_party/mujoco-mpc-python/predictive_sampling.py"
     if not path.exists():
@@ -27,11 +28,12 @@ def load():
 
 
 class PhysicsRefiner:
+    """Adapt the upstream sampler to bounded G1 controls using simulated object state."""
+
     def __init__(self, model, active, robot_dofs, reference, samples=12):
+        """Configure short-horizon candidate scoring with robot-only bias compensation."""
         self.active = active
-        self.reference = reference
         self.nominal = np.zeros(model.nu)
-        self.robot_dofs = robot_dofs
         self.updates = 0
         self.change = []
         joint = model.joint("case_free").id
@@ -75,6 +77,7 @@ class PhysicsRefiner:
         )
 
     def improve(self, data, nominal):
+        """Return 13 bounded motor-target proposals from forward-physics sampling."""
         self.nominal = nominal.copy()
         # Seed every horizon with the current contact-feedback command. Sampling
         # refines this seed through actual forward dynamics, rather than IK alone.

@@ -11,6 +11,7 @@ import numpy as np
 
 
 def main():
+    """Export synchronized camera images and downsampled simulator observations."""
     p = argparse.ArgumentParser(__doc__)
     p.add_argument("--rollout", type=Path, required=True)
     p.add_argument("--output", type=Path, required=True)

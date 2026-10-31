@@ -38,8 +38,7 @@ accepting the hand estimates. A detection is not a verified pose or contact.
 | `coverage.json` | Detection coverage and missing intervals |
 | `hand-overlay.mp4` | Estimated mesh over the recording |
 
-No unseen body pose is inferred. WHAM and 4D-Humans are body-reconstruction tools
-and are not part of this close-up hand workflow.
+No unseen whole-body pose is inferred from this close-up recording.
 
 ## Scene and camera prerequisites
 
@@ -58,7 +57,7 @@ estimate object motion or construct a planned manipulation trajectory. A differe
 scene annotations and calibration. The existing reviewed camera estimates remain
 an approximation and are not independent ground truth.
 
-## Direct hand retargeting baseline
+## Hand-to-robot calibration utility
 
 ```bash
 .venv-g1/bin/python -m humanoid.retarget_hand \
@@ -77,7 +76,7 @@ Do not send the result straight to the physical replay interface: invalid frames
 trajectory smoothing, execution timing and contact refinement must be addressed
 and reviewed first. The [upstream adapter](retargeting.md) is implemented and has a separate CPU
 environment. Use that guide for the selected retargeting path; this section
-describes the earlier baseline for comparison.
+describes the bounded IK utility used for the saved hand-seed initialization.
 
 ## Inspect the kinematic fit
 

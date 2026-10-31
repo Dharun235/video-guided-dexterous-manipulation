@@ -22,6 +22,7 @@ from manipulation.fit import case_pose
 
 
 def source_segment(track, start, end, stride=6):
+    """Require every source frame to be valid and unflagged before decimation."""
     if start < 0 or end <= start or end >= len(track["valid"]) or stride < 1:
         raise ValueError("Invalid source interval")
     all_frames = np.arange(start, end + 1)
@@ -31,6 +32,7 @@ def source_segment(track, start, end, stride=6):
 
 
 def main():
+    """Build smoothed, retimed control references from an unflagged in-hand video segment."""
     p = argparse.ArgumentParser(__doc__)
     p.add_argument("--bundle", type=Path, required=True)
     p.add_argument("--objects", type=Path, default=Path("examples/object-motion"))

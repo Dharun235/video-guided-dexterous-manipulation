@@ -13,11 +13,10 @@ from pathlib import Path
 
 import mujoco
 import numpy as np
-import torch
-import warp as wp
 
 
 def main():
+    """Refine motor commands on GPU and execute them on an independent CPU plant."""
     p = argparse.ArgumentParser(__doc__)
     p.add_argument("--spider", type=Path, required=True)
     p.add_argument("--input", type=Path, required=True)
@@ -30,6 +29,9 @@ def main():
     p.add_argument("--horizon", type=float, default=0.16)
     p.add_argument("--slew", type=float, default=1.2)
     a = p.parse_args()
+    import torch
+    import warp as wp
+
     a.output.mkdir(parents=True, exist_ok=False)
     sys.path.insert(0, str(a.spider.resolve()))
     from spider.config import Config, compute_steps
@@ -168,7 +170,7 @@ def main():
                 plan = torch.cat([previous, new_ctrl], dim=0)
             command_tensor, info = optimize(cfg, env, plan, slice_ref)
             plan = command_tensor.detach().clone()
-            # Upstream candidate zero is the unperturbed reference. Execute the
+            # Upstream candidate zero is the current warm-start plan. Execute the
             # optimized control block on the independent CPU plant, then replan.
             command_tensor = command_tensor.cpu().numpy()
             infos.append(

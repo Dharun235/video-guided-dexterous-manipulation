@@ -10,6 +10,7 @@ import numpy as np
 
 
 def main():
+    """Render recorded physics states for inspection without re-executing controls."""
     p = argparse.ArgumentParser(__doc__)
     p.add_argument("--rollout", type=Path, required=True)
     p.add_argument("--output", type=Path, required=True)

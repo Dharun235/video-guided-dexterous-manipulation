@@ -16,7 +16,8 @@ from .fit import case_pose, control_vector
 from .metrics import case_contacts, score
 
 
-def arm_target(model, active, seed, landmarks, desired_position):
+def arm_target(model, active, seed, landmarks, translation_m):
+    """Fit seven arm targets for a translation, in metres, of the existing grasp."""
     workspace = mujoco.MjData(model)
     sites = [model.site(f"landmark_{j}").id for j in [0, 4, 8, 12]]
     lo, hi = model.actuator_ctrlrange[active[:7]].T
@@ -26,7 +27,7 @@ def arm_target(model, active, seed, landmarks, desired_position):
         q[:7] = arm
         set_configuration(model, workspace, control_vector(model, active, q))
         return np.r_[
-            (workspace.site_xpos[sites] - landmarks[[0, 4, 8, 12]] - desired_position).ravel(),
+            (workspace.site_xpos[sites] - landmarks[[0, 4, 8, 12]] - translation_m).ravel(),
             0.002 * (arm - seed[:7]),
         ]
 
@@ -35,6 +36,7 @@ def arm_target(model, active, seed, landmarks, desired_position):
 
 
 def run(a):
+    """Execute bounded motor targets with a free case and save states, contacts and metrics."""
     started = time.monotonic()
     a.output.mkdir(parents=True, exist_ok=False)
     m = mujoco.MjModel.from_xml_path(str((a.fit / "scene.xml").resolve()))
@@ -285,6 +287,7 @@ def run(a):
 
 
 def main():
+    """Run the transfer or a configured contact/physics diagnostic."""
     p = argparse.ArgumentParser(__doc__)
     p.add_argument("--fit", type=Path, required=True)
     p.add_argument("--output", type=Path, required=True)

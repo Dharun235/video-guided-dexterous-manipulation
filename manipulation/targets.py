@@ -11,6 +11,7 @@ from humanoid.book_g1 import ORIGIN, SCENE_ROTATION
 
 
 def task_targets(track, surface):
+    """Derive estimated lift and placement goals while retaining source uncertainty."""
     valid = np.asarray(track["valid"], bool)
     trusted = valid & ~np.asarray(track["requires_review"], bool)
     if not trusted[0]:
@@ -48,6 +49,7 @@ def task_targets(track, surface):
 
 
 def main():
+    """Save control proposals separately from unchanged object-pose observations."""
     p = argparse.ArgumentParser(__doc__)
     p.add_argument("--track", type=Path, default=Path("examples/object-motion"))
     p.add_argument("--output", type=Path, required=True)

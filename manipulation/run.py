@@ -7,6 +7,7 @@ from pathlib import Path
 
 
 def main():
+    """Build targets and a grasp, execute physics, and optionally render/export observations."""
     parser = argparse.ArgumentParser(__doc__)
     parser.add_argument("--output", type=Path, default=Path("runs/transfer"))
     parser.add_argument("--render", action="store_true", help="Requires graphics access")

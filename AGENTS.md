@@ -1,91 +1,65 @@
 # Project scope
 
-This project turns a supplied tabletop recording into a supported Unitree G1
-with a five-finger Inspire right hand, physical rollouts and verified robot data.
-Keep changes focused on this workflow. Do not reintroduce unrelated robot tracks.
+Keep this project focused on the supplied tabletop recording, supported Unitree
+G1, native Inspire right hand and MuJoCo. Do not add VLA training, RL, dataset
+splits or unrelated robot tracks unless requested. Preserve the source recordings,
+licensed assets, required models and selected run inputs.
 
-## Runtime and models
+## Methods and environments
 
-Active scope is full-video right-hand extraction and G1/Inspire retargeting,
-followed by physical verification. The selected upstream retargeter runs in
-.venv-dexart through retargeting.video. Keep upstream files unchanged and record
-objective extensions honestly. Do not claim that the upstream kinematic solver produced the separate contact-IK
-physical rollout. Do not reintroduce VLA training, RL, collection
-splits or policy benchmarks unless the user requests them. Use .venv-g1 for
-simulation/tests and .venv-book-reconstruction for FastHaMeR/Core ML extraction.
-Preserve official robot models. Whole-body reconstruction is not required for
-this close-up hand recording. The original direct IK preview remains kinematic. manipulation/ now implements
-a separate actuator-driven translation-task adaptation with a box collision
-proxy, external-contact feedback and optional upstream MuJoCo MPC refinement.
-Do not describe it as exact full-video imitation; the uncertain flip is omitted.
+- `.venv-g1`: simulation, contact-aware IK, validation and tests.
+- `.venv-book-reconstruction`: FastHaMeR/Core ML hand extraction.
+- `.venv-dexart`: pinned humanoid-dexart-retarget/PyRoki kinematic adapter.
+- `scripts/gpu/`: experimental SPIDER/MuJoCo Warp adapter; separate CUDA runtime.
 
-## Geometry and evidence
+Keep external solver source unchanged and honor its pinned revision and license.
+The default physical transfer uses our bounded contact IK and force feedback;
+it is not the output of the upstream PyRoki solver. The optional CPU MuJoCo MPC
+adapter and GPU SPIDER adapter are separate experiments.
 
-Object motion now uses overlapping TrackCraft3R windows, visible-point rigid
-fits, bounded image refinement and explicitly flagged hand-prior reinitialisation.
-The published candidate has 740/748 poses: 430 connected to the initial anchor,
-310 uncertain relocalized poses and eight gaps. Coverage is not accuracy.
-Preserve component/review flags and NaNs. Final estimated table clearance is
-13.8 mm; contact correction and motor-driven manipulation remain unverified.
-Do not treat these object-pose candidates as training-ready robot states/actions.
+## Model and execution invariants
 
-The G1 must face the centre of the table's longer edge. Validate the actual
-compiled geometry with humanoid.layout.verify_layout. Keep the right-hand model,
-phone-aligned egocentric camera, and unmirrored image geometry consistent.
-The pelvis is supported and fixed; no balance or walking is claimed.
+The G1 faces the centre of the table's longer edge. Verify compiled geometry with
+`humanoid.layout.verify_layout`. Retain the genuine right-hand geometry,
+unmirrored camera convention and supported pelvis. No walking or balance is claimed.
 
-Retain source checksums and distinguish estimated hand/object poses from measured
-robot states. Single-view hidden geometry and scale are uncertain. A prescribed
-human replay is not proof of a physical grasp. Robot demonstrations must move the
-free object through actuator-driven contact, without hidden object attachment or
-object-pose playback. State teaching assumptions explicitly.
+Execute motor controls with the case free. Set object pose only at reset, never
+through hidden attachments, object actuators, external case forces or pose playback.
+Keep IK/reference workspaces separate from the running simulator. Label robot
+bias compensation and all mass/friction/collision approximations explicitly.
 
-## Data and verification
+Control feedback sums all external finger contacts; object identity is used only
+for evaluation. The local interface has 19 right arm/hand joint states, 13 position
+commands and five normal/shear force pairs. Commands are simulated controller
+targets, not observed human actions or a trained policy.
 
-Every attempt uses a new output directory. Preserve source checksums and missing
-frame masks. Never silently fill hidden hand/body observations or report a
-kinematic fit as physical success. Run .venv-g1/bin/python -m pytest -q humanoid/tests.
-Keep the source videos, current full-video runs and required reconstruction/robot
-dependencies. Old policy/data runs and their recovery copies were deleted at the
-user's request. Only a compact Git source-history backup is retained outside the
-repository. Do not regenerate or download old experiments without a new need.
+## Evidence and limits
 
-Raw robot state has nineteen right arm/hand joint positions; controls are seven
-arm targets plus six Inspire targets. Simulated touch has ten external fingertip
-normal/shear summaries. Do not select sensed contacts by object identity.
+The raw object candidate has 740/748 poses: 430 initially connected, 310 flagged
+relocalizations and eight gaps. Coverage is not accuracy. Preserve NaNs, component
+IDs and review flags. Raw final clearance is 13.8 mm; the controller uses a separate
+support correction. Do not rewrite observations to match a desired outcome.
 
-The user authorized the selected silent Book5 recording and project-generated
-previews for documentation. MANO files, weights, downloaded source, caches and
-full generated runs remain ignored. Do not publish credentials or licensed assets.
+The nominal CPU transfer works as a retimed translation-task adaptation with
+prescribed phases and fixed initial orientation. Lower friction and disabled
+force feedback fail. Do not claim robustness, exact video imitation or training
+readiness. The recorded flip remains unresolved.
 
-## Storage after cleanup
+The GPU rotation test also fails: mean/max object errors 11.9/82.7 mm versus replay
+10.9/80.4 mm. Reuse shifted optimized plans as in SPIDER's runner; do not discard
+learned corrections at every planning step. Full command replay matched all saved
+position-state vectors in MuJoCo 3.7.0. Keep this experimental result labeled as a
+failure, not an improvement over the working CPU adaptation.
 
-Superseded object/scene/solver trials and duplicate tracking transport archives
-were removed on 2026-10-30. Keep candidate-04, its scene, full depth archive,
-extracted tracking windows, full hand/camera inputs and required model caches.
-Do not use deleted diagnostic runs as prerequisites. Current cleanup inventory
-is local at runs/cleanup-2026-10-30.json.
+## Verification and storage
 
-## Physical transfer
+Run `make test` after code changes. For changes to physical execution, compare
+saved numerical rollouts and record material differences. Use a new output folder
+for each attempt. Keep the selected successful run and relevant failure evidence;
+remove superseded trials and verified duplicate transport files when authorized.
+An ignored `docs/folders-and-storage.md` may record the machine-local inventory.
 
-The contact-IK controller uses an observed frame-240 hand seed and video-derived
-source/destination positions. Explicit phase timing, clearance margins and fixed
-initial orientation are control-design assumptions. Raw pose flags are untouched.
-The robot is supported with bias-force compensation; no force or attachment is
-applied to the free case. Sensor feedback includes all external finger contacts;
-object-specific contacts are used only for evaluation. Store failures alongside
-successes. Lower-friction and no-force-feedback trials failed; no generalization
-or training-readiness claim is supported. MuJoCo MPC is pinned, unmodified upstream
-Python code with our reward/bounds adapter, not the GPU SPIDER backend.
-
-## GPU physics branch
-
-scripts/gpu/ calls unmodified SPIDER sampling and MuJoCo Warp at the pinned
-revision. The supported G1 uses the all-hinge robot + final free-object layout,
-not a floating-pelvis indexing convention. Reuse shifted optimized plans as in
-the upstream runner. Do not reset learned corrections at every planning step.
-The current cleaned video segment test loses the case: GPU mean/max position
-errors 11.9/82.7 mm versus replay 10.9/80.4 mm. Do not claim improvement, whole-video
-tracking, grasp success or training readiness. The complete executed commands
-were independently replayed in MuJoCo 3.7.0 with exact qpos agreement. Results
-are backed up under runs/gpu-physics-results-01; the supplied GPU is idle.
+The user authorized the silent Book5 recording and generated previews for public
+documentation. Keep credentials, MANO model files, neural weights, downloaded
+source and full local runs out of Git. Preserve hashes and provenance of published
+artifacts; historical implementation hashes refer to their generating revision.
