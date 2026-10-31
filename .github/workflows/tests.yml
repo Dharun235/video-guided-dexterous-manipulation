@@ -13,4 +13,7 @@ jobs:
           cache: pip
           cache-dependency-path: humanoid/requirements.lock.txt
       - run: python -m pip install -r humanoid/requirements.lock.txt
+      - run: python -m pip install ruff==0.17.3
+      - run: ruff check video_g1 scripts/gpu/check_commands.py
+      - run: ruff format --check video_g1 scripts/gpu/check_commands.py
       - run: python -m pytest -q

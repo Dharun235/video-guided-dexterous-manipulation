@@ -1,0 +1,10 @@
+{
+  "method": "Rigid hand registration with soft image, assumed support and image-inferred contact priors",
+  "hand_scale": 1.3385182526951869,
+  "source_frames": 748,
+  "refined_frames": 675,
+  "mean_pixel_error": 7.944504806425435,
+  "raw_observations_changed": false,
+  "contact_is_inferred": true,
+  "ready_for_training": false
+}

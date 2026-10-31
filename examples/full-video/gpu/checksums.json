@@ -1,0 +1,8 @@
+{
+  "trajectory.npz": "d68d2c14275f0fe862427838e15b54a68746efe167aeb019660926478a9e9ca3",
+  "command-replay.json": "fdee24a3e7987c0809ca44b7654461890f8fdf3dce316b5245d92ea60faa6748",
+  "replay.json": "5c1735718d59651c18c8faad792ad86fc4fd0bc3fe8a14be0f14d2910e5d3b71",
+  "reference.json": "e8d065f8cff95e5f987f97aea8e357b7fb2cff83513d8c8465b586296c8028f8",
+  "object-candidates.npz": "94bcec85254125b427981f151b55d2d06917a2f781a6ffcfd2e46c493cfb666d",
+  "optimization.json": "13d7d0eac3fce3e257a70699583152da3a3bc58936550e13c8ecdcaf29fea47e"
+}

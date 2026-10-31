@@ -1,0 +1,40 @@
+{
+  "source_frames": 748,
+  "observed_frames": 683,
+  "all_source_frames_preserved": true,
+  "source_duration_s": 12.45832219251337,
+  "execution_duration_s": 21.243071503242298,
+  "mean_wrist_error_m": 0.08607415758123642,
+  "mean_tip_error_m": 0.0420482703456978,
+  "median_palm_error_deg": 51.17563280106056,
+  "p95_palm_error_deg": 68.90070388041092,
+  "largest_control_step_rad": 0.7638754872574198,
+  "observation_filling": false,
+  "control_origin_codes": {
+    "0": "observed-pose fit",
+    "1": "interpolated command; no observation",
+    "2": "boundary command hold; no observation"
+  },
+  "hand_scale": {
+    "method": "Approximate user wrist-crease to middle-fingertip length / median extended model length",
+    "measured_hand_length_m": 0.23,
+    "extended_observations": 52,
+    "model_extended_length_m": 0.17183179948191307,
+    "scale": 1.3385182526951869,
+    "limitation": "Model wrist and anatomical crease may differ; no accuracy guarantee"
+  },
+  "task_registration": {
+    "method": "Camera registration only",
+    "translation_m": [
+      0,
+      0,
+      0
+    ]
+  },
+  "physical_execution": false,
+  "ready_for_training": false,
+  "calibration_report": "runs/public-full-video-01/cameras/report.json",
+  "elapsed_s": 95.67789029097185,
+  "solver_evaluations": 80,
+  "solver_success": false
+}

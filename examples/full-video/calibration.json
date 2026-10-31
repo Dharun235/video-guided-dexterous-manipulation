@@ -1,0 +1,85 @@
+{
+  "config": {
+    "schema_version": 1,
+    "source_video": "examples/source-recording/book5.mp4",
+    "source_sha256": "feced5ae9d2cabe2861a01d253fa8840ba39b9537f002677182ae4269a638605",
+    "recording": {
+      "device": "iPhone 14",
+      "camera": "handheld in left hand",
+      "observed_hand": "right",
+      "hand_size": "medium, self-reported; not a metric measurement"
+    },
+    "book_size_m": [
+      0.22,
+      0.22,
+      0.02
+    ],
+    "case_size_m": [
+      0.06,
+      0.06,
+      0.02
+    ],
+    "dimensions_source": "User supplied length, width and height on 2026-10-31",
+    "reference_plane_corners_px": [
+      [
+        222,
+        199
+      ],
+      [
+        498,
+        201
+      ],
+      [
+        502,
+        374
+      ],
+      [
+        187,
+        367
+      ]
+    ],
+    "camera": {
+      "principal_point": "image centre",
+      "distortion": "zero assumed",
+      "focal_length_px": null
+    },
+    "physics_assumptions": {
+      "case_mass_kg": 0.055,
+      "sliding_friction": 0.7,
+      "measured_mass": false,
+      "measured_friction": false
+    }
+  },
+  "source_frames": 748,
+  "image_size_wh": [
+    832,
+    464
+  ],
+  "intrinsics": [
+    [
+      1888.6682293167314,
+      0.0,
+      416.0
+    ],
+    [
+      0.0,
+      1888.6682293167314,
+      232.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "mean_corner_residual_px": 1.284343463575988,
+  "maximum_corner_residual_px": 6.025795732124928,
+  "scale_source": "User-supplied book dimensions",
+  "camera_assumptions": {
+    "principal_point": "image centre",
+    "distortion": "zero assumed",
+    "focal_length_px": null
+  },
+  "hand_scale": "MANO/model estimate; medium hand is not a measurement",
+  "ground_truth": false
+}

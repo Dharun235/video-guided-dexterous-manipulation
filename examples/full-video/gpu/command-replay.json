@@ -1,0 +1,9 @@
+{
+  "mujoco": "3.7.0",
+  "recorded_states": 1135,
+  "matched_sample_count": 1135,
+  "maximum_qpos_component_error": 0.0,
+  "all_states_match": true,
+  "object_pose_set_only_at_reset": true,
+  "validates": "Command replay determinism, not manipulation success"
+}

@@ -1,0 +1,24 @@
+{
+  "source_frames": 748,
+  "observed_frames": 683,
+  "all_source_frames_preserved": true,
+  "source_duration_s": 12.45832219251337,
+  "execution_duration_s": 21.8558374641905,
+  "mean_wrist_error_m": 0.007301950813183661,
+  "mean_tip_error_m": 0.011152386412917072,
+  "median_palm_error_deg": 9.313315914983285,
+  "p95_palm_error_deg": 35.23834353901748,
+  "largest_control_step_rad": 0.336296760621722,
+  "observation_filling": false,
+  "control_origin_codes": {
+    "0": "observed-pose fit",
+    "1": "interpolated command; no observation",
+    "2": "boundary command hold; no observation"
+  },
+  "physical_execution": false,
+  "ready_for_training": false,
+  "calibration_report": "runs/full-video-calibration-01/report.json",
+  "elapsed_s": 79.90686512499815,
+  "solver_evaluations": 72,
+  "solver_success": true
+}

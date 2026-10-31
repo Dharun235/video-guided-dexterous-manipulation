@@ -1,0 +1,17 @@
+{
+  "source_frames": 748,
+  "all_source_frames_preserved": true,
+  "initialization": "Robot pose set once; case starts on book",
+  "object_pose_playback": false,
+  "object_forces_or_welds": false,
+  "robot_bias_compensation": true,
+  "controller": "Open-loop fitted motor targets; physical feedback not enabled in this baseline",
+  "mean_wrist_error_m": 0.12272248114302156,
+  "mean_tip_error_m": 0.10009335447198944,
+  "maximum_joint_tracking_error_rad": 2.719874849830983,
+  "duration_s": 21.24400000000298,
+  "elapsed_s": 5.197372458991595,
+  "physical_success_verified": false,
+  "ready_for_training": false,
+  "mujoco_version": "3.8.1"
+}

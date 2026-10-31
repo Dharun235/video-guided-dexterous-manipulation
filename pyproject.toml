@@ -1,5 +1,5 @@
 [tool.pytest.ini_options]
-testpaths = ["humanoid/tests", "reconstruction/tests", "manipulation/tests"]
+testpaths = ["humanoid/tests", "reconstruction/tests", "manipulation/tests", "video_g1/tests"]
 norecursedirs = [".git", ".venv*", "third_party", "runs", "native/build", ".cache"]
 
 [tool.ruff]

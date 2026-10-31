@@ -1,0 +1,10 @@
+{
+  "method": "Measured-box silhouette registration with conservative hand occlusion proxy",
+  "source_frames": 748,
+  "valid_candidates": 204,
+  "median_visible_edge_error_px": 0.7941768017596602,
+  "rotation_prior": "Previous candidate with legacy orientation increments; not independent rotation evidence",
+  "occlusion": "Hand-keypoint bone/palm proxy; not observed segmentation",
+  "all_candidates_require_review": true,
+  "ready_for_training": false
+}

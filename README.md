@@ -23,9 +23,19 @@ estimated destination. [Results, camera data and limitations](examples/physics/R
 | Object motion | TrackCraft3R and rigid/image fitting | 740/748 pose candidates; 310 need review |
 | Robot transfer | Contact-aware IK and MuJoCo force feedback | G1/Inspire motion, simulated cameras, states and commands |
 
-Coverage is not pose accuracy. Geometry, mass and friction are estimated.
+Coverage is not pose accuracy. The published demo uses earlier estimated geometry. New full-video calibration
+uses supplied dimensions; mass and friction remain estimated.
 Lower-friction tests fail. The experimental GPU optimizer has not improved
 rotation tracking. [Object-motion preview](examples/object-motion/object-motion.mp4)
+
+## Full-video work
+
+The new path preserves all 748 source frames and fits the initial gestures as
+well as the manipulation. Camera calibration now uses the supplied book/case
+dimensions. Full physical grasp and flip still fail.
+[![Full-video diagnostic](examples/full-video/comparison.jpg)](examples/full-video/comparison.mp4)
+
+[Steps, comparison metrics, compute and remaining work](docs/full-video.md)
 
 ## Setup
 
@@ -60,7 +70,8 @@ The supplied calibration is specific to the included recording.
 - [x] Include the recording, hand/scene estimates and source provenance.
 - [x] Execute and measure a motor-driven transfer with a free object.
 - [x] Export synchronized simulated images, joint states, commands and contacts.
-- [ ] Resolve pose gaps and uncertain case orientation.
+- [x] Preserve all source frames in the new fit and verify command replay.
+- [ ] Resolve hand/object depth, pose gaps and uncertain case orientation.
 - [ ] Maintain grasp through rotation and validate full-motion transfer.
 
 ## Acknowledgements

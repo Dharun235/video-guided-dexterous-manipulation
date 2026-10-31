@@ -1,0 +1,27 @@
+{
+  "python": "3.12.13",
+  "platform": "macOS-26.5.1-arm64-arm-64bit",
+  "architecture": "arm64",
+  "mujoco": "3.8.1",
+  "numpy": "2.5.4",
+  "scipy": "1.18.1",
+  "git_head": "d95466f6c4b2f0bf854b5b6c671473ef01edd74a",
+  "input_sha256": {
+    "runs/full-video-reference-08/reference.npz": "3b828f6df9596f861d2f1eaab4b05e5c1f42fc79534adfd1d428719e1c98bcf2",
+    "runs/full-video-reference-08/scene.xml": "de9167ea88aced75274e9ccde186ec9611306be66269da3d7b4bdfaba119e4e3"
+  },
+  "implementation_sha256": {
+    "video_g1/__init__.py": "a98b2a5eb1c214917f2ff79588b69d7ded2f150eb72f4f6dc60275dd4aa72c76",
+    "video_g1/calibration.py": "dc6df9103da2405d844e4cad84d2bd3093cb58a17c179d8a166053f43f0a2496",
+    "video_g1/compare.py": "2e95b65217324fb40996df746c1d5e1846e18245d2c3beff90cb4671dac17944",
+    "video_g1/execute.py": "4403a49f1e28b991639750e0790490cf7f3d3ac4688aad12ff6dd91ffdd28ca7",
+    "video_g1/geometry.py": "fe5d3b6647d86e6e4373cb60ca9497c330d3671e2355c1fb275fbdbdb2a8a0af",
+    "video_g1/gpu_bundle.py": "aa15e1737b81434d79bb67b28fea526451514a06704f4f81356cfcae0754a37a",
+    "video_g1/observations.py": "5116fec1f47d5f3f4e8c9482e264b6230a368b0208871a1e2dd1f66a40bfe3fd",
+    "video_g1/provenance.py": "4c48c104ed9d90081d27c0c04fc2dcced43962109aaaa45c26fe3bb0ca78b273",
+    "video_g1/reference.py": "9988660125a679b620491a4d6f2892c09907487874fd75a5ab21f3f50a27359d",
+    "video_g1/refine_hand.py": "d921624663b50bc48a47313a48eddbea8d8a34f678c726b464a39d7c97c44e1c",
+    "video_g1/scene.py": "d44ad18644d9d53176caf84cf081be60dd4b0ca7dc87a2e4b7f61530950292b0",
+    "video_g1/timing.py": "aa6e12c6131de31c91fe5749ce582c583446f7242cae960005c73313e78b8632"
+  }
+}
