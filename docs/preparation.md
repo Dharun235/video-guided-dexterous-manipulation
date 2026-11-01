@@ -6,6 +6,57 @@ for the exact Book5 example; neural reconstruction may vary between runs.
 A new recording requires new annotations, metric dimensions, hand registration
 and reviewed motion phases in `video_g1.book5_sequence`.
 
+## Four-stage video-entry design
+
+This is the planned extension of the calibrated example. Each stage writes a
+report and inspectable output before the next stage runs. The first supported
+manipulation scope is a continuous tabletop clip with one hand and a rigid
+object. Gesture-only clips require hands, but not an object or grasp.
+
+| Stage | Required output | Gate |
+|---|---|---|
+| 1. Scene and input verification | Camera/scale estimates, support geometry, object masks/mesh, scene preview | Decodable clip, reliable hand evidence, task-required entities, consistent geometry and usable scale |
+| 2. Motion and interactions | Timestamped hand/object trajectories, inferred contacts/events and overlay | Identity/pose continuity, explicit gaps, sufficient evidence around interactions |
+| 3. Robot retargeting | Native arm/waist/finger plan, feasible grasp candidates and preview | Reach, limits, collisions, fit/contact feasibility and bounded retiming |
+| 4. Physical execution and verification | Actual commands/states/contacts, task report and comparison video | Stable contact, object-motion/placement checks and independent motor replay |
+
+Use `pass` to continue, `review` to pause with uncertain intervals and evidence,
+and `blocked` when required evidence or feasibility is absent. Store reason
+codes, frame intervals, measurements, thresholds and suggested remedies. A model
+or environment failure is distinct from an unsuitable video. No numeric confidence
+should be presented as a calibrated probability without validation.
+
+Checks run at stage boundaries and over temporal windows within each stage;
+critical contact checks run continuously during physical execution. If initial
+sampling finds no hand, verify additional frames before returning
+`hand_not_detected`: “No reliable hand observations were found; use a clearer
+view of the demonstrating hand.” A brief occlusion is a flagged interval, not
+proof that the entire task is impossible. Other reasons include invalid video,
+camera cut, missing task object, uncertain scale, tracking loss, unreachable
+motion and unstable grasp. Ambiguous or unsupported tasks must be reported.
+
+### Automatic dimensions
+
+Evaluate [MoGe-2](https://github.com/microsoft/MoGe) metric point/depth maps and
+[UniDepthV2](https://github.com/lpiccinelli-eth/UniDepth) metric depth as candidate
+scale estimators. Segment objects, fuse reliable views and estimate visible
+extents in the scene coordinate frame. Test temporal scale stability, support
+alignment and silhouette consistency; hidden dimensions require uncertainty.
+Object-category size priors can assist, but a class name does not determine an
+instance's dimensions. Predicted scale, measured scale and inferred hidden
+geometry must remain separately labelled.
+
+Compare candidates against measured Book5 dimensions and a separate recording
+before selecting a backend. Record dimensional error, temporal variation,
+device, memory and time. Check model licenses and pin revisions. The current
+MoGe repository defaults to MoGe-3 and documents macOS restrictions; do not
+silently upgrade the selected MoGe-2 candidate or assume MPS compatibility.
+These candidates are proposed, not installed dependencies of `make video`.
+
+Track implementation and acceptance criteria in the four GitHub stage issues.
+A stage PR must demonstrate its output and failures before downstream automation
+relies on it. Keep the saved-input Book5 path as the regression example.
+
 ## Hand observations on macOS
 
 Requirements: Apple Silicon macOS, uv, FFmpeg and a licensed `MANO_RIGHT.pkl`
