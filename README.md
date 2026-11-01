@@ -41,13 +41,18 @@ Results are saved under the selected folder: `scene/`, `grasp/`, `reference/`,
 
 ## Pipeline
 
-| Stage | Method |
-|---|---|
-| Observe | FastHaMeR/MANO hand estimates; TAA segmentation/reconstruction and TrackCraft3R object-pose candidates |
-| Build | Book-corner camera calibration, measured box collisions and photographed book texture |
-| Retarget | Human-derived gestures and turn anchors, RH56-derived wrap prior, SciPy/MuJoCo arm–waist inverse kinematics |
-| Execute | Native coupled Inspire joints, position motors, shared-body grasp confirmation and per-finger pressure feedback |
-| Verify | Pose/contact/placement checks and independent replay of the complete motor stream |
+| Stage | Current Book5 implementation | Current check/evidence |
+|---|---|---|
+| [1. Scene and input verification](https://github.com/Dharun235/video-guided-dexterous-manipulation/issues/1) | Reviewed camera observations, reconstruction inputs and measured box collisions | Scene loads with correct dimensions and a free object |
+| [2. Motion and interactions](https://github.com/Dharun235/video-guided-dexterous-manipulation/issues/2) | FastHaMeR/MANO hand estimates, TrackCraft3R object candidates and reviewed phases | Missing observations and uncertain components remain flagged |
+| [3. Robot retargeting](https://github.com/Dharun235/video-guided-dexterous-manipulation/issues/3) | Human-derived gestures, RH56-derived wrap prior and native arm–waist IK | Reach, joint coupling, fit residuals and approach posture |
+| [4. Physical execution and verification](https://github.com/Dharun235/video-guided-dexterous-manipulation/issues/4) | Motors, shared-body contact feedback, task scoring and independent replay | Grasp, carry, turn, placement, release and motor replay |
+
+The video-only extension will automate the reviewed inputs and add explicit
+`pass`, `review` and `blocked` gates at each stage. Its implementation is tracked
+in [four stage issues](https://github.com/Dharun235/video-guided-dexterous-manipulation/issues).
+[Stage contracts and input checks](docs/preparation.md#four-stage-video-entry-design)
+describe the proposed interface; the run commands above use the calibrated example.
 
 The recording determines gestures, turn anchors, placement evidence and scene
 appearance. Reviewed phases, reachable workspace, grasp geometry and slower timing
@@ -84,6 +89,10 @@ docs/           Methods and input preparation
 ```
 
 ## Development
+
+Open or link an issue before implementation. Work on a `codex/` branch, open a
+pull request against `main`, and include validation evidence. Changes to `main`
+go through reviewed pull requests; do not push implementation commits directly.
 
 Run commands from the project root. Tests live beside their modules. Keep
 observations separate from planned commands and physical state; retain missing
