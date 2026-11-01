@@ -1,13 +1,16 @@
-# Recorded task
+# Recorded demonstration
 
-The recording shows a right hand picking up a black case from a book and placing
-it on the table. This is the human input used by the reconstruction/retargeting
-workflow. `book5.mp4` contains the full recorded video sequence with audio removed;
-its decoded frames are unchanged. `preview.gif` is the inline README preview.
-The author recorded the clip on an iPhone 14 held in the left hand while the
-right hand performed the manipulation. The camera was handheld, so its motion
-is estimated against the stationary book. The clip is the input to this pipeline.
+The author recorded the demonstration on an iPhone 14 held in the left hand while
+the right hand picked up a black case from a book, turned it, and placed it on the
+table. The camera was handheld. Its motion is estimated against the stationary
+book.
 
-`provenance.json` records the original and published file hashes. The prepared
-local dataset references the original file hash; audio is not used in this
-workflow. Other source takes remain local.
+[Full recording](book5.mp4) · [Animated sample](preview.gif)
+
+The published sample contains all 748 frames over approximately 12.5 seconds.
+Audio was removed while preserving the decoded video frames. Supplied dimensions
+are 22 × 22 × 2 cm for the book and 6 × 6 × 2 cm for the case.
+
+The video supplies the hand-pose estimates, gesture and rotation references,
+placement evidence and book appearance used by the simulation pipeline.
+`provenance.json` records the original and published file hashes.

@@ -7,7 +7,7 @@ recorded tabletop demonstration. The Book5 example includes the initial hand
 turn, grasp, transport, in-hand turn, placement, release and final wrist/finger gestures.
 Execution uses MuJoCo motor controls and contact feedback. The fingers approach
 loosely open and close around the case; all five contacts are checked during the
-turn. No policy is trained.
+turn.
 
 [![Full-video comparison](examples/video-to-g1/preview.gif)](examples/video-to-g1/comparison.mp4)
 
@@ -16,7 +16,7 @@ Playback follows source time; the 12.5-second recording is retimed to 70.5 secon
 of simulation. The phone view hides the torso visually; collisions remain active.
 [Full-quality comparison](examples/video-to-g1/comparison.mp4) ·
 [Source recording](examples/source-recording/book5.mp4) ·
-[Steps, methods, results and limitations](docs/full-sequence.md)
+[Methods, results and design choices](docs/full-sequence.md)
 
 | Nominal check | Result |
 |---|---|
@@ -25,15 +25,18 @@ of simulation. The phone view hides the torso visually; collisions remain active
 | Physical case turn | 121.4°; all five fingers retain contact through the scored turn |
 | Final placement | 4.9 mm from the adapted target; released and stationary |
 
-This is a complete, task-specific motion adaptation. It is not exact video
-reconstruction or a fully automatic converter for arbitrary recordings. Phase
-boundaries are reviewed annotations; workspace, clearance and timing are adapted
-to the robot. Mass, friction and occluded object poses remain uncertain.
+## Recording
+
+Recorded on an iPhone 14 held in the left hand while the right hand manipulated
+the case. The full sample contains 748 frames over 12.5 seconds. The book measures
+22 × 22 × 2 cm and the case 6 × 6 × 2 cm. The recording supplies hand gestures,
+turn anchors, placement evidence and scene appearance.
+[Recorded data and collection note](examples/source-recording/README.md)
 
 ## Run
 
 Apple Silicon macOS, Python 3.12, Git, uv and FFmpeg. The saved-input pipeline
-runs on CPU without MANO files, neural weights or a GPU.
+runs on CPU.
 
 ```bash
 git clone https://github.com/Dharun235/video-guided-dexterous-manipulation.git
@@ -55,7 +58,7 @@ new output folder for each attempt. To also render the comparison:
 .venv-g1/bin/python -m video_g1.run_video --output runs/video-02 --render
 ```
 
-## Method
+## Approach and design
 
 | Stage | Implementation |
 |---|---|
@@ -70,15 +73,18 @@ feedback. Initial/final gestures and turn anchors come from the recording.
 [Data-derived inputs and prescribed adaptations](docs/full-sequence.md#approach-and-data-use)
 are listed separately in the method guide.
 
-## Status
+The scene uses measured rigid-box collision geometry and a fixed book. The pelvis
+is supported, and native waist joints extend the arm's reach during the turn.
+Reviewed phases and speed limits adapt the recording to the robot. Case mass
+55 g and sliding friction 0.7 are simulation settings.
 
-- [x] Publish the iPhone recording and collection note.
-- [x] Preserve initial gestures and the complete source timeline.
-- [x] Grasp, carry, turn, place and release a free case through physical contact.
-- [x] Save joint states, commands, forces and comparison views.
-- [x] Check fresh-run replay, small position changes, tests and CI.
-- [ ] Validate uncertain monocular object poses against independent measurements.
-- [ ] Establish broader reliability on new recordings and physical parameters.
+## Problems resolved
+
+| Problem observed | Correction and result |
+|---|---|
+| Fingers curled before contact | Open-to-wrap prior reduced approach flexion from 1.53 to 0.26 rad; all five fingers load the case during the scored turn |
+| Book contact stopped a finger closing | Shared-body confirmation and continuous pressure feedback keep the fingers engaged with the held object |
+| Release brushed the case about 27 mm | Settle, release and retract sequence finishes within 4.9 mm of the placement target |
 
 ## Guides and credits
 

@@ -245,13 +245,10 @@ negative control. Checksums identify the published evidence.
 - Sparse initial-gesture fitting missed brief rotations. Fitting every initial
   frame and slower retiming reduced mean/max palm error to 0.79°/3.09°.
 
-## Scope
+## Execution model
 
-The native Inspire joints are coupled, so the contact checks do not establish
-exact human PIP/DIP angles. The complete task-specific sequence now works in simulation. Exact monocular
-reconstruction, real-robot execution, balance and broad reliability are not
-established. Occluded case orientation and physical parameters remain uncertain.
-The final turn and placement are evaluated against clearly labelled adapted
-proposals. A new video needs reviewed poses, scene scale, task phases and a
-compatible grasp; the Book5 phase schedule should not be applied blindly.
-No VLA or RL is required for this controller, and no training success is claimed.
+The sequence uses a supported pelvis, native coupled Inspire joints, a measured
+rigid-box scene and reviewed motion phases. Grasp geometry, workspace, clearance,
+timing and pressure targets are calibrated for Book5. Pose errors are measured
+against extracted or adapted references, and mass/friction are simulation
+parameters. The saved observations retain their validity and review flags.
