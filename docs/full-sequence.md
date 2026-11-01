@@ -218,8 +218,10 @@ local graphics access. New neural hand observations need licensed MANO assets;
 new TAA reconstruction uses the separately documented NVIDIA environment.
 
 `make test` checks the numerical utilities, contact readout, native coupling and
-grasp-confirmation/loss behavior. CI runs tests and Ruff. Full physics validation
-runs locally because robot assets are downloaded during setup. The saved result
+grasp-confirmation/loss behavior. CI runs tests and Ruff. CI also downloads the pinned robot assets and runs the complete CPU sequence
+and motor replay. A [fresh-checkout check](verification.json) independently
+installed the runtime, ran all 50 tests, reproduced the published numerical
+arrays exactly and generated the comparison video/GIF on Apple Silicon. The saved result
 includes motor-only replay, the two small position checks and the force-feedback
 negative control. Checksums identify the published evidence.
 

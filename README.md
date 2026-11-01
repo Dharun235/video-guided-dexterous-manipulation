@@ -1,5 +1,7 @@
 # Video-Guided Dexterous Manipulation
 
+[![Pipeline tests](https://github.com/Dharun235/video-guided-dexterous-manipulation/actions/workflows/tests.yml/badge.svg)](https://github.com/Dharun235/video-guided-dexterous-manipulation/actions/workflows/tests.yml)
+
 Drive a supported Unitree G1 with a native Inspire five-finger right hand from a
 recorded tabletop demonstration. The Book5 example includes the initial hand
 turn, grasp, transport, in-hand turn, placement, release and final wrist/finger gestures.
@@ -40,6 +42,10 @@ make setup
 make test
 make video OUTPUT=runs/video-01
 ```
+
+[Fresh-checkout verification](docs/verification.json) covers setup, all 50 tests,
+physical execution, exact motor replay and video/GIF generation. CI also runs
+the complete CPU sequence.
 
 The command builds the measured scene, fits arm/hand/waist commands, executes
 physics, scores the result and independently checks motor-command replay. Use a
