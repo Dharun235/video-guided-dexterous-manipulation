@@ -55,9 +55,14 @@ new output folder for each attempt. To also render the comparison:
 |---|---|
 | Human observations | FastHaMeR/MANO hand estimates; raw gaps retained |
 | Scene and object inputs | TAA-derived reconstruction inputs and TrackCraft3R pose candidates; measured box collision geometry and book texture |
-| Motion planning | Native hand retargeting, RH56 grasp geometry, arm/waist IK, reviewed task phases and explicit retiming |
+| Motion planning | Human-derived gestures, RH56-derived wrap prior, SciPy/MuJoCo arm–waist IK, reviewed phases and retiming |
 | Physical execution | Position motors, robot-only bias compensation, shared-body grasp confirmation and finger-pressure feedback |
 | Verification | Full-timeline pose/contact/placement metrics, numerical replay, sensitivity checks and CI |
+
+The grasp/carry fingers use a calibrated geometric prior and simulated contact
+feedback. Initial/final gestures and turn anchors come from the recording.
+[Data-derived inputs and prescribed adaptations](docs/full-sequence.md#approach-and-data-use)
+are listed separately in the method guide.
 
 ## Status
 

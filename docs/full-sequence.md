@@ -26,6 +26,44 @@ The hand observations have 683/748 raw detections. The object candidate contains
 740/748 poses, including 310 review flags and eight gaps. Flags and missing values
 remain unchanged. Pose coverage is not accuracy.
 
+## Approach and data use
+
+This is a hybrid observation-driven retargeting and feedback-control pipeline.
+There is no VLA, reinforcement learning or end-to-end video-to-action model.
+`make video` processes published observations and grasp inputs; it does not rerun
+neural extraction from the raw video. New observations use the linked extraction
+and reconstruction guides.
+
+| Component | Approach | What determines it |
+|---|---|---|
+| Hand observations | FastHaMeR/MANO on Core ML | Estimated wrist orientation, mesh and 21 hand landmarks from the recording |
+| Metric cameras | OpenCV planar PnP and focal-length reprojection fitting | Tracked book corners and supplied 22 cm square book dimensions |
+| Physical scene | Measured rigid boxes, initial-mask bounding-box registration and photographed book texture | Supplied dimensions, saved reconstruction inputs and initial segmentation |
+| Gesture retargeting | Native hand landmark/palm fitting; saved initial fit and final fitted finger commands | Human hand estimates; missing observations remain flagged |
+| Grasp prior | RH56-derived palm path, native finger-row centring and calibrated pre-shapes | Object geometry, native hand coupling and reviewed wrapping pattern |
+| Arm and waist | Bounded SciPy nonlinear least squares using MuJoCo forward kinematics | Palm position/orientation targets, seed regularization and soft arm–torso clearance penalties |
+| Rotation and timing | SO(3) spherical interpolation, reviewed phases and joint-speed retiming | Selected observed palm rotations plus explicitly adapted timing |
+| Physical control | Position servos, robot bias compensation and per-finger pressure feedback | Simulated joint state and external contact forces |
+
+The current physical path uses the local SciPy/MuJoCo IK implementation. The
+separately documented humanoid-dexart-retarget/PyRoki adapter is an earlier
+kinematic stage, not the controller executing this complete sequence.
+
+During grasp and carry, finger commands come from the geometric grasp prior and
+pressure regulation, rather than direct frame-by-frame MANO angle copying.
+The 25 mm centring offset, native finger pre-shape coefficients and force targets
+are calibrated design choices. The recording determines the demonstrated task,
+gesture estimates, turn anchors, placement evidence and scene appearance; it
+does not uniquely reveal hidden contacts or physical parameters.
+
+Reviewed or prescribed parts include phase boundaries, the safe transition above
+the scene, the increased lift clearance, placement support height and final yaw.
+The case translation follows a phase-based transport proposal derived from the
+estimated destination, not every raw tracked object pose. Carry rotation follows
+selected human-palm anchors, not an independently verified full object trajectory.
+Mass and friction are assumed. These choices are separated from the unchanged
+observations and their review flags.
+
 ## Steps
 
 Run after `make setup`. `make video OUTPUT=runs/video-01` performs steps 1–5;
@@ -199,9 +237,9 @@ negative control. Checksums identify the published evidence.
   reorientation preserved the untouched initial case.
 - Tested fixed-torso IK fits missed the peak turn. Native waist motion extended
   the reachable pose range while retaining a supported pelvis.
-- Opening unused fingers during release pushed the case about 27 mm. Releasing
-  thumb/index first and opening other fingers after retraction reduced final
-  error to below 5 mm.
+- Opening unused fingers during an earlier release pushed the case about 27 mm.
+  The current five-finger controller settles the case on the table, releases all
+  grasp fingers, then retracts before the final gestures; final error is below 5 mm.
 - Sparse initial-gesture fitting missed brief rotations. Fitting every initial
   frame and slower retiming reduced mean/max palm error to 0.79°/3.09°.
 
