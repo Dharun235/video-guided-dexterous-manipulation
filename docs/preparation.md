@@ -57,6 +57,87 @@ Track implementation and acceptance criteria in the four GitHub stage issues.
 A stage PR must demonstrate its output and failures before downstream automation
 relies on it. Keep the saved-input Book5 path as the regression example.
 
+## Automatic Stage 1 on CPU
+
+```bash
+make setup-scene
+.venv-scene/bin/python -m reconstruction.scene_check /path/to/video.mp4
+```
+
+The input is the video alone. Optional `--output` selects a new output folder;
+`--mode gesture` checks gesture footage without requiring an object. Auto mode
+examines manipulation candidates and keeps task ambiguity explicit. The command
+uses no Book5 annotations, supplied dimensions, saved grasp or hand prior.
+
+1. Decode the whole clip and check timing, corruption, abrupt HSV appearance
+   changes and near-static footage. Inspect blur/exposure on uniformly sampled
+   frames at a fixed resolution. Clips over 180 seconds require splitting.
+2. Detect hands at approximately 2 Hz. If none are found, verify at 10 Hz before
+   reporting missing evidence. Missing intervals remain explicit. Extra hands or
+   scene cuts pause reconstruction with a review result.
+3. Generate automatic SAM point prompts from an image grid, image contours and
+   fingertip neighbourhoods. Reject image-spanning/background masks, masks far
+   from fingertips and masks overlapping confidently segmented people. Rank
+   remaining object candidates; similar scores retain an ambiguity flag.
+4. Infer MoGe-2 metric points/camera intrinsics at selected hand-closure frames.
+   Fit a visible support-plane hypothesis, export a coloured point cloud and
+   convex object hull, then compile and passively settle the free-object scene
+   in MuJoCo under explicitly assumed mass/friction.
+
+This is automated observation checking and scene proposal generation. The
+single-view hull does not reconstruct hidden surfaces or establish cross-view
+object identity. Manipulation proposals therefore retain a review gate; a
+successful file export is not proof of correct scene geometry or robot success.
+Learned dimensions are labelled estimates. Extent variation is a consistency
+check, not a measured size-error bound. No fixed object-class dimensions are used.
+
+`report.json` contains reasons, temporal evidence, thresholds, timings and source
+hashes. `observations.json` retains sampled detections and quality values.
+`preview.jpg` and `frame-*.jpg` show the evidence; each `view-*/` contains
+`geometry.npz`, `scene.ply`, `object.obj` and `scene.xml`. Blocking returns exit
+code 2; review returns a report requiring downstream approval. Missing model or
+package errors are distinguished from missing hands and failed inference.
+
+The default segmentation runtime is EfficientSAM-Ti through ONNX Runtime's CPU
+provider. Optional SAM2.1 Tiny can be installed and evaluated with:
+
+```bash
+python3 -m scripts.setup_scene --sam2
+.venv-scene/bin/python -m reconstruction.scene_check /path/to/video.mp4 \
+  --segmenter sam2
+```
+
+Microsoft documents [SAM2 CPU ONNX export/inference](https://github.com/microsoft/onnxruntime/tree/main/onnxruntime/python/tools/transformers/models/sam2).
+[SAMExporter](https://github.com/vietanhdev/samexporter) provides community SAM3
+ONNX exports too; SAM3 is a research option, not this command's tested backend.
+The tested adapters use pinned, exported model files and explicit tensor
+conventions. Model URLs, revisions and SHA-256 values are in
+`reconstruction/SCENE_MODELS.json`; dependencies are in
+`reconstruction/requirements-scene.lock.txt`. MoGe's v2 module is installed
+without its v3 CUDA-only extras and runs with CPU FP32 inference.
+
+### External validation
+
+```bash
+.venv-scene/bin/python -m scripts.evaluate_scene \
+  --download --output runs/scene-evaluation-01
+```
+
+The source manifest pins nine external clips: human manipulation/tool use,
+hand gestures, a robot-only example, distant pedestrians and a decode-failure
+case. Sources are C2Dex, dex-retargeting and OpenCV. Six additional controls add
+blur, blackout, occlusion, a brightness discontinuity, two hands and corruption.
+Control clips are derived from the downloaded gesture video. External footage
+and previews remain local; the repository contains source links/checksums and
+aggregate results. Publisher/data terms govern the original clips.
+
+A positive gate example means useful human-hand evidence, not verified scene
+accuracy. The suite checks specific rejection/review reasons and records
+inference errors separately. The test mode for the gesture example is declared
+in its evaluation manifest. Measured-size and hidden-geometry accuracy need a
+separate independently annotated benchmark before the scene gate can pass
+manipulation videos without review.
+
 ## Hand observations on macOS
 
 Requirements: Apple Silicon macOS, uv, FFmpeg and a licensed `MANO_RIGHT.pkl`

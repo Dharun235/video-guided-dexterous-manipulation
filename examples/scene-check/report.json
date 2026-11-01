@@ -1,0 +1,288 @@
+{
+  "clips": [
+    {
+      "name": "c2dex-drop.mp4",
+      "category": "positive_manipulation",
+      "mode": "auto",
+      "input_sha256": "3347f48ffe703d99c8573a939af6dffba4f1311a2f57de6d5b9f47d81680fefe",
+      "status": "review",
+      "reasons": [
+        "ambiguous_object",
+        "hidden_geometry_unverified"
+      ],
+      "hand_frames": 6,
+      "inspected_frames": 7,
+      "elapsed_s": 36.40259449998848,
+      "gate_expectation_matched": true,
+      "environment_or_inference_error": null,
+      "scene_proposals": 2
+    },
+    {
+      "name": "c2dex-stack.mp4",
+      "category": "positive_manipulation",
+      "mode": "auto",
+      "input_sha256": "0932029dea96c648abf9e064d8d7d13ae396ad0dd8d6b98867efac8800d89d2d",
+      "status": "review",
+      "reasons": [
+        "uncertain_scale_or_identity",
+        "ambiguous_object",
+        "hidden_geometry_unverified"
+      ],
+      "hand_frames": 12,
+      "inspected_frames": 13,
+      "elapsed_s": 30.72397945803823,
+      "gate_expectation_matched": true,
+      "environment_or_inference_error": null,
+      "scene_proposals": 2
+    },
+    {
+      "name": "c2dex-pour.mp4",
+      "category": "challenging_manipulation",
+      "mode": "auto",
+      "input_sha256": "108090c6d7929197e99dd1f133e9f557a125bf13df18db4c401109a9f45d11e0",
+      "status": "review",
+      "reasons": [
+        "multiple_hands"
+      ],
+      "hand_frames": 19,
+      "inspected_frames": 19,
+      "elapsed_s": 2.9312231670483015,
+      "gate_expectation_matched": true,
+      "environment_or_inference_error": null,
+      "scene_proposals": 0
+    },
+    {
+      "name": "dex-gestures.mp4",
+      "category": "positive_gesture",
+      "mode": "gesture",
+      "input_sha256": "d306af128862940fc6e3c737a42ec6b00a137fff1c37b10805fe2c143c62ddb8",
+      "status": "pass",
+      "reasons": [],
+      "hand_frames": 42,
+      "inspected_frames": 42,
+      "elapsed_s": 2.544212125008926,
+      "gate_expectation_matched": true,
+      "environment_or_inference_error": null,
+      "scene_proposals": 0
+    },
+    {
+      "name": "opencv-tree.avi",
+      "category": "negative_decode",
+      "mode": "auto",
+      "input_sha256": "4666099d0f704e310047b2f0a5ec9f936cb76a7271de9a2e70a0c57f82ac82dc",
+      "status": "blocked",
+      "reasons": [
+        "incomplete_decode",
+        "insufficient_hand_evidence"
+      ],
+      "hand_frames": 1,
+      "inspected_frames": 10,
+      "elapsed_s": 0.3146577079896815,
+      "gate_expectation_matched": true,
+      "environment_or_inference_error": null,
+      "scene_proposals": 0
+    },
+    {
+      "name": "opencv-pedestrians.avi",
+      "category": "negative_wrong_view",
+      "mode": "auto",
+      "input_sha256": "45cddc9490be69345cbdab64ca583be65987e864ca408038e648db99e10516cf",
+      "status": "blocked",
+      "reasons": [
+        "hand_not_detected"
+      ],
+      "hand_frames": 0,
+      "inspected_frames": 795,
+      "elapsed_s": 37.87033583398443,
+      "gate_expectation_matched": true,
+      "environment_or_inference_error": null,
+      "scene_proposals": 0
+    },
+    {
+      "name": "c2dex-robot.mp4",
+      "category": "negative_robot_only",
+      "mode": "auto",
+      "input_sha256": "6767a6161b0592def807feeca13664219843934f7989d516046e0cd8cb111f7e",
+      "status": "blocked",
+      "reasons": [
+        "hand_not_detected"
+      ],
+      "hand_frames": 0,
+      "inspected_frames": 35,
+      "elapsed_s": 1.241061291017104,
+      "gate_expectation_matched": true,
+      "environment_or_inference_error": null,
+      "scene_proposals": 0
+    },
+    {
+      "name": "c2dex-rigid.mp4",
+      "category": "positive_manipulation",
+      "mode": "auto",
+      "input_sha256": "0aee932303c4b8323c3d09833835eee2bc53770a8381d2e525a5c5ea42aba7de",
+      "status": "review",
+      "reasons": [
+        "uncertain_support",
+        "hidden_geometry_unverified"
+      ],
+      "hand_frames": 4,
+      "inspected_frames": 5,
+      "elapsed_s": 24.89751612499822,
+      "gate_expectation_matched": true,
+      "environment_or_inference_error": null,
+      "scene_proposals": 2
+    },
+    {
+      "name": "c2dex-brush.mp4",
+      "category": "positive_manipulation",
+      "mode": "auto",
+      "input_sha256": "89f1c7a45d24df4c77c67b922eea6a7b47a7b13f323c4b293ebdb4c7579c03e8",
+      "status": "review",
+      "reasons": [
+        "multiple_hands"
+      ],
+      "hand_frames": 9,
+      "inspected_frames": 9,
+      "elapsed_s": 1.2422092499909922,
+      "gate_expectation_matched": true,
+      "environment_or_inference_error": null,
+      "scene_proposals": 0
+    },
+    {
+      "name": "blur.avi",
+      "category": "control",
+      "mode": "gesture",
+      "input_sha256": "e4f1d493fe7111c85ca1d2bc202365ef3fac3606aefbda4b9ad6afcecb820fe6",
+      "status": "blocked",
+      "reasons": [
+        "severe_blur",
+        "hand_not_detected"
+      ],
+      "hand_frames": 0,
+      "inspected_frames": 30,
+      "elapsed_s": 0.990382791031152,
+      "gate_expectation_matched": true,
+      "environment_or_inference_error": null,
+      "scene_proposals": 0
+    },
+    {
+      "name": "blackout.avi",
+      "category": "control",
+      "mode": "gesture",
+      "input_sha256": "e228f70522ca2cd9a92ffffcba541b57c6487a1afcc27dad09712743009fcc55",
+      "status": "blocked",
+      "reasons": [
+        "static_video",
+        "severe_blur",
+        "severe_exposure",
+        "hand_not_detected"
+      ],
+      "hand_frames": 0,
+      "inspected_frames": 30,
+      "elapsed_s": 1.0222409169655293,
+      "gate_expectation_matched": true,
+      "environment_or_inference_error": null,
+      "scene_proposals": 0
+    },
+    {
+      "name": "occlusion.avi",
+      "category": "control",
+      "mode": "gesture",
+      "input_sha256": "4a1f56a9f83c7c87a3b1c0fa67ce5edffd41818a0dd6adc229c5d6ba7154484b",
+      "status": "review",
+      "reasons": [
+        "camera_cut"
+      ],
+      "hand_frames": 7,
+      "inspected_frames": 8,
+      "elapsed_s": 0.3850890420144424,
+      "gate_expectation_matched": true,
+      "environment_or_inference_error": null,
+      "scene_proposals": 0
+    },
+    {
+      "name": "cut.avi",
+      "category": "control",
+      "mode": "gesture",
+      "input_sha256": "4928e279c49a3d4ed849bda33ed529f5a05b36ac222048ec64102ce59e8169a4",
+      "status": "review",
+      "reasons": [
+        "camera_cut"
+      ],
+      "hand_frames": 4,
+      "inspected_frames": 8,
+      "elapsed_s": 0.3289809999987483,
+      "gate_expectation_matched": true,
+      "environment_or_inference_error": null,
+      "scene_proposals": 0
+    },
+    {
+      "name": "two-hands.avi",
+      "category": "control",
+      "mode": "gesture",
+      "input_sha256": "f9de59a8fe54fcbb21eb46d9edf6bb150bca88ac70c1f80ebcd32122b5e19feb",
+      "status": "review",
+      "reasons": [
+        "multiple_hands"
+      ],
+      "hand_frames": 8,
+      "inspected_frames": 8,
+      "elapsed_s": 0.5500193330226466,
+      "gate_expectation_matched": true,
+      "environment_or_inference_error": null,
+      "scene_proposals": 0
+    },
+    {
+      "name": "corrupt.avi",
+      "category": "control",
+      "mode": "gesture",
+      "input_sha256": null,
+      "status": "blocked",
+      "reasons": [
+        "invalid_video"
+      ],
+      "hand_frames": 0,
+      "inspected_frames": 0,
+      "elapsed_s": 0.008315042010508478,
+      "gate_expectation_matched": true,
+      "environment_or_inference_error": null,
+      "scene_proposals": 0
+    }
+  ],
+  "all_gate_expectations_matched": true,
+  "scene_accuracy_validated": false,
+  "raw_videos_redistributed": false,
+  "compute": {
+    "host": "Apple M2",
+    "cpu_cores": 8,
+    "memory_GiB": 16,
+    "device": "CPU",
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O"
+  },
+  "unit_tests_passed": 43,
+  "segmentation_comparison": {
+    "results": [
+      {
+        "backend": "efficient",
+        "elapsed_s": 10.310127500037197,
+        "candidates": 9,
+        "reference": "supplied SAM3 mask; estimated segmentation, not independent ground truth",
+        "providers": [
+          "CPUExecutionProvider"
+        ],
+        "oracle_best_candidate_iou": 0.954384410983171
+      },
+      {
+        "backend": "sam2",
+        "elapsed_s": 9.220914167002775,
+        "candidates": 6,
+        "reference": "supplied SAM3 mask; estimated segmentation, not independent ground truth",
+        "providers": [
+          "CPUExecutionProvider"
+        ],
+        "oracle_best_candidate_iou": 0.9117140396210164
+      }
+    ],
+    "interpretation": "One-frame oracle candidate overlap with an estimated SAM3 mask; not automatic-selection accuracy or a general speed benchmark"
+  },
+  "scene_readiness": "Manipulation candidates require review; hidden geometry and cross-view object identity remain unverified."
+}
