@@ -227,6 +227,16 @@
     },
     "unit_tests": {
       "passed": 33
+    },
+    "fresh_checkout": {
+      "commit": "f56aea334e30fb707adb7ba500fa6bb199b49abd",
+      "setup_passed": true,
+      "tests_passed": 33,
+      "full_sequence_success": true,
+      "reference_and_rollout_arrays_match": true,
+      "motor_replay_maximum_qpos_error": 0.0,
+      "video_and_gif_generated": true,
+      "github_ci": "https://github.com/Dharun235/video-guided-dexterous-manipulation/actions/runs/41305106747"
     }
   },
   "runtime": {
