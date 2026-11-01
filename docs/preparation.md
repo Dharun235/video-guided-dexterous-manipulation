@@ -95,7 +95,8 @@ check, not a measured size-error bound. No fixed object-class dimensions are use
 hashes. `observations.json` retains sampled detections and quality values.
 `preview.jpg` and `frame-*.jpg` show the evidence; each `view-*/` contains
 `geometry.npz`, `scene.ply`, `object.obj` and `scene.xml`. Blocking returns exit
-code 2; review returns a report requiring downstream approval. Missing model or
+code 2 and review returns code 3; only pass returns 0. Downstream stages must
+stop on review/blocked and inspect the report. Missing model or
 package errors are distinguished from missing hands and failed inference.
 
 The default segmentation runtime is EfficientSAM-Ti through ONNX Runtime's CPU
@@ -117,6 +118,11 @@ conventions. Model URLs, revisions and SHA-256 values are in
 without its v3 CUDA-only extras and runs with CPU FP32 inference.
 
 ### External validation
+
+The saved [validation report](../examples/scene-check/report.json) covers nine
+downloaded clips and six adverse controls; all 15 gate expectations matched.
+The suite validates input decisions, not general scene-reconstruction accuracy.
+
 
 ```bash
 .venv-scene/bin/python -m scripts.evaluate_scene \

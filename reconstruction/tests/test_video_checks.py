@@ -138,3 +138,17 @@ def test_brightness_discontinuity_is_detected_even_with_similar_hue(tmp_path):
     writer.release()
     video, _ = inspect_video(path)
     assert any(abs(c["frame"] - 10) <= 1 for c in video["cuts"])
+
+
+def test_review_exit_code_cannot_be_treated_as_a_successful_gate(monkeypatch):
+    import sys
+
+    import pytest
+
+    from reconstruction import scene_check
+
+    monkeypatch.setattr(sys, "argv", ["scene_check", "example.mp4"])
+    monkeypatch.setattr(scene_check, "run", lambda *args, **kwargs: dict(status="review", reasons=[]))
+    with pytest.raises(SystemExit) as stopped:
+        scene_check.main()
+    assert stopped.value.code == 3

@@ -258,7 +258,7 @@
     "device": "CPU",
     "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O"
   },
-  "unit_tests_passed": 43,
+  "unit_tests_passed": 44,
   "segmentation_comparison": {
     "results": [
       {

@@ -318,7 +318,7 @@ def main():
             indent=2,
         )
     )
-    raise SystemExit(2 if report["status"] == "blocked" else 0)
+    raise SystemExit({"pass": 0, "blocked": 2, "review": 3}[report["status"]])
 
 
 if __name__ == "__main__":

@@ -64,7 +64,8 @@ Validate downloaded external clips and adverse controls with:
 ```
 
 [Stage 1 setup and checks](docs/preparation.md#automatic-stage-1-on-cpu) ·
-[Validation sources](reconstruction/SCENE_VALIDATION.json)
+[Validation sources](reconstruction/SCENE_VALIDATION.json) ·
+[15-case validation results](examples/scene-check/report.json)
 
 ## Pipeline
 
