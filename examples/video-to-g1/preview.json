@@ -1,8 +1,0 @@
-{
-  "source_frames": 748,
-  "preview_frames": 250,
-  "stride": 3,
-  "playback": "Source time; physical execution is separately retimed",
-  "all_phases_included": true,
-  "visibility": "Only phone-view torso hidden; all collision geometry remains active"
-}

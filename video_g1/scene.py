@@ -1,4 +1,4 @@
-"""Build a measured-size scene without overwriting earlier reconstruction evidence."""
+"""Build measured collision geometry and register photographed scene appearance."""
 
 import argparse
 import json
@@ -44,7 +44,7 @@ def build(config_path, cameras_path, appearance_path, output, case_masks):
     root = ET.Element("mujoco", model="book5_measured_geometry")
     ET.SubElement(root, "compiler", angle="radian")
     asset = ET.SubElement(root, "asset")
-    # Preserve photographed book texture, correcting the old mesh dimensions.
+    # Preserve photographed book texture, rescaling the reconstruction map to measured dimensions.
     shutil.copy2(appearance_path / "assets/book.png", assets / "book.png")
     old = appearance_path / "assets/book.obj"
     lines = []

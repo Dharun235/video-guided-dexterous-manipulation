@@ -7,8 +7,7 @@ from pathlib import Path
 import mujoco
 import numpy as np
 
-from humanoid.kinematics import set_configuration
-from manipulation.fit import control_vector
+from humanoid.kinematics import control_vector, set_configuration
 
 
 def check(reference_path, rollout_path):

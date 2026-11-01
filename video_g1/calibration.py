@@ -56,7 +56,7 @@ def fit_intrinsics(quads, size_m, image_size, focal=None):
 
 
 def run(config_path, camera_observations, output):
-    """Write measured-dimension camera registrations without replacing old estimates."""
+    """Fit metric camera poses from reviewed book-corner observations."""
     config = json.loads(Path(config_path).read_text())
     rows = json.loads(Path(camera_observations).read_text())
     video = Path(config["source_video"])

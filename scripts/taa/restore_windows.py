@@ -1,10 +1,12 @@
 """Connect downloaded window outputs to local source frames and SAM3 masks."""
+
 import argparse
 import json
 from pathlib import Path
 
 
 def main():
+    """Restore tracking-window links to the downloaded source frames and masks."""
     parser = argparse.ArgumentParser(__doc__)
     parser.add_argument("--windows-dir", type=Path, required=True)
     parser.add_argument("--scene-dir", type=Path, required=True)
@@ -23,7 +25,12 @@ def main():
     candidates.sort(key=lambda p: json.loads((p / "input-manifest.json").read_text())["window_start"])
     for window in candidates:
         manifest = json.loads((window / "input-manifest.json").read_text())
-        for child, suffix in [("frames", "jpg"), ("masks/case", "png"), ("masks/book", "png"), ("da3/depth", "npy")]:
+        for child, suffix in [
+            ("frames", "jpg"),
+            ("masks/case", "png"),
+            ("masks/book", "png"),
+            ("da3/depth", "npy"),
+        ]:
             directory = window / child
             directory.mkdir(parents=True, exist_ok=True)
             for row in manifest["frames"]:

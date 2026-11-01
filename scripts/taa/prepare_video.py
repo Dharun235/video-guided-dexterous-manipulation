@@ -1,4 +1,5 @@
 """Write TAA JPEG inputs, timestamps and source checksum without changing playback."""
+
 import argparse
 import hashlib
 import json
@@ -8,6 +9,7 @@ import cv2
 
 
 def main():
+    """Decode source frames and record timestamps, checksums and segmentation prompts."""
     parser = argparse.ArgumentParser(__doc__)
     parser.add_argument("--video", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
@@ -34,18 +36,25 @@ def main():
             path = frames / f"{index:06d}.jpg"
             if not cv2.imwrite(str(path), image, [cv2.IMWRITE_JPEG_QUALITY, 95]):
                 raise RuntimeError(f"Cannot write {path}")
-            records.append(dict(frame_index=index, source_frame=source_index,
-                                timestamp_s=source_index / fps))
+            records.append(dict(frame_index=index, source_frame=source_index, timestamp_s=source_index / fps))
         source_index += 1
     cap.release()
-    manifest = dict(source=args.video.name,
-                    sha256=hashlib.sha256(args.video.read_bytes()).hexdigest(),
-                    fps=fps, source_frames_read=source_index, stride=args.stride,
-                    timestamp_basis="source_frame / average_fps", frames=records)
+    manifest = dict(
+        source=args.video.name,
+        sha256=hashlib.sha256(args.video.read_bytes()).hexdigest(),
+        fps=fps,
+        source_frames_read=source_index,
+        stride=args.stride,
+        timestamp_basis="source_frame / average_fps",
+        frames=records,
+    )
     (args.output / "input-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
-    prompts = dict(prompts=[
-        dict(text="book", frame_index=0, label="book", motion="static", keyframe_candidates=[0]),
-        dict(text="black case", frame_index=0, label="case", motion="moving", keyframe_candidates=[0])])
+    prompts = dict(
+        prompts=[
+            dict(text="book", frame_index=0, label="book", motion="static", keyframe_candidates=[0]),
+            dict(text="black case", frame_index=0, label="case", motion="moving", keyframe_candidates=[0]),
+        ]
+    )
     (args.output / "prompts.json").write_text(json.dumps(prompts, indent=2) + "\n")
     print(f"Wrote {len(records)} frames from {source_index} source frames")
 

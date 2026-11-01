@@ -41,7 +41,7 @@ def main():
         "--config",
         "configs/book5.json",
         "--camera-observations",
-        "examples/full-video/camera-observations.json",
+        "data/book5/inputs/camera-observations.json",
         "--output",
         args.output / "cameras",
     )
@@ -52,9 +52,9 @@ def main():
         "--cameras",
         args.output / "cameras",
         "--appearance",
-        "examples/object-motion/scene",
+        "data/book5/inputs/tracking-map",
         "--case-masks",
-        "examples/full-video/case-masks",
+        "data/book5/inputs/masks",
         "--output",
         args.output / "scene",
     )
@@ -88,7 +88,7 @@ def main():
             "--cameras",
             args.output / "cameras",
             "--source",
-            "examples/source-recording/book5.mp4",
+            "data/book5/video.mp4",
             "--output",
             args.output / "preview",
         )

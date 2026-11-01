@@ -1,4 +1,5 @@
 """Select rejected rigid-fit windows for targeted coherent-depth repair."""
+
 import argparse
 import json
 from pathlib import Path
@@ -7,6 +8,7 @@ from reconstruction.rigid_tracks import window_motion
 
 
 def main():
+    """List source windows whose rigid correspondence fits were rejected."""
     parser = argparse.ArgumentParser(__doc__)
     parser.add_argument("--windows", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)

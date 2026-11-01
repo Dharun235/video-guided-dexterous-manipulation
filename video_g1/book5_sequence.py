@@ -13,11 +13,10 @@ import numpy as np
 from scipy.spatial.transform import Rotation, Slerp
 
 from humanoid.book_g1 import SCENE_ROTATION, make_model
-from humanoid.kinematics import set_configuration
-from manipulation.fit import control_vector
+from humanoid.kinematics import control_vector, set_configuration
 from video_g1.geometry import palm_frame
+from video_g1.ik import fit_upper_body
 from video_g1.provenance import write_manifest
-from video_g1.sequence import fit_upper_body
 from video_g1.timing import retime_controls
 
 
@@ -38,7 +37,7 @@ def build(scene, hand_reference, grasp_reference, object_track, out):
             grasp_reference,
             object_track,
             scene / "scene.xml",
-            Path("examples/full-video/initial-gestures.npz"),
+            Path("data/book5/inputs/initial-gestures.npz"),
         ],
     )
     m, active, state = make_model(scene, out, scene)
@@ -83,9 +82,8 @@ def build(scene, hand_reference, grasp_reference, object_track, out):
     extras = np.zeros((748, 3))
     errors = []
     # Keep initial gesture finger shapes. Source-global hand translation is shifted into the robot workspace.
-    v = np.r_[r["actions"][0, :7], 0.0, 0.0, 0.0]
     N = native.T @ R
-    gestures_path = Path("examples/full-video/initial-gestures.npz")
+    gestures_path = Path("data/book5/inputs/initial-gestures.npz")
     gestures = np.load(gestures_path)
     if gestures["action_names"].tolist() != [m.actuator(int(i)).name for i in active]:
         raise ValueError("Initial gesture actuator mapping differs")
@@ -163,7 +161,7 @@ def build(scene, hand_reference, grasp_reference, object_track, out):
             fingers = actions[i, 7:].copy()
             rot = dr @ R
             if i >= 670:
-                fingers = r["actions"][i, 7:].copy()
+                fingers = r["finger_commands_rad"][i].copy()
                 if np.isfinite(h[i]).all():
                     last_final_observation = i
                 observed_r = final_align @ palm_frame(h[last_final_observation]) @ N
@@ -264,9 +262,9 @@ def main():
 
     parser = argparse.ArgumentParser(__doc__)
     parser.add_argument("--scene", type=Path, required=True)
-    parser.add_argument("--hands", type=Path, default=Path("examples/full-video/reference.npz"))
-    parser.add_argument("--grasp", type=Path, default=Path("examples/wrapping-grasp/reference.npz"))
-    parser.add_argument("--objects", type=Path, default=Path("examples/object-motion/object_track.npz"))
+    parser.add_argument("--hands", type=Path, default=Path("data/book5/inputs/hand-prior.npz"))
+    parser.add_argument("--grasp", type=Path, required=True)
+    parser.add_argument("--objects", type=Path, default=Path("data/book5/inputs/object-track.npz"))
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     build(args.scene, args.hands, args.grasp, args.objects, args.output)

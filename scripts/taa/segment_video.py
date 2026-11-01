@@ -1,4 +1,5 @@
 """Run unmodified TAA SAM3 segmentation with CPU offload for long clips."""
+
 import importlib.util
 import os
 import sys
@@ -6,6 +7,7 @@ from pathlib import Path
 
 
 def main():
+    """Run upstream SAM segmentation with CPU offload across the source timeline."""
     root = Path(os.environ.get("TAA_ROOT", "/workspace/taa-work/TAA"))
     source = root / "scripts/02_sam3_segment.py"
     # Avoid treating the checkout's parent folder as a SAM3 namespace package.
@@ -21,8 +23,7 @@ def main():
 
         def handle(request):
             if request.get("type") == "start_session":
-                request = dict(request, offload_video_to_cpu=True,
-                               offload_state_to_cpu=True)
+                request = dict(request, offload_video_to_cpu=True, offload_state_to_cpu=True)
             return original(request=request)
 
         predictor.handle_request = handle

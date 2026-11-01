@@ -1,0 +1,240 @@
+{
+  "grasp_style": "five-finger object wrap",
+  "wrap_grasp_checks_passed": true,
+  "turn_case_load_fraction_by_finger": {
+    "thumb": 1.0,
+    "index": 1.0,
+    "middle": 1.0,
+    "ring": 1.0,
+    "pinky": 1.0
+  },
+  "precontact_maximum_finger_flexion_rad": 0.2552366800466016,
+  "source_frames": 748,
+  "all_source_frames_preserved": true,
+  "duration_s": 70.48999999997253,
+  "maximum_lift_m": 0.10341523014980614,
+  "maximum_case_turn_deg": 121.4218334596054,
+  "carried_opposition_fraction": 1.0,
+  "final_gesture_mean_palm_tracking_error_deg": 0.8908316189507854,
+  "final_gesture_maximum_palm_tracking_error_deg": 2.2550362748393944,
+  "initial_gesture_mean_palm_error_deg": 0.7874116522544995,
+  "initial_gesture_maximum_palm_error_deg": 3.089559045878578,
+  "carried_mean_position_error_m": 0.004104900923424206,
+  "carried_maximum_position_error_m": 0.013925087285321453,
+  "carried_mean_rotation_error_deg": 2.151914085669126,
+  "carried_maximum_rotation_error_deg": 4.570975023758061,
+  "final_position_error_m": 0.004941430367334105,
+  "final_rotation_error_deg": 2.1557827898482764,
+  "final_position_drift_m": 0.0,
+  "released_without_finger_contact": true,
+  "contact_loss_abort": false,
+  "grasp_confirmed": true,
+  "physical_task_success": true,
+  "full_sequence_success": true,
+  "initial_case_drift_m": 4.53740812667025e-06,
+  "exact_video_imitation_verified": false,
+  "object_forces_or_welds": false,
+  "robot_bias_compensation": true,
+  "waist_joints_used": 3,
+  "pelvis_supported": true,
+  "target_provenance": "Reviewed video phases, observed hand turn, fitted finger gestures, source-derived placement; adapted workspace, timing and clearance",
+  "ready_for_training": false,
+  "force_feedback_enabled": true,
+  "validation": {
+    "replay": {
+      "recorded_states": 748,
+      "executed_commands": 70490,
+      "waist_commands_included": true,
+      "maximum_qpos_error": 0.0,
+      "all_states_match": true,
+      "case_pose_set_only_at_reset": true
+    },
+    "sensitivity": {
+      "conditions": [
+        {
+          "grasp_style": "five-finger object wrap",
+          "wrap_grasp_checks_passed": true,
+          "turn_case_load_fraction_by_finger": {
+            "thumb": 1.0,
+            "index": 1.0,
+            "middle": 1.0,
+            "ring": 0.9939759036144579,
+            "pinky": 1.0
+          },
+          "precontact_maximum_finger_flexion_rad": 0.2552366800466016,
+          "source_frames": 748,
+          "all_source_frames_preserved": true,
+          "duration_s": 70.48999999997253,
+          "maximum_lift_m": 0.10391268574236101,
+          "maximum_case_turn_deg": 121.08349371667003,
+          "carried_opposition_fraction": 1.0,
+          "final_gesture_mean_palm_tracking_error_deg": 0.8908316189507758,
+          "final_gesture_maximum_palm_tracking_error_deg": 2.255036274839434,
+          "initial_gesture_mean_palm_error_deg": 0.7874116522544995,
+          "initial_gesture_maximum_palm_error_deg": 3.089559045878578,
+          "carried_mean_position_error_m": 0.005447759119502645,
+          "carried_maximum_position_error_m": 0.014728699250192115,
+          "carried_mean_rotation_error_deg": 1.9400623905177263,
+          "carried_maximum_rotation_error_deg": 4.427846357878513,
+          "final_position_error_m": 0.006802541789055146,
+          "final_rotation_error_deg": 1.61704024687826,
+          "final_position_drift_m": 0.0,
+          "released_without_finger_contact": true,
+          "contact_loss_abort": false,
+          "grasp_confirmed": true,
+          "physical_task_success": true,
+          "full_sequence_success": true,
+          "initial_case_drift_m": 4.53740812667025e-06,
+          "exact_video_imitation_verified": false,
+          "object_forces_or_welds": false,
+          "robot_bias_compensation": true,
+          "waist_joints_used": 3,
+          "pelvis_supported": true,
+          "target_provenance": "Reviewed video phases, observed hand turn, fitted finger gestures, source-derived placement; adapted workspace, timing and clearance",
+          "ready_for_training": false,
+          "condition": "x-plus-3mm",
+          "case_reset_x_offset_m": 0.003,
+          "force_feedback_enabled": true
+        },
+        {
+          "grasp_style": "five-finger object wrap",
+          "wrap_grasp_checks_passed": true,
+          "turn_case_load_fraction_by_finger": {
+            "thumb": 1.0,
+            "index": 1.0,
+            "middle": 1.0,
+            "ring": 1.0,
+            "pinky": 1.0
+          },
+          "precontact_maximum_finger_flexion_rad": 0.2552366800466016,
+          "source_frames": 748,
+          "all_source_frames_preserved": true,
+          "duration_s": 70.48999999997253,
+          "maximum_lift_m": 0.10282448069037742,
+          "maximum_case_turn_deg": 122.36877480216809,
+          "carried_opposition_fraction": 1.0,
+          "final_gesture_mean_palm_tracking_error_deg": 0.8908316189507929,
+          "final_gesture_maximum_palm_tracking_error_deg": 2.2550362748394273,
+          "initial_gesture_mean_palm_error_deg": 0.7874116522544995,
+          "initial_gesture_maximum_palm_error_deg": 3.089559045878578,
+          "carried_mean_position_error_m": 0.003644539324986522,
+          "carried_maximum_position_error_m": 0.01305697727184916,
+          "carried_mean_rotation_error_deg": 2.9621387385259283,
+          "carried_maximum_rotation_error_deg": 5.288255442937795,
+          "final_position_error_m": 0.003285521292789726,
+          "final_rotation_error_deg": 3.6025777802665804,
+          "final_position_drift_m": 0.0,
+          "released_without_finger_contact": true,
+          "contact_loss_abort": false,
+          "grasp_confirmed": true,
+          "physical_task_success": true,
+          "full_sequence_success": true,
+          "initial_case_drift_m": 4.53740812667025e-06,
+          "exact_video_imitation_verified": false,
+          "object_forces_or_welds": false,
+          "robot_bias_compensation": true,
+          "waist_joints_used": 3,
+          "pelvis_supported": true,
+          "target_provenance": "Reviewed video phases, observed hand turn, fitted finger gestures, source-derived placement; adapted workspace, timing and clearance",
+          "ready_for_training": false,
+          "condition": "x-minus-3mm",
+          "case_reset_x_offset_m": -0.003,
+          "force_feedback_enabled": true
+        },
+        {
+          "grasp_style": "five-finger object wrap",
+          "wrap_grasp_checks_passed": false,
+          "turn_case_load_fraction_by_finger": {
+            "thumb": 0.0,
+            "index": 0.0,
+            "middle": 0.0,
+            "ring": 0.0,
+            "pinky": 0.0
+          },
+          "precontact_maximum_finger_flexion_rad": 0.2552366800466016,
+          "source_frames": 748,
+          "all_source_frames_preserved": true,
+          "duration_s": 70.48999999997253,
+          "maximum_lift_m": 3.578397398751321e-05,
+          "maximum_case_turn_deg": 10.206966172036386,
+          "carried_opposition_fraction": 0.0,
+          "final_gesture_mean_palm_tracking_error_deg": 49.980711360314835,
+          "final_gesture_maximum_palm_tracking_error_deg": 57.87879000026815,
+          "initial_gesture_mean_palm_error_deg": 0.7874116522544995,
+          "initial_gesture_maximum_palm_error_deg": 3.089559045878578,
+          "carried_mean_position_error_m": 0.20547658614320077,
+          "carried_maximum_position_error_m": 0.21840316038644986,
+          "carried_mean_rotation_error_deg": 67.61725102710233,
+          "carried_maximum_rotation_error_deg": 119.73014986768217,
+          "final_position_error_m": 0.1980540636430954,
+          "final_rotation_error_deg": 20.56905011433146,
+          "final_position_drift_m": 1.519154414329807e-11,
+          "released_without_finger_contact": true,
+          "contact_loss_abort": true,
+          "grasp_confirmed": false,
+          "physical_task_success": false,
+          "full_sequence_success": false,
+          "initial_case_drift_m": 4.53740812667025e-06,
+          "exact_video_imitation_verified": false,
+          "object_forces_or_welds": false,
+          "robot_bias_compensation": true,
+          "waist_joints_used": 3,
+          "pelvis_supported": true,
+          "target_provenance": "Reviewed video phases, observed hand turn, fitted finger gestures, source-derived placement; adapted workspace, timing and clearance",
+          "ready_for_training": false,
+          "condition": "no-feedback",
+          "case_reset_x_offset_m": 0,
+          "force_feedback_enabled": false
+        }
+      ],
+      "statistical_success_rate": false,
+      "nominal_plan_reused": true
+    },
+    "regeneration": {
+      "grasp_reference_rollout_arrays_match": true,
+      "maximum_numeric_difference": 0.0
+    },
+    "pipeline": {
+      "stages": [
+        {
+          "stage": "video_g1.calibration",
+          "elapsed_s": 1.2355206250213087
+        },
+        {
+          "stage": "video_g1.scene",
+          "elapsed_s": 0.6954963749740273
+        },
+        {
+          "stage": "video_g1.wrap_grasp",
+          "elapsed_s": 3.0170987920137122
+        },
+        {
+          "stage": "video_g1.book5_sequence",
+          "elapsed_s": 10.394986666971818
+        },
+        {
+          "stage": "video_g1.sequence",
+          "elapsed_s": 18.281250875035767
+        },
+        {
+          "stage": "video_g1.sequence_replay",
+          "elapsed_s": 10.100691499945242
+        }
+      ],
+      "elapsed_s": 43.72811279096641,
+      "gpu_used": false,
+      "rendered": false
+    },
+    "unit_tests": {
+      "passed": 33
+    }
+  },
+  "runtime": {
+    "python": "3.12.13",
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "architecture": "arm64",
+    "mujoco": "3.8.1",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1"
+  }
+}

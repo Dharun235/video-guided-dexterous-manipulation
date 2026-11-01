@@ -1,75 +1,38 @@
-# Project scope
+# Scope and structure
 
-Keep this project focused on the supplied tabletop recording, supported Unitree
-G1, native Inspire right hand and MuJoCo. Do not add VLA training, RL, dataset
-splits or unrelated robot tracks unless requested. Preserve the source recordings,
-licensed assets, required models and selected run inputs.
+Maintain one Book5 pipeline: recorded right-hand manipulation → reviewed
+observations → supported Unitree G1 with native Inspire hand → MuJoCo motor
+execution. Root README is the entry point; keep public guides limited to
+`docs/methods.md` and `docs/preparation.md`. Place input data under `data/book5`
+and selected output under `examples/book5`. Keep generated runs ignored.
 
-## Methods and environments
+## Code conventions
 
-- `.venv-g1`: simulation, contact-aware IK, validation and tests.
-- `.venv-book-reconstruction`: FastHaMeR/Core ML hand extraction.
-- `.venv-dexart`: pinned humanoid-dexart-retarget/PyRoki kinematic adapter.
-- `scripts/gpu/`: experimental SPIDER/MuJoCo Warp adapter; separate CUDA runtime.
+Use Python 3.12, PEP 8, Ruff settings in pyproject.toml and short docstrings for
+public functions. Keep model/kinematics in humanoid, observations in reconstruction
+and planning/control in video_g1. Reuse shared contact and IK helpers. Avoid
+parallel implementations, unused adapters and documentation that requires task
+history to understand.
 
-Keep external solver source unchanged and honor its pinned revision and license.
-The current complete sequence regenerates a native five-finger wrap prior and
-uses shared-body pressure control. No finger may be parked in a fist before
-contact; check all five case loads in the turn. The historical translation
-transfer uses our bounded contact IK and force feedback;
-it is not the output of the upstream PyRoki solver. The optional CPU MuJoCo MPC
-adapter and GPU SPIDER adapter are separate experiments.
+## Physical invariants
 
-## Model and execution invariants
+Keep genuine right-hand geometry, native joint coupling and limits, unmirrored
+camera convention and supported pelvis. G1 faces the table's longer edge.
+Set case state only at reset. Execute motor commands with the case free; no
+attachments, object actuators, external object forces or pose playback.
+Use robot-only bias compensation. Keep IK workspaces separate from the plant.
+Contact feedback may group external body IDs but cannot use the case's semantic
+identity; case-specific contacts are evaluation only. Verify all five fingers
+load the case during the scored turn and approach without a preclosed fist.
 
-The G1 faces the centre of the table's longer edge. Verify compiled geometry with
-`humanoid.layout.verify_layout`. Retain the genuine right-hand geometry,
-unmirrored camera convention and supported pelvis. No walking or balance is claimed.
+## Data and evidence
 
-Execute motor controls with the case free. Set object pose only at reset, never
-through hidden attachments, object actuators, external case forces or pose playback.
-Keep IK/reference workspaces separate from the running simulator. Label robot
-bias compensation and all mass/friction/collision approximations explicitly.
+Preserve recordings, licensed assets, required models, unique reconstruction
+inputs and raw missing/review flags. Separate observations, calibrated priors,
+controller commands and actual physical states. Describe measured dimensions
+and assumed mass/friction accurately. Do not claim exact human reconstruction
+or general-purpose video conversion from a calibrated example.
 
-Control feedback sums all external finger contacts; object identity is used only
-for evaluation. The local interface has 19 right arm/hand joint states, 13 position
-commands and five normal/shear force pairs. The current complete-sequence path
-adds three native waist states and commands in separate named arrays. Commands are simulated controller
-targets, not observed human actions or a trained policy.
-
-## Evidence and limits
-
-The raw object candidate has 740/748 poses: 430 initially connected, 310 flagged
-relocalizations and eight gaps. Coverage is not accuracy. Preserve NaNs, component
-IDs and review flags. Raw final clearance is 13.8 mm; the controller uses a separate
-support correction. Do not rewrite observations to match a desired outcome.
-
-The nominal CPU transfer works as a retimed translation-task adaptation with
-prescribed phases and fixed initial orientation. Lower friction and disabled
-force feedback fail. Do not claim robustness, exact video imitation or training
-readiness. The current `video_g1.book5_sequence` / `video_g1.sequence` path integrates the
-native RH56 grasp with initial gestures, transport, a 120-degree physical turn,
-placement, release and final gestures. Its nominal complete-sequence check passes;
-it remains a reviewed, retimed task adaptation rather than exact video imitation.
-It uses three native waist joints in addition to the original arm/hand interface.
-Evidence and parameter assumptions are under `examples/video-to-g1/` and
-`docs/full-sequence.md`. Retain historical failures as labelled baselines.
-
-The GPU rotation test also fails: mean/max object errors 11.9/82.7 mm versus replay
-10.9/80.4 mm. Reuse shifted optimized plans as in SPIDER's runner; do not discard
-learned corrections at every planning step. Full command replay matched all saved
-position-state vectors in MuJoCo 3.7.0. Keep this experimental result labeled as a
-failure, not an improvement over the working CPU adaptation.
-
-## Verification and storage
-
-Run `make test` after code changes. For changes to physical execution, compare
-saved numerical rollouts and record material differences. Use a new output folder
-for each attempt. Keep the selected successful run and relevant failure evidence;
-remove superseded trials and verified duplicate transport files when authorized.
-An ignored `docs/folders-and-storage.md` may record the machine-local inventory.
-
-The user authorized the silent Book5 recording and generated previews for public
-documentation. Keep credentials, MANO model files, neural weights, downloaded
-source and full local runs out of Git. Preserve hashes and provenance of published
-artifacts; historical implementation hashes refer to their generating revision.
+Run make test and Ruff after changes. For physical/dependency changes run make
+video in a new folder and compare numerical rollouts. Keep checksums current.
+Never commit credentials, MANO assets, model weights, caches or full local runs.

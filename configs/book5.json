@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "source_video": "examples/source-recording/book5.mp4",
+  "source_video": "data/book5/video.mp4",
   "source_sha256": "feced5ae9d2cabe2861a01d253fa8840ba39b9537f002677182ae4269a638605",
   "recording": {
     "device": "iPhone 14",

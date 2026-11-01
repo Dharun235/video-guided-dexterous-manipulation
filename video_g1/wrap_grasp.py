@@ -12,14 +12,13 @@ import mujoco
 import numpy as np
 
 from humanoid.book_g1 import make_model
-from humanoid.kinematics import set_configuration
-from manipulation.fit import control_vector
+from humanoid.kinematics import control_vector, set_configuration
+from video_g1.ik import fit_palm
 from video_g1.provenance import write_manifest
-from video_g1.rh56_native import fit_palm
 
 
 def build(scene, source, output):
-    """Keep native geometry while replacing parked fingers with a shared wrap approach."""
+    """Fit the centred palm path and coordinated five-finger approach."""
     output.mkdir(parents=True, exist_ok=False)
     model, active, _ = make_model(scene, output, scene)
     data = mujoco.MjData(model)
@@ -29,7 +28,10 @@ def build(scene, source, output):
     original = dict(np.load(source))
     controls = []
     errors = []
-    for action in original["controls"]:
+    for arm, index, thumb in zip(
+        original["arm_commands_rad"], original["index_flexion_rad"], original["thumb_flexion_rad"]
+    ):
+        action = np.r_[arm, [0.0, 0.0, 0.0, index, thumb, model.actuator_ctrlrange[active[12], 1]]]
         set_configuration(model, data, control_vector(model, active, action))
         position = data.xpos[hand].copy()
         rotation = data.xmat[hand].reshape(3, 3).copy()
@@ -42,10 +44,16 @@ def build(scene, source, output):
         )
         controls.append(fitted)
         errors.append([p_error, r_error])
-    original.update(controls=np.array(controls), grasp_fingers=5, grasp_force_target_N=1.2)
+    original = dict(
+        time_s=original["time_s"],
+        controls=np.array(controls),
+        action_names=[model.actuator(int(i)).name for i in active],
+        grasp_fingers=5,
+        grasp_force_target_N=1.2,
+    )
     np.savez_compressed(output / "reference.npz", **original)
     report = {
-        "source": "Saved native RH56 width plan; original finger parking replaced",
+        "source": "RH56-derived palm path with native five-finger wrap pre-shapes",
         "centering_offset_m": 0.025,
         "force_targets_N": [1.2, 0.48, 0.36, 0.24, 0.12],
         "maximum_palm_position_error_m": float(np.max(np.array(errors)[:, 0])),
@@ -60,7 +68,7 @@ def main():
     """Build a native five-finger proposal; physical verification is a separate stage."""
     p = argparse.ArgumentParser(__doc__)
     p.add_argument("--scene", type=Path, required=True)
-    p.add_argument("--source", type=Path, default=Path("examples/rh56-evaluation/reference.npz"))
+    p.add_argument("--source", type=Path, default=Path("data/book5/inputs/grasp-prior.npz"))
     p.add_argument("--output", type=Path, required=True)
     args = p.parse_args()
     build(args.scene, args.source, args.output)

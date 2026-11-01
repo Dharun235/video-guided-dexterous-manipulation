@@ -3,11 +3,12 @@
 The original stage exports XYZ flow without visibility. Hidden predicted points
 must not silently become observed rigid-pose constraints.
 """
+
 import argparse
 import importlib.util
 import json
-from pathlib import Path
 import sys
+from pathlib import Path
 
 import numpy as np
 
@@ -18,6 +19,7 @@ class VisibilityRunner:
     def __init__(self, taa_repo, trackcraft_repo, arguments):
         sys.path.insert(0, str(trackcraft_repo.resolve()))
         import evaluation.wan_scene_flow_predictor as predictor_module
+
         self.predictor_module = predictor_module
         self.original = predictor_module.WanSceneFlowPredictor
         self.instance = None
@@ -49,8 +51,14 @@ class VisibilityRunner:
 
     def track(self, scene):
         self.visibility = None
-        sys.argv = [str(self.source), "--trackcraft-repo", str(self.trackcraft_repo),
-                    "--scene-dir", str(scene), *self.arguments]
+        sys.argv = [
+            str(self.source),
+            "--trackcraft-repo",
+            str(self.trackcraft_repo),
+            "--scene-dir",
+            str(scene),
+            *self.arguments,
+        ]
         self.module.main()
         if self.visibility is None:
             raise RuntimeError("No completed inference")
@@ -61,6 +69,7 @@ class VisibilityRunner:
 
 
 def main():
+    """Run the observation stage and save its outputs."""
     parser = argparse.ArgumentParser(__doc__, add_help=False)
     parser.add_argument("--taa-repo", type=Path, required=True)
     parser.add_argument("--trackcraft-repo", type=Path, required=True)
@@ -69,15 +78,20 @@ def main():
     args, remaining = parser.parse_known_args()
     runner = VisibilityRunner(args.taa_repo, args.trackcraft_repo, remaining)
     try:
-        scenes = [args.scene_dir] if args.windows_json is None else [Path(p) for p in json.loads(args.windows_json.read_text())]
+        scenes = (
+            [args.scene_dir]
+            if args.windows_json is None
+            else [Path(p) for p in json.loads(args.windows_json.read_text())]
+        )
         for index, scene in enumerate(scenes):
-            print(f"Tracking window {index+1}/{len(scenes)}: {scene}", flush=True)
+            print(f"Tracking window {index + 1}/{len(scenes)}: {scene}", flush=True)
             runner.track(scene)
     finally:
         runner.close()
 
 
 def export_visibility(scene, visibility):
+    """Save predicted per-point visibility beside TrackCraft3R flow outputs."""
     folder = scene / "trackcraft"
     config = json.loads((folder / "config.json").read_text())
     for label in config["labels_processed"]:

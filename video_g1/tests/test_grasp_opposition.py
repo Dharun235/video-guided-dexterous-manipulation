@@ -3,8 +3,7 @@
 import mujoco
 import numpy as np
 
-from manipulation.control import external_contacts
-from video_g1.grasp_verify import ContactReadout, opposition
+from video_g1.contacts import ContactReadout, opposition
 
 
 def fixture(top=False):
@@ -26,7 +25,6 @@ def test_native_opposing_contacts_have_correct_force_signs():
     data = mujoco.MjData(model)
     mujoco.mj_forward(model, data)
     measured, vectors = ContactReadout(model).read(data)
-    np.testing.assert_array_equal(measured, external_contacts(model, data))
     assert measured[0, 0] > 0.08 and measured[1, 0] > 0.08
     assert opposition(vectors[model.body("unknown_external_body").id]) > 0.99
 

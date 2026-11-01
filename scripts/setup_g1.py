@@ -1,15 +1,16 @@
 """Download pinned Menagerie models and create the independent CPU runtime."""
 
 import json
-from pathlib import Path
 import shutil
 import subprocess
 import xml.etree.ElementTree as ET
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 def main():
+    """Fetch pinned G1 assets and install the CPU runtime."""
     manifest = json.loads((ROOT / "humanoid/UPSTREAM.json").read_text())
     source = ROOT / "third_party/menagerie"
     uv = shutil.which("uv")
@@ -19,8 +20,13 @@ def main():
     def run(*args):
         subprocess.run(list(map(str, args)), check=True, cwd=ROOT)
 
-    base_patterns=["/unitree_g1/g1.xml", "/unitree_g1/LICENSE", "/unitree_g1/README.md",
-                   "/unitree_g1/CHANGELOG.md", "/unitree_g1/g1.png"]
+    base_patterns = [
+        "/unitree_g1/g1.xml",
+        "/unitree_g1/LICENSE",
+        "/unitree_g1/README.md",
+        "/unitree_g1/CHANGELOG.md",
+        "/unitree_g1/g1.png",
+    ]
 
     if not source.exists():
         run("git", "clone", "--filter=blob:none", "--sparse", "--no-checkout", manifest["repository"], source)
@@ -32,10 +38,10 @@ def main():
         raise SystemExit(
             "Existing Menagerie checkout is not the pinned revision; preserve it before replacing it."
         )
-    if not (source/"unitree_g1/g1.xml").exists():
+    if not (source / "unitree_g1/g1.xml").exists():
         run("git", "-C", source, "sparse-checkout", "add", "--no-cone", *base_patterns)
-    robot=ET.parse(source/"unitree_g1/g1.xml")
-    assets=["/unitree_g1/assets/"+a.get("file") for a in robot.findall("asset/*") if a.get("file")]
+    robot = ET.parse(source / "unitree_g1/g1.xml")
+    assets = ["/unitree_g1/assets/" + a.get("file") for a in robot.findall("asset/*") if a.get("file")]
     run("git", "-C", source, "sparse-checkout", "set", "--no-cone", *base_patterns, *assets)
     environment = ROOT / ".venv-g1"
     if not (environment / "bin/python").exists():

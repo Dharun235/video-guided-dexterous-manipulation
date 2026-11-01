@@ -16,13 +16,13 @@ def test_public_inputs_generate_measured_free_object_scene(tmp_path, monkeypatch
     monkeypatch.chdir(ROOT)
     cameras = tmp_path / "cameras"
     scene = tmp_path / "scene"
-    run(ROOT / "configs/book5.json", ROOT / "examples/full-video/camera-observations.json", cameras)
+    run(ROOT / "configs/book5.json", ROOT / "data/book5/inputs/camera-observations.json", cameras)
     build(
         ROOT / "configs/book5.json",
         cameras,
-        ROOT / "examples/object-motion/scene",
+        ROOT / "data/book5/inputs/tracking-map",
         scene,
-        ROOT / "examples/full-video/case-masks",
+        ROOT / "data/book5/inputs/masks",
     )
     model = mujoco.MjModel.from_xml_path(str(scene / "scene.xml"))
     np.testing.assert_allclose(model.geom_size[model.geom("case_solid").id], [0.03, 0.03, 0.01])
