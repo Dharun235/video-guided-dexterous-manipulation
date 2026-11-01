@@ -1,0 +1,121 @@
+{
+  "clips": [
+    {
+      "name": "c2dex-drop.mp4",
+      "url": "https://k-jie.github.io/C2Dex/assets/videos/real/drop_human.mp4",
+      "category": "positive_manipulation",
+      "expected": "Visible human hand; packet deformation and ambiguous geometry require review.",
+      "sha256": "3347f48ffe703d99c8573a939af6dffba4f1311a2f57de6d5b9f47d81680fefe",
+      "bytes": 3129568,
+      "redistributed": false,
+      "expected_hand_evidence": true,
+      "mode": "auto",
+      "terms": "External evaluation only; original publisher/data terms apply. Raw clips and derived previews are not redistributed."
+    },
+    {
+      "name": "c2dex-stack.mp4",
+      "url": "https://k-jie.github.io/C2Dex/assets/videos/real/stack_cups_human.mp4",
+      "category": "positive_manipulation",
+      "expected": "Human stacking cups; multiple task objects may require review.",
+      "sha256": "0932029dea96c648abf9e064d8d7d13ae396ad0dd8d6b98867efac8800d89d2d",
+      "bytes": 9517403,
+      "redistributed": false,
+      "expected_hand_evidence": true,
+      "mode": "auto",
+      "terms": "External evaluation only; original publisher/data terms apply. Raw clips and derived previews are not redistributed."
+    },
+    {
+      "name": "c2dex-pour.mp4",
+      "url": "https://k-jie.github.io/C2Dex/assets/videos/real/pour_human.mp4",
+      "category": "challenging_manipulation",
+      "expected": "Hand and vessel visible; liquid behavior is outside rigid-object scope.",
+      "sha256": "108090c6d7929197e99dd1f133e9f557a125bf13df18db4c401109a9f45d11e0",
+      "bytes": 10533571,
+      "redistributed": false,
+      "expected_hand_evidence": true,
+      "mode": "auto",
+      "terms": "External evaluation only; original publisher/data terms apply. Raw clips and derived previews are not redistributed."
+    },
+    {
+      "name": "dex-gestures.mp4",
+      "url": "https://raw.githubusercontent.com/dexsuite/dex-retargeting/3f56141bc8bd2760d5e452e382937269554ebb21/example/vector_retargeting/data/human_hand_video.mp4",
+      "category": "positive_gesture",
+      "expected": "Human hand gestures; no object required in gesture mode.",
+      "sha256": "d306af128862940fc6e3c737a42ec6b00a137fff1c37b10805fe2c143c62ddb8",
+      "bytes": 596459,
+      "redistributed": false,
+      "expected_hand_evidence": true,
+      "mode": "gesture",
+      "terms": "External evaluation only; original publisher/data terms apply. Raw clips and derived previews are not redistributed."
+    },
+    {
+      "name": "opencv-tree.avi",
+      "url": "https://raw.githubusercontent.com/opencv/opencv/d195a5ad7eb52aafc3585e494a9af2dc06a3b111/samples/data/tree.avi",
+      "category": "negative_decode",
+      "expected": "Unsupported/truncated decoding on the tested runtime; reject before reconstruction.",
+      "sha256": "4666099d0f704e310047b2f0a5ec9f936cb76a7271de9a2e70a0c57f82ac82dc",
+      "bytes": 1250680,
+      "redistributed": false,
+      "expected_hand_evidence": false,
+      "mode": "auto",
+      "terms": "External evaluation only; original publisher/data terms apply. Raw clips and derived previews are not redistributed."
+    },
+    {
+      "name": "opencv-pedestrians.avi",
+      "url": "https://raw.githubusercontent.com/opencv/opencv/d195a5ad7eb52aafc3585e494a9af2dc06a3b111/samples/data/vtest.avi",
+      "category": "negative_wrong_view",
+      "expected": "Distant pedestrians; no usable close-up hand manipulation.",
+      "sha256": "45cddc9490be69345cbdab64ca583be65987e864ca408038e648db99e10516cf",
+      "bytes": 8131690,
+      "redistributed": false,
+      "expected_hand_evidence": false,
+      "mode": "auto",
+      "terms": "External evaluation only; original publisher/data terms apply. Raw clips and derived previews are not redistributed."
+    },
+    {
+      "name": "c2dex-robot.mp4",
+      "url": "https://k-jie.github.io/C2Dex/assets/videos/real/drop_robot.mp4",
+      "category": "negative_robot_only",
+      "expected": "Robot execution, rather than a human demonstration.",
+      "sha256": "6767a6161b0592def807feeca13664219843934f7989d516046e0cd8cb111f7e",
+      "bytes": 1158938,
+      "redistributed": false,
+      "expected_hand_evidence": false,
+      "mode": "auto",
+      "terms": "External evaluation only; original publisher/data terms apply. Raw clips and derived previews are not redistributed."
+    },
+    {
+      "name": "c2dex-rigid.mp4",
+      "url": "https://k-jie.github.io/C2Dex/assets/videos/sim/dexycb/seq1_human.mp4",
+      "category": "positive_manipulation",
+      "expected": "Single-hand rigid-object demonstration; verify visible hand and object.",
+      "sha256": "0aee932303c4b8323c3d09833835eee2bc53770a8381d2e525a5c5ea42aba7de",
+      "bytes": 182989,
+      "redistributed": false,
+      "expected_hand_evidence": true,
+      "mode": "auto",
+      "terms": "External evaluation only; original publisher/data terms apply. Raw clips and derived previews are not redistributed."
+    },
+    {
+      "name": "c2dex-brush.mp4",
+      "url": "https://k-jie.github.io/C2Dex/assets/videos/real/brush_human.mp4",
+      "category": "positive_manipulation",
+      "expected": "Human tool use with visible hand; validate object candidates and support.",
+      "sha256": "89f1c7a45d24df4c77c67b922eea6a7b47a7b13f323c4b293ebdb4c7579c03e8",
+      "bytes": 5119342,
+      "redistributed": false,
+      "expected_hand_evidence": true,
+      "mode": "auto",
+      "terms": "External evaluation only; original publisher/data terms apply. Raw clips and derived previews are not redistributed."
+    }
+  ],
+  "controls": [
+    "blur",
+    "blackout",
+    "occlusion",
+    "cut",
+    "two-hands",
+    "corrupt"
+  ],
+  "claim": "Small external gate-validation suite; not a reconstruction accuracy benchmark."
+}

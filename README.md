@@ -39,6 +39,34 @@ be new. To include the comparison video and GIF:
 Results are saved under the selected folder: `scene/`, `grasp/`, `reference/`,
 `rollout/`, `replay-check.json` and, when requested, `preview/`.
 
+## Automatic video inspection
+
+Stage 1 accepts a video without book corners, object dimensions or point prompts:
+
+```bash
+make setup-scene
+make scene VIDEO=/path/to/video.mp4
+```
+
+This uses an isolated CPU environment: MediaPipe detects hands and excludes
+people, EfficientSAM ONNX proposes objects, and MoGe-2 estimates metric geometry.
+It writes quality/hand checks, annotated previews, point clouds and free-object
+MuJoCo scene proposals under a new `runs/scene-*` folder. Each result is `pass`,
+`review` or `blocked`, with an explanation. Ambiguous identity, scale and hidden
+geometry require review before retargeting. The calibrated Book5 run above
+remains the complete robot example.
+
+Validate downloaded external clips and adverse controls with:
+
+```bash
+.venv-scene/bin/python -m scripts.evaluate_scene \
+  --download --output runs/scene-evaluation-01
+```
+
+[Stage 1 setup and checks](docs/preparation.md#automatic-stage-1-on-cpu) ·
+[Validation sources](reconstruction/SCENE_VALIDATION.json) ·
+[15-case validation results](examples/scene-check/report.json)
+
 ## Pipeline
 
 | Stage | Current Book5 implementation | Current check/evidence |

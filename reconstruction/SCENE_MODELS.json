@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "sources": {
+    "sam_onnx": {
+      "repository": "https://huggingface.co/nrl-ai/samexporter-onnx-models",
+      "revision": "5050a79cd4b912dd745fff83047c4ef6fbd97be5"
+    },
+    "moge_source": {
+      "repository": "https://github.com/microsoft/MoGe",
+      "revision": "74fbce054ebed49800de42d0ad0e83495065719a",
+      "module": "moge.model.v2",
+      "dependencies": "minimal CPU v2 path; source installed without v3 extras"
+    },
+    "moge_weights": {
+      "repository": "https://huggingface.co/Ruicheng/moge-2-vits-normal",
+      "revision": "26b477f41595707c5db6770294c0d1721e8ed4ed"
+    },
+    "hands": {
+      "repository": "https://developers.google.com/edge/mediapipe/solutions/vision/hand_landmarker",
+      "version": "float16/1"
+    }
+  },
+  "files": [
+    {
+      "name": "efficientsam_ti_decoder.onnx",
+      "url": "https://huggingface.co/nrl-ai/samexporter-onnx-models/resolve/5050a79cd4b912dd745fff83047c4ef6fbd97be5/efficient_sam_ti/efficientsam_ti_decoder.onnx",
+      "bytes": 16565728,
+      "sha256": "a62f8fa5ea080447c0689418d69e58f1e83e0b7adf9c142e2bd9bcc8045c0b11"
+    },
+    {
+      "name": "efficientsam_ti_encoder.onnx",
+      "url": "https://huggingface.co/nrl-ai/samexporter-onnx-models/resolve/5050a79cd4b912dd745fff83047c4ef6fbd97be5/efficient_sam_ti/efficientsam_ti_encoder.onnx",
+      "bytes": 24799761,
+      "sha256": "84ed466ffcc5c1f8d08409bc34a23bb364ab2c15e402cb12d4335a42be0e0951"
+    },
+    {
+      "name": "hand_landmarker.task",
+      "url": "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
+      "bytes": 7819105,
+      "sha256": "fbc2a30080c3c557093b5ddfc334698132eb341044ccee322ccf8bcf3607cde1"
+    },
+    {
+      "name": "moge2-small.pt",
+      "url": "https://huggingface.co/Ruicheng/moge-2-vits-normal/resolve/26b477f41595707c5db6770294c0d1721e8ed4ed/model.pt",
+      "bytes": 140550416,
+      "sha256": "79a16621928c2bf0ed04659218c55c01075e950507f40bb3332fb4c873d3e1dc"
+    },
+    {
+      "name": "sam2.1_hiera_tiny.decoder.onnx",
+      "url": "https://huggingface.co/nrl-ai/samexporter-onnx-models/resolve/5050a79cd4b912dd745fff83047c4ef6fbd97be5/sam2_1_hiera_tiny/sam2.1_hiera_tiny.decoder.onnx",
+      "bytes": 16519561,
+      "sha256": "197f1c7c8fd070aaf6f15ffc635f4c384422ba5eaa0f8c9e543e3d4b8e0e8e87"
+    },
+    {
+      "name": "sam2.1_hiera_tiny.encoder.onnx",
+      "url": "https://huggingface.co/nrl-ai/samexporter-onnx-models/resolve/5050a79cd4b912dd745fff83047c4ef6fbd97be5/sam2_1_hiera_tiny/sam2.1_hiera_tiny.encoder.onnx",
+      "bytes": 109471931,
+      "sha256": "3d5ae796097a6afb1198ceea4187ecaa82736242d07f5658541829d6dfc3f871"
+    },
+    {
+      "name": "selfie_multiclass.tflite",
+      "url": "https://storage.googleapis.com/mediapipe-models/image_segmenter/selfie_multiclass_256x256/float32/1/selfie_multiclass_256x256.tflite",
+      "bytes": 16371837,
+      "sha256": "c6748b1253a99067ef71f7e26ca71096cd449baefa8f101900ea23016507e0e0"
+    }
+  ]
+}

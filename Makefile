@@ -11,3 +11,10 @@ test:
 video: OUTPUT ?= runs/video
 video:
 	$(PYTHON) -m video_g1.run_video --output $(OUTPUT)
+
+.PHONY: setup-scene scene
+setup-scene:
+	python3 -m scripts.setup_scene
+
+scene:
+	.venv-scene/bin/python -m reconstruction.scene_check "$(VIDEO)"

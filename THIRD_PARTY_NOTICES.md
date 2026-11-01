@@ -24,3 +24,20 @@ generated runs are excluded from source control. The selected silent
 Book5 recording and current motion previews are published with user authorization. The source video and synthetic
 robot images have distinct provenance; generated episodes are not new human
 recordings. No third-party video is bundled into this workflow.
+
+## CPU scene inspection
+
+The optional Stage 1 runtime uses MediaPipe Hand Landmarker and Selfie Multiclass
+models from Google, EfficientSAM and SAM2.1 exported ONNX models from
+[the SAMExporter model collection](https://huggingface.co/nrl-ai/samexporter-onnx-models),
+and [MoGe-2](https://github.com/microsoft/MoGe) small metric geometry weights.
+Exact sources/revisions/checksums are in `reconstruction/SCENE_MODELS.json`.
+MediaPipe, EfficientSAM and SAM2 code use Apache-2.0; MoGe source uses MIT.
+Original model terms apply separately. ONNX tensor adapters are local code;
+exported weights remain downloaded assets outside Git.
+
+Validation clips are downloaded from C2Dex, dex-retargeting and OpenCV according
+to `reconstruction/SCENE_VALIDATION.json`. They are independent evaluation inputs,
+not personally recorded project data. Raw external videos and derived previews
+are not redistributed. The original publishers' dataset/media terms apply;
+this project's MIT license does not relicense them.
