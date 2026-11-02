@@ -216,6 +216,20 @@ identity must match, and masks/registration are recomputed. This supports
 correction without repeating neural inference. It does not import Book5 corners,
 measured dimensions, saved camera poses or object trajectories.
 
+Evaluate selected downloaded clips through full fusion with the same evaluator:
+
+```bash
+.venv-scene/bin/python -m scripts.evaluate_scene --download --fusion \
+  --clips c2dex-drop.mp4 c2dex-stack.mp4 c2dex-pour.mp4 c2dex-robot.mp4 \
+  --depth-stride 15 --output runs/fusion-evaluation-01
+```
+
+Only selected source clips are downloaded. The summary distinguishes exported
+maps requiring review, input rejection/review and blocked reconstruction. A scene
+export is not an accuracy pass. The saved report includes two additional maps
+(91/91 and 186/186 camera frames), plus multiple-hand, robot-only, blur and cut
+refusals. External clips and generated maps/previews remain local.
+
 The CPU geometry tests use known rigid transforms, moving foreground, excluded
 human pixels and synthetic TSDF planes. Independently inferred depths can be
 nonrigidly inconsistent even when 2D camera tracking succeeds. Such a clip stops

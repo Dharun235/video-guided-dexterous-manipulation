@@ -5,6 +5,7 @@ import hashlib
 import importlib.metadata
 import json
 import platform
+import shutil
 import time
 from pathlib import Path
 
@@ -28,10 +29,8 @@ def excluded_people(image, hands, people):
     mask = people(image) | hand_region(hands, image.shape[:2])
     h, w = image.shape[:2]
     for hand in hands:
-        pts = (np.asarray(hand["landmarks"])[:, :2] * [w, h]).astype(np.int32)
-        cv2.fillConvexPoly(mask.view(np.uint8), cv2.convexHull(pts), 1)
-    for hand in hands:
         pts = np.asarray(hand["landmarks"])[:, :2] * [w, h]
+        cv2.fillConvexPoly(mask.view(np.uint8), cv2.convexHull(pts.astype(np.int32)), 1)
         wrist = pts[0]
         direction = wrist - pts[9]
         length = np.linalg.norm(direction)
@@ -145,9 +144,6 @@ def run(video, output, models, depth_stride=30, voxel_size=0.005, depth_cache=No
 
     cv2.setNumThreads(1)
     output.mkdir(parents=True, exist_ok=False)
-    (output / "frames").mkdir()
-    (output / "masks").mkdir()
-    (output / "keyframes").mkdir()
     checksum = hashlib.sha256(video.read_bytes()).hexdigest()
     if depth_cache is not None:
         manifest = json.loads((depth_cache / "report.json").read_text())
@@ -166,6 +162,8 @@ def run(video, output, models, depth_stride=30, voxel_size=0.005, depth_cache=No
             status="blocked",
             reason="invalid_video",
             message="Video cannot be decoded with valid timing",
+            input_sha256=checksum,
+            elapsed_s=time.monotonic() - started,
         )
         dump(output / "report.json", report)
         return report
@@ -186,9 +184,19 @@ def run(video, output, models, depth_stride=30, voxel_size=0.005, depth_cache=No
         gate = assess(facts, checks)
         dump(output / "input-check.json", dict(video=facts, **gate))
         if gate["status"] != "pass":
-            report = dict(stage="static_video_fusion", status=gate["status"], reasons=gate["reasons"])
+            report = dict(
+                stage="static_video_fusion",
+                status=gate["status"],
+                reasons=gate["reasons"],
+                input_sha256=checksum,
+                source_frames=facts.get("decoded_frames", 0),
+                elapsed_s=time.monotonic() - started,
+                reconstruction_attempted=False,
+            )
             dump(output / "report.json", report)
             return report
+        for folder in ["frames", "masks", "keyframes"]:
+            (output / folder).mkdir()
         people = People(models)
         metric = MetricGeometry(models)
         while True:
@@ -394,7 +402,7 @@ def run(video, output, models, depth_stride=30, voxel_size=0.005, depth_cache=No
         ).hexdigest(),
         stage="static_video_fusion",
         status="review",
-        input_sha256=hashlib.sha256(video.read_bytes()).hexdigest(),
+        input_sha256=checksum,
         source_frames=frame,
         declared_frames=declared,
         registered_frames=int(np.isfinite(poses).all(axis=(1, 2)).sum()),
@@ -529,8 +537,6 @@ def render(output, step=2):
         ],
         check=True,
     )
-    import shutil
-
     shutil.rmtree(frames)
     return preview / "comparison.mp4"
 

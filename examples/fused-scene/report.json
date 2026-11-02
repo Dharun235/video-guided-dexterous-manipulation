@@ -159,5 +159,141 @@
     "comparison.mp4": "c868088770a0a4577bdc9ed94e4f0334ab76912f4a01c9c24ae9addc865d654d",
     "scene.xml": "76eb864aaa59e6e607499b8b2195acda9ad98cacda4cdbed8faf40f2a141f828",
     "environment.png": "01112c0c5727d9e7e89e2560c115bb59c11bbdb384db9abcf83710765619520c"
+  },
+  "additional_downloaded_video_validation": {
+    "clips": [
+      {
+        "name": "c2dex-drop.mp4",
+        "category": "positive_manipulation",
+        "status": "review",
+        "outcome": "scene_exported_for_review",
+        "source_frames": 91,
+        "registered_frames": 91,
+        "depth_views": 7,
+        "elapsed_s": 72.72609000001103,
+        "median_alignment_m": 0.009132570426429638,
+        "reasons": [
+          "Learned depth and scale need external validation",
+          "Unseen and human-occluded surfaces are not filled",
+          "Moving-object identity and geometry need a separate motion stage",
+          "Collision patches may overlap or omit small surfaces and need contact review"
+        ],
+        "environment_exported": true,
+        "reconstruction_accuracy_verified": false,
+        "input_sha256": "3347f48ffe703d99c8573a939af6dffba4f1311a2f57de6d5b9f47d81680fefe"
+      },
+      {
+        "name": "c2dex-stack.mp4",
+        "category": "positive_manipulation",
+        "status": "review",
+        "outcome": "scene_exported_for_review",
+        "source_frames": 186,
+        "registered_frames": 186,
+        "depth_views": 10,
+        "elapsed_s": 204.88536695804214,
+        "median_alignment_m": 0.006947326913605491,
+        "reasons": [
+          "Learned depth and scale need external validation",
+          "Unseen and human-occluded surfaces are not filled",
+          "Moving-object identity and geometry need a separate motion stage",
+          "Collision patches may overlap or omit small surfaces and need contact review"
+        ],
+        "environment_exported": true,
+        "reconstruction_accuracy_verified": false,
+        "input_sha256": "0932029dea96c648abf9e064d8d7d13ae396ad0dd8d6b98867efac8800d89d2d"
+      },
+      {
+        "name": "c2dex-pour.mp4",
+        "category": "challenging_manipulation",
+        "status": "review",
+        "outcome": "input_review",
+        "source_frames": null,
+        "registered_frames": null,
+        "depth_views": null,
+        "elapsed_s": null,
+        "median_alignment_m": null,
+        "reasons": [
+          {
+            "code": "multiple_hands",
+            "severity": "review",
+            "message": "The initial manipulation scope supports one demonstrating hand."
+          }
+        ],
+        "environment_exported": false,
+        "reconstruction_accuracy_verified": false,
+        "input_sha256": "108090c6d7929197e99dd1f133e9f557a125bf13df18db4c401109a9f45d11e0"
+      },
+      {
+        "name": "c2dex-robot.mp4",
+        "category": "negative_robot_only",
+        "status": "blocked",
+        "outcome": "input_blocked",
+        "source_frames": null,
+        "registered_frames": null,
+        "depth_views": null,
+        "elapsed_s": null,
+        "median_alignment_m": null,
+        "reasons": [
+          {
+            "code": "hand_not_detected",
+            "severity": "blocked",
+            "message": "No reliable hand observations were found in the inspected frames. Use a clearer view of the demonstrating hand."
+          }
+        ],
+        "environment_exported": false,
+        "reconstruction_accuracy_verified": false,
+        "input_sha256": "6767a6161b0592def807feeca13664219843934f7989d516046e0cd8cb111f7e"
+      },
+      {
+        "name": "blur.avi",
+        "category": "control",
+        "status": "blocked",
+        "outcome": "input_blocked",
+        "source_frames": null,
+        "registered_frames": null,
+        "depth_views": null,
+        "elapsed_s": null,
+        "median_alignment_m": null,
+        "reasons": [
+          {
+            "code": "severe_blur",
+            "severity": "blocked",
+            "message": "Most inspected frames lack usable image detail."
+          },
+          {
+            "code": "hand_not_detected",
+            "severity": "blocked",
+            "message": "No reliable hand observations were found in the inspected frames. Use a clearer view of the demonstrating hand."
+          }
+        ],
+        "environment_exported": false,
+        "reconstruction_accuracy_verified": false,
+        "input_sha256": "e4f1d493fe7111c85ca1d2bc202365ef3fac3606aefbda4b9ad6afcecb820fe6"
+      },
+      {
+        "name": "cut.avi",
+        "category": "control",
+        "status": "review",
+        "outcome": "input_review",
+        "source_frames": null,
+        "registered_frames": null,
+        "depth_views": null,
+        "elapsed_s": null,
+        "median_alignment_m": null,
+        "reasons": [
+          {
+            "code": "camera_cut",
+            "severity": "review",
+            "message": "Abrupt transitions need separate continuous scenes."
+          }
+        ],
+        "environment_exported": false,
+        "reconstruction_accuracy_verified": false,
+        "input_sha256": "4928e279c49a3d4ed849bda33ed529f5a05b36ac222048ec64102ce59e8169a4"
+      }
+    ],
+    "depth_stride": 15,
+    "description": "Full fusion on four additional downloaded clips plus two derived adverse controls; exports remain reviewable, not accuracy-validated.",
+    "calibration_annotations": 0
   }
 }
