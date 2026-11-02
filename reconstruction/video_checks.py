@@ -121,3 +121,15 @@ def assess(video, rows):
         "blocked" if any(r["severity"] == "blocked" for r in reasons) else "review" if reasons else "pass"
     )
     return dict(status=status, reasons=reasons)
+
+
+def inspect_hands(video, facts, rows, detector):
+    """Verify sparse hand absence at a denser rate, retaining the inspected timeline."""
+    for row in rows:
+        row["hands"] = detector(row["image"])
+    dense = not any(r["hands"] for r in rows)
+    if dense:
+        facts, rows = inspect_video(video, sample_hz=10)
+        for row in rows:
+            row["hands"] = detector(row["image"])
+    return facts, rows, dense

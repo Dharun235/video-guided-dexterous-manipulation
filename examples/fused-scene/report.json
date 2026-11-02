@@ -1,0 +1,163 @@
+{
+  "stage": "static_video_fusion",
+  "status": "review",
+  "input_sha256": "feced5ae9d2cabe2861a01d253fa8840ba39b9537f002677182ae4269a638605",
+  "source_frames": 748,
+  "declared_frames": 748,
+  "registered_frames": 748,
+  "depth_stride": 30,
+  "depth_views": 26,
+  "computed_depth_views": 0,
+  "cached_depth_views": 26,
+  "voxel_size_m": 0.005,
+  "elapsed_s": 410.7534932079725,
+  "all_frames_masked": true,
+  "failed_pose_frames": [],
+  "median_keyframe_alignment_m": 0.001975045397905627,
+  "temporal_checked_points": 3232818,
+  "temporal_rejected_points": 38736,
+  "excluded_pixel_observations": 560190,
+  "scale": "learned metric estimate; depth keyframes aligned with bounded similarity transforms",
+  "moving_objects": "Excluded inconsistent surfaces retained as per-keyframe masks; identity and object motion are not static-map geometry",
+  "camera_to_scene_convention": "column-vector transform from OpenCV camera coordinates to z-up scene coordinates",
+  "reasons": [
+    "Learned depth and scale need external validation",
+    "Unseen and human-occluded surfaces are not filled",
+    "Moving-object identity and geometry need a separate motion stage",
+    "Collision patches may overlap or omit small surfaces and need contact review"
+  ],
+  "vertices": 25513,
+  "triangles": 50000,
+  "collision_patches": [
+    {
+      "centre_m": [
+        -0.0484034799683811,
+        0.03014280016952996,
+        0.0011229112103507527
+      ],
+      "half_size_m": [
+        0.45248877800880827,
+        0.18714180936938168,
+        0.003
+      ],
+      "quaternion_wxyz": [
+        0.9999712497775349,
+        -0.007578975033931036,
+        0.00024238897481518518,
+        -1.8371128060262938e-06
+      ]
+    },
+    {
+      "centre_m": [
+        -0.04208458984480771,
+        0.2249208192245937,
+        0.11999828103612281
+      ],
+      "half_size_m": [
+        0.4500189374178869,
+        0.10627418802042687,
+        0.003
+      ],
+      "quaternion_wxyz": [
+        -0.6910259935501026,
+        0.7227094395811653,
+        -0.009119776355474353,
+        0.009537916837411349
+      ]
+    },
+    {
+      "centre_m": [
+        0.09064303130241017,
+        -0.018644662450825994,
+        0.0006061652398086656
+      ],
+      "half_size_m": [
+        0.3443801230982358,
+        0.14232673544508467,
+        0.003
+      ],
+      "quaternion_wxyz": [
+        0.9987998569114491,
+        0.04886548918982269,
+        0.0033141379002294895,
+        0.0001621415628132229
+      ]
+    },
+    {
+      "centre_m": [
+        -0.05222694021037086,
+        0.06569143125734139,
+        0.0018710940869766952
+      ],
+      "half_size_m": [
+        0.4655719873847279,
+        0.1455541930149581,
+        0.003
+      ],
+      "quaternion_wxyz": [
+        0.9990736468122379,
+        -0.04303274434725974,
+        -0.00017635628167129357,
+        7.596131483808794e-06
+      ]
+    }
+  ],
+  "visual_mesh_collision": false,
+  "hidden_surfaces_filled": false,
+  "runtime": {
+    "open3d": "0.19.0",
+    "mujoco": "3.8.1",
+    "torch": "2.10.0",
+    "numpy": "2.5.4",
+    "opencv-contrib-python": "5.0.0.93"
+  },
+  "device": "cpu",
+  "platform": "macOS-26.5.1-arm64-arm-64bit",
+  "integration_depth_limit_m": 3.0,
+  "implementation_sha256": {
+    "video_fusion.py": "7d22a680cc647cacc8aa0c02423becf66b8da3c4336255dc6e0cec804e5efdb9",
+    "fusion_geometry.py": "7f3456621f20211028857c855c8464250af8480d86db2940434f16da9cdcd15d",
+    "scene_models.py": "a5b9c532dc5c889b528ecc7b1e14af00c2744ce508aeb5bc92c0bad64842782b",
+    "video_checks.py": "169bcc9bb2b98449d4ff00023799cfc84d3bb590e71f28efc6897daad1263124"
+  },
+  "model_manifest_sha256": "28225ed90c1c28020fa382e1de2e38849bf4ac5b1eb88e142fa0240b60b5f1e8",
+  "processing_time_note": "Processing/fusion time excludes rendering; all 26 raw depth predictions were reused from a checksum- and frame-matched earlier run.",
+  "initial_object_ghost_diagnostic": {
+    "rejected_fraction": 0.9981760145918832,
+    "reference": "Supplied initial SAM3 case mask; estimated segmentation, not independent ground truth"
+  },
+  "validation": {
+    "robot_runtime_passed": 56,
+    "robot_runtime_optional_skipped": 1,
+    "scene_runtime_passed": 57
+  },
+  "independent_clips": [
+    {
+      "source": "dex-gestures.mp4",
+      "status": "review",
+      "source_frames": 621,
+      "registered_frames": 621,
+      "depth_views": 8,
+      "median_keyframe_alignment_m": 0.006977933086342107,
+      "reason": null
+    },
+    {
+      "source": "c2dex-rigid.mp4",
+      "status": "blocked",
+      "source_frames": 74,
+      "registered_frames": 74,
+      "depth_views": 2,
+      "median_keyframe_alignment_m": null,
+      "reason": "insufficient_registered_depth_views"
+    }
+  ],
+  "source_rgb_texture_fraction": 0.9960115625,
+  "hand_landmark_coordinates": "Image-normalized x/y and model-relative z; masking evidence, not calibrated robot commands",
+  "artifact_sha256": {
+    "preview.jpg": "95418bba78ce19ae63210efdaf99c09dc662c5ac181e94363f6d111fa1efc9fa",
+    "environment.obj": "c7db11eb89f0fad8f54dee499ad23358ee9d7ab08f9716fc22698626ac73f05f",
+    "comparison.mp4": "c868088770a0a4577bdc9ed94e4f0334ab76912f4a01c9c24ae9addc865d654d",
+    "scene.xml": "76eb864aaa59e6e607499b8b2195acda9ad98cacda4cdbed8faf40f2a141f828",
+    "environment.png": "01112c0c5727d9e7e89e2560c115bb59c11bbdb384db9abcf83710765619520c"
+  }
+}
