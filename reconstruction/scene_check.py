@@ -13,7 +13,7 @@ import cv2
 import numpy as np
 
 from .scene_geometry import export_scene, proposal_points, rank_objects
-from .video_checks import assess, inspect_video
+from .video_checks import assess, inspect_hands, inspect_video
 
 
 def dump(path, value):
@@ -99,13 +99,9 @@ def run(video, output, models, segmenter="efficient", mode="auto", views=3):
 
         detector = Hands(models)
         try:
-            for row in rows:
-                row["hands"] = detector(row["image"])
-            if not any(r["hands"] for r in rows):
-                facts, rows = inspect_video(video, sample_hz=10)
-                for row in rows:
-                    row["hands"] = detector(row["image"])
-                report["video"] = facts
+            facts, rows, dense = inspect_hands(video, facts, rows, detector)
+            report["video"] = facts
+            if dense:
                 report["dense_hand_verification"] = True
         finally:
             detector.close()

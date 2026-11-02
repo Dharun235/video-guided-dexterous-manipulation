@@ -25,6 +25,9 @@ jobs:
       - name: Execute complete physical sequence and verify replay
         run: make video OUTPUT=runs/ci-video
   scene:
+    env:
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "2"
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -37,6 +40,8 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y libportaudio2 libegl1 libgl1
       - name: Install pinned CPU perception runtime and models
         run: make setup-scene
+      - name: Verify CPU registration, exclusion and TSDF integration
+        run: .venv-scene/bin/python -m pytest reconstruction/tests/test_fusion_geometry.py -q
       - name: Check real hand evidence using the supplied recording
         run: .venv-scene/bin/python -m reconstruction.scene_check data/book5/video.mp4 --mode gesture --output runs/ci-hands
       - name: Verify the input gate passed

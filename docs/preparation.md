@@ -144,6 +144,98 @@ in its evaluation manifest. Measured-size and hidden-geometry accuracy need a
 separate independently annotated benchmark before the scene gate can pass
 manipulation videos without review.
 
+## Whole-video static scene fusion
+
+```bash
+make setup-scene
+.venv-scene/bin/python -m reconstruction.video_fusion /path/to/video.mp4 \
+  --output runs/fused-scene-01 --render
+```
+
+Only a passed input gate starts fusion. Exported review results return exit
+code 3, blocked results return 2, and pass returns 0. Review is retained for
+learned scale, unobserved geometry and moving-object identity.
+
+Every decoded frame receives an exclusion mask,
+source frame, FPS-based time, decoded timestamp and camera-validity record. Exclusion combines MediaPipe people,
+complete hand hulls, a conservative forearm continuation and a pixel safety
+border. Source frames remain available for inspection; excluded pixels are not
+integrated into the scene.
+
+MoGe-2 predicts metric RGB-D on selected frames (default stride 30), with one
+estimated camera field of view shared across the clip. Static SIFT features
+supply robust 3D similarity registration between depth views. A bounded scale
+correction aligns independently predicted depth; it is recorded rather than
+presented as measured scale. Between depth frames, RANSAC PnP estimates camera
+pose from accepted world-space landmarks. Bidirectionally checked optical flow
+provides image-based PnP recovery when descriptor matching fails. Invalid poses
+remain NaN with reasons;
+they are never replaced with an identity transform or a silent hold.
+
+Temporal checks project each trusted surface into other accepted observations.
+Unoccluded free-space/appearance contradictions reject inconsistent points;
+occlusion alone does not remove a background surface. This reduces moving-object
+trails without treating all observed object poses as static geometry. Per-keyframe
+dynamic masks preserve the rejected evidence for subsequent motion recovery.
+Object identity and an object-local mesh/pose track remain separate from this
+static environment.
+
+[Open3D TSDF integration](https://www.open3d.org/docs/release/tutorial/pipelines/rgbd_integration.html)
+fuses the remaining RGB-D surfaces using registered camera transforms. The map
+uses 5 mm voxels by default and a 3 m camera-depth integration limit. A fitted
+support plane defines a z-up frame. Visible static RGB keyframes are projected into a texture atlas; masked or
+unobserved pixels use fused surface colours. Observed illumination is retained,
+rather than recovered as intrinsic material properties.
+The visual triangle mesh has collisions disabled: using it directly as a MuJoCo
+mesh collider would convexify the scene and fill empty space. Finite fitted
+planar patches provide explicitly approximated collisions. No hidden surfaces
+are generated and no robot or human mesh is inserted.
+
+| Output | Meaning |
+|---|---|
+| `input-check.json` | Reused video/hand gate and its evidence |
+| `frames/`, `masks/` | Every source frame and exclusion mask; dynamic masks for depth keyframes |
+| `timeline.json` | Per-frame hand observations, registration origin/residuals and failures |
+| `keyframes/*.npz` | Registered RGB-D, raw metric points, masks, scale and camera transforms |
+| `cameras.npz` | Full timeline, camera-to-scene transforms and explicit validity mask |
+| `environment/scene.xml` | One static MuJoCo environment |
+| `environment/` | Fused coloured PLY, textured OBJ/PNG and collision patch metadata in the report |
+| `report.json` | Coverage, alignment/filtering metrics, assumptions and review reasons |
+| `preview/` | Source / exclusion / MuJoCo comparison when `--render` is selected |
+
+Camera transforms multiply OpenCV camera column vectors into the z-up scene
+frame. Depth is estimated in metres; individual depth corrections remain in the
+keyframes and timeline. The comparison camera follows valid estimated poses;
+missing camera frames display a blank simulation panel instead of an invented
+view. Rendering shows a static environment, not physical robot execution.
+
+Use `--depth-stride 1` to predict depth on every frame. The default still processes
+the whole video for masks and camera poses. A matching run's raw depth can be
+reused with `--depth-cache runs/previous-run`; video checksum and decoded-frame
+identity must match, and masks/registration are recomputed. This supports
+correction without repeating neural inference. It does not import Book5 corners,
+measured dimensions, saved camera poses or object trajectories.
+
+Evaluate selected downloaded clips through full fusion with the same evaluator:
+
+```bash
+.venv-scene/bin/python -m scripts.evaluate_scene --download --fusion \
+  --clips c2dex-drop.mp4 c2dex-stack.mp4 c2dex-pour.mp4 c2dex-robot.mp4 \
+  --depth-stride 15 --output runs/fusion-evaluation-01
+```
+
+Only selected source clips are downloaded. The summary distinguishes exported
+maps requiring review, input rejection/review and blocked reconstruction. A scene
+export is not an accuracy pass. The saved report includes two additional maps
+(91/91 and 186/186 camera frames), plus multiple-hand, robot-only, blur and cut
+refusals. External clips and generated maps/previews remain local.
+
+The CPU geometry tests use known rigid transforms, moving foreground, excluded
+human pixels and synthetic TSDF planes. Independently inferred depths can be
+nonrigidly inconsistent even when 2D camera tracking succeeds. Such a clip stops
+before environment export if too few depth views register. A low fitted residual
+measures agreement of accepted matches, not ground-truth reconstruction accuracy.
+
 ## Hand observations on macOS
 
 Requirements: Apple Silicon macOS, uv, FFmpeg and a licensed `MANO_RIGHT.pkl`

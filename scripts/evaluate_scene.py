@@ -26,7 +26,7 @@ def fetch(clips, cache):
             raise ValueError(f"Validation clip checksum differs: {clip['name']}")
 
 
-def controls(cache):
+def controls(cache, names=None):
     """Derive labelled adverse cases from the downloaded gesture clip, preserving source identity."""
     capture = cv2.VideoCapture(str(cache / "dex-gestures.mp4"))
     frames = []
@@ -40,6 +40,8 @@ def controls(cache):
     if len(frames) < 30:
         raise ValueError("Gesture control source is too short or undecodable")
     for name in ["blur", "blackout", "occlusion", "cut", "two-hands", "corrupt"]:
+        if names is not None and name + ".avi" not in names:
+            continue
         path = cache / (name + ".avi")
         if name == "corrupt":
             path.write_bytes(b"invalid container")
@@ -151,10 +153,64 @@ def compare_segmenters(models):
     )
 
 
+def fusion_summary(clip, report, output):
+    """Separate input refusal, reconstruction failure and exported maps needing review."""
+    if report.get("reason") == "insufficient_registered_depth_views":
+        outcome = "reconstruction_blocked"
+    elif "triangles" in report:
+        outcome = "scene_exported_for_review"
+    else:
+        outcome = "input_" + report["status"]
+    return dict(
+        name=clip["name"],
+        category=clip["category"],
+        status=report["status"],
+        outcome=outcome,
+        source_frames=report.get("source_frames"),
+        registered_frames=report.get("registered_frames"),
+        depth_views=report.get("depth_views"),
+        elapsed_s=report.get("elapsed_s"),
+        median_alignment_m=report.get("median_keyframe_alignment_m"),
+        reasons=report.get("reasons", report.get("reason")),
+        environment_exported=(output / "environment/scene.xml").is_file(),
+        reconstruction_accuracy_verified=False,
+    )
+
+
+def evaluate_fusion(args, clips):
+    """Run the same full-video fusion command on selected downloaded clips."""
+    from reconstruction.video_fusion import run as fuse
+
+    results = []
+    for clip in clips:
+        output = args.output / Path(clip["name"]).stem
+        report = fuse(args.cache / clip["name"], output, args.models, depth_stride=args.depth_stride)
+        results.append(fusion_summary(clip, report, output))
+        dump(
+            args.output / "summary.json",
+            dict(
+                clips=results,
+                stage="full_video_static_fusion",
+                reconstruction_accuracy_verified=False,
+                raw_videos_redistributed=False,
+            ),
+        )
+        print(clip["name"], results[-1]["outcome"], flush=True)
+
+
 def main():
     """Save per-clip reports locally and a compact evaluation summary for review."""
     parser = argparse.ArgumentParser(__doc__)
     parser.add_argument("--download", action="store_true")
+    parser.add_argument(
+        "--fusion",
+        action="store_true",
+        help="Evaluate whole-video static fusion instead of input/scene proposals",
+    )
+    parser.add_argument(
+        "--clips", nargs="+", help="Select downloaded clip filenames from the source manifest"
+    )
+    parser.add_argument("--depth-stride", type=int, default=30)
     parser.add_argument(
         "--compare-segmenters",
         action="store_true",
@@ -164,11 +220,40 @@ def main():
     parser.add_argument("--models", type=Path, default=Path(".cache/scene-models"))
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
+    if args.depth_stride < 1:
+        parser.error("Depth stride must be positive")
+    if args.fusion and args.compare_segmenters:
+        parser.error("Segmentation comparison is separate from fusion evaluation")
     manifest = json.loads(Path("reconstruction/SCENE_VALIDATION.json").read_text())
+    sources = manifest["clips"]
+    control_names = {name + ".avi" for name in manifest["controls"]}
+    known = {c["name"] for c in sources} | control_names
+    requested = set(args.clips) if args.clips else ({c["name"] for c in sources} if args.fusion else known)
+    unknown = requested - known
+    if unknown:
+        parser.error("Unknown clips: " + ", ".join(sorted(unknown)))
+    selected_sources = [c for c in sources if c["name"] in requested]
+    selected_controls = requested & control_names
+    downloads = list(selected_sources)
+    if selected_controls and not any(c["name"] == "dex-gestures.mp4" for c in downloads):
+        downloads.append(next(c for c in sources if c["name"] == "dex-gestures.mp4"))
     if args.download:
-        fetch(manifest["clips"], args.cache)
+        fetch(downloads, args.cache)
+    clips = (
+        selected_sources + list(controls(args.cache, selected_controls))
+        if selected_controls
+        else selected_sources
+    )
+    for clip in clips:
+        path = args.cache / clip["name"]
+        if not path.exists():
+            raise FileNotFoundError(f"{path}; rerun with --download")
+        if clip.get("sha256") and hashlib.sha256(path.read_bytes()).hexdigest() != clip["sha256"]:
+            raise ValueError(f"Validation clip checksum differs: {clip['name']}")
     args.output.mkdir(parents=True, exist_ok=False)
-    clips = [*manifest["clips"], *controls(args.cache)]
+    if args.fusion:
+        evaluate_fusion(args, clips)
+        return
     results = []
     for clip in clips:
         path = args.cache / clip["name"]

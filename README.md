@@ -67,6 +67,30 @@ Validate downloaded external clips and adverse controls with:
 [Validation sources](reconstruction/SCENE_VALIDATION.json) ·
 [15-case validation results](examples/scene-check/report.json)
 
+## Whole-video scene fusion
+
+```bash
+make setup-scene
+make fuse VIDEO=/path/to/video.mp4 OUTPUT=runs/fused-scene-01
+```
+
+The fusion path checks the input, masks people/hands and tracks the camera on
+every frame. It aligns selected depth views, removes temporally inconsistent
+surfaces and exports one textured static environment at
+`environment/scene.xml`. Moving surfaces remain separate exclusion evidence.
+[![Full-video scene fusion](examples/fused-scene/preview.jpg)](examples/fused-scene/comparison.mp4)
+
+[Downloadable MuJoCo scene](examples/fused-scene/scene.xml) ·
+[Fusion measurements](examples/fused-scene/report.json)
+
+Depth keyframes avoid repeatedly fusing nearly identical video frames; use
+`--depth-stride 1` for neural depth on every frame.
+
+[Registration, fusion and output conventions](docs/preparation.md#whole-video-static-scene-fusion)
+explain the checks and collision approximations. Registration failures stop
+fusion; exported environments retain review status for scale, hidden surfaces
+and moving-object identity.
+
 ## Pipeline
 
 | Stage | Current Book5 implementation | Current check/evidence |

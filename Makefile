@@ -18,3 +18,8 @@ setup-scene:
 
 scene:
 	.venv-scene/bin/python -m reconstruction.scene_check "$(VIDEO)"
+
+.PHONY: fuse
+fuse: OUTPUT ?= runs/fused-scene
+fuse:
+	.venv-scene/bin/python -m reconstruction.video_fusion "$(VIDEO)" --output "$(OUTPUT)"

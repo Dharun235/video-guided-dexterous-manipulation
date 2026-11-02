@@ -114,13 +114,13 @@ class MetricGeometry:
         torch.set_num_threads(4)
         self.model = MoGeModel.from_pretrained(str(folder / "moge2-small.pt")).eval().to("cpu")
 
-    def __call__(self, image):
+    def __call__(self, image, fov_x=None):
         tensor = (
             self.torch.from_numpy(cv2.cvtColor(image, cv2.COLOR_BGR2RGB).copy()).permute(2, 0, 1).float()
             / 255
         )
         with self.torch.inference_mode():
-            result = self.model.infer(tensor, resolution_level=0, use_fp16=False)
+            result = self.model.infer(tensor, resolution_level=0, use_fp16=False, fov_x=fov_x)
         return {k: v.cpu().numpy() for k, v in result.items()}
 
 

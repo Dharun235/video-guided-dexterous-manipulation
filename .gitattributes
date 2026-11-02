@@ -1,0 +1,2 @@
+# Generated mesh data stays downloadable without overwhelming code reviews.
+*.obj -diff linguist-generated=true

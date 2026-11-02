@@ -41,3 +41,8 @@ to `reconstruction/SCENE_VALIDATION.json`. They are independent evaluation input
 not personally recorded project data. Raw external videos and derived previews
 are not redistributed. The original publishers' dataset/media terms apply;
 this project's MIT license does not relicense them.
+
+Static scene fusion uses [Open3D](https://github.com/isl-org/Open3D) 0.19.0
+(MIT), including its CPU TSDF and mesh utilities, and OpenCV SIFT/PnP for camera
+registration. Runtime dependencies are pinned in the scene lockfile. The local
+fusion code does not modify or relicense these upstream implementations.
